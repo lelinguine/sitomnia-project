@@ -26,6 +26,8 @@ cd services
 python -m venv env
 env\Scripts\activate or .\env\Scripts\Activate.ps1
 pip install -r requirements.txt
+
+deactivate
 ```
 
 ### run
