@@ -11,11 +11,6 @@ npm install
 npm run dev
 ```
 
-### tests
-```
-npm test
-```
-
 ## services
 ```
 cd services
@@ -33,9 +28,4 @@ deactivate
 ### run
 ```
 uvicorn main:app --reload
-```
-
-### Tests
-```
-
 ```
