@@ -87,7 +87,7 @@ Retrouvez la [documentation](https://drive.google.com/drive/folders/1JEOdc0krI__
 Les décisions à propos de l'architecture du projet sont disponibles sur le [wiki du GitHub](https://github.com/yilingwaku/Projet-TER/wiki).
 
 ### Endpoints
-Consultez la [documentation](docs/endpoints.md) pour plus de détails sur les routes disponibles sur les services.
+Consultez la [documentation](docs/endpoints.md) pour plus de détails sur les routes disponibles pour les services.
 
 # 🔗 - Liens
 ### Trello
