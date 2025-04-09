@@ -7,7 +7,7 @@ Emmanuel MONFORT : emmanuel.monfort@univ-grenoble-alpes.fr<br>
 Sidonie SALOME : sidonie.salome@univ-grenoble-alpes.fr<br>
 
 ## Utilisateurs
-...
+Anonymes
 
 ## Développeurs
 Jinyang ZHANG :  jinyang.zhang@etu.univ-grenoble-alpes.fr<br>
