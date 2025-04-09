@@ -84,7 +84,7 @@ uvicorn main:app --reload
 Retrouvez la [documentation](https://drive.google.com/drive/folders/1JEOdc0krI__xdzLw-yLSniLKJ48SE4SS?usp=drive_link) liée au projet.
 
 ### Architectural Decision Record
-Les Architectural Decision Records (ADR) sont disponibles sur le [wiki du GitHub](https://github.com/yilingwaku/Projet-TER/wiki).
+Les décisions à propos de l'architecture sont disponibles sur le [wiki du GitHub](https://github.com/yilingwaku/Projet-TER/wiki).
 
 ### Endpoints
 Consultez la [documentation](docs/endpoints.md) pour plus de détails sur les routes disponibles sur les services.
