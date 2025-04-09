@@ -95,8 +95,8 @@ Consultez le [suivi du projet]([docs/endpoints.md](https://trello.com/invite/67f
 
 ### Figma
 Vous retrouverez ici les diffèrentes propositions de prototypes de l'interface pour l'application web.<br><br>
-Consultez [Prototype n°1](https://www.figma.com/design/bOfLwcAdD0OGfDwInZ7q42/todolist?node-id=0-1&t=YNuIGgAXkFNEhVJk-1) pour plus de détails.<br>
-Consultez [Prototype n°2](https://www.figma.com/design/ijzuRty4xbBLMVeleVlhWO/Untitled?node-id=0-1&p=f&t=ISRgsWjFg27VHsAU-0) pour plus de détails.<br>
+Consultez le [prototype n°1](https://www.figma.com/design/bOfLwcAdD0OGfDwInZ7q42/todolist?node-id=0-1&t=YNuIGgAXkFNEhVJk-1) pour plus de détails.<br>
+Consultez le [prototype n°2](https://www.figma.com/design/ijzuRty4xbBLMVeleVlhWO/Untitled?node-id=0-1&p=f&t=ISRgsWjFg27VHsAU-0) pour plus de détails.<br>
 
 ### Canva
 Retrouvez la [présentation](https://www.canva.com/design/DAGcXbwDMwI/WpMSW9hnY3FrsqgDGyFeUA/edit?utm_content=DAGcXbwDMwI&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton) du projet.
