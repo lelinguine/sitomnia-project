@@ -91,7 +91,7 @@ Consultez la [documentation](docs/endpoints.md) pour plus de détails sur les ro
 
 # 🔗 - Liens
 ### Trello
-Consultez le [suivi du projet](https://trello.com/invite/67f694473f7d3ed3cd7583ed/ATTI3e14e70c17ee6e8dc61fcd186b7bd01f0AEBEF0B)) pour plus de détails sur les fonctionnalités, attributions et délais.
+Consultez le [suivi du projet](https://trello.com/invite/67f694473f7d3ed3cd7583ed/ATTI3e14e70c17ee6e8dc61fcd186b7bd01f0AEBEF0B) pour plus de détails sur les fonctionnalités, attributions et délais.
 
 ### Figma
 Vous retrouverez ici les diffèrentes propositions de prototypes de l'interface pour l'application web.<br><br>
