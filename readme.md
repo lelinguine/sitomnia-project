@@ -36,7 +36,6 @@ Lancer l'application.
 npm run dev
 ```
 
-
 # 📀 Install *Model*
 ### ⚠️ **nécessaire au bon fonctionnement de l'application
 Guide d'installation et de lancement du modèle d'intelligence artificielle.
@@ -51,6 +50,15 @@ ollama pull llama3.2:3b
 ```
 ### ⚠️ optional
 Arrêter ollama. La prochaine étape peut ne pas fonctionner si ollama est déjà démarré.
+**Linux / MacOS**
+```bash
+ps aux | grep ollama
+pkill -f ollama
+```
+or **Windows (PowerShell)**
+```bash
+Get-Process | Where-Object { $_.Path -like "*ollama*" }
+```
 
 ### Run
 Lancer le serveur ollama avec le modèle d'intelligence artificielle.
