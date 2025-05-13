@@ -2,16 +2,18 @@
 
 /* font */
 @font-face {
-  font-family: 'Sofia Sans Variable';
-  src: url('/fonts/Sofia_Sans/SofiaSans-Variable.woff2') format('woff2');
+  font-family: 'Sofia Sans';
+  src: url('/fonts/SofiaSans[wght].ttf') format('truetype');
   font-weight: 100 900;
   font-display: swap;
 }
 
 :root {
-  --background: #ffffff;
+  --background: #F9F7F7;
   --foreground: #000000;
   --font-sofia: "Sofia Sans", sans-serif;
+  --app-padding: 30px;
+  --gap: 10px;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -25,15 +27,18 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sofia);
-  font-weight: 600;
+  font-weight: 500;
   height: 100vh;
   width: 100vw;
-  padding:30px;
+  padding: var(--app-padding);
 }
 
-view {
-  display: flex;
+main {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 100%;
   width: 100%;
 }
@@ -48,9 +53,4 @@ view {
 
 .sm-text {
   font-size: 18px;
-}
-
-.squircle {
-  border: 4px solid var(--foreground);
-  box-shadow: 10px 5px 0px red;
 }

@@ -1,0 +1,38 @@
+.menu {
+    display: flex;
+    width: 330px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap);
+    height: fit-content;
+}
+
+.menu-item-main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    border-radius: 30px;
+    padding: 20px;
+    border: solid 4px var(--foreground);
+    height: 80;
+    width: 330px;
+    box-shadow: 4px 4px 0px var(--foreground);
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    border-radius: 40px;
+    padding: 20px;
+    border: solid 4px var(--foreground);
+    height: 160px;
+    width: 160px;
+    box-shadow: 4px 4px 0px var(--foreground);
+}
+
+.menu-item:active, .menu-item-main:active {
+    box-shadow: none;
+    transform: translate(4px, 4px);
+}
