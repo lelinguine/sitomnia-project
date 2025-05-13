@@ -1,17 +1,21 @@
 import Image from 'next/image';
-import Icon from "@images/icon.jpg";
+import Icon from "@assets/icon.jpg";
 
 const Loading = () => {
   return (
     <>
-      <span>Loading</span>
-      
-      <Image
-        src={Icon} // `src` attend un `StaticImageData`
-        alt="Loading icon"
-        width={40}  // Définis la largeur de l'image
-        height={40} // Définis la hauteur de l'image
-      />
+      <div className='flex flex-col items-center justify-center h-full w-full gap-[10px]'>
+              <Image
+          src={Icon}
+          alt="Loading icon"
+          width={80}
+          height={80}
+        />
+
+        <span className='md-text'>Sitomnia</span>
+      </div>
+
+      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 sm-text">v1.0-a</span>
     </>
   );
 };

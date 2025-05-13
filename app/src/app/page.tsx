@@ -1,11 +1,13 @@
-import Test from "@components/Test"
+import Image from 'next/image';
+
+import SquircleContainer from '@/components/Squircle';
 
 const Main = () => {
   return (
     <>
-        <Test />
+      <SquircleContainer />
     </>
-  )
+  );
 };
 
 export default Main;
