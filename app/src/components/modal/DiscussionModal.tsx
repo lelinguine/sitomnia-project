@@ -27,8 +27,8 @@ const DiscussionModal = ({ prompt, setPrompt, onSend }: {
       {!isWriting && !isDictating && (
         <div className="modal-container">
           <div className="modal-item">
-            <ActionButton isSecondary icon="PenLine" text="Écrire" onClick={() => setIsWriting(true)}/>
-            <ActionButton icon="MicVocal" text="Dicter" onClick={() => setIsDictating(true)}/>
+            <ActionButton icon="PenLine" text="Écrire" onClick={() => setIsWriting(true)}/>
+            {/* <ActionButton icon="MicVocal" text="Dicter" onClick={() => setIsDictating(true)}/> */}
           </div>
         </div>
       )}
