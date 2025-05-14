@@ -1,11 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { MessageCircleQuestion } from 'lucide-react';
+
+
+
 import Bar from '@/components/Bar';
-import View from '@/components/View';
-import Bubble from '@/components/bubble/Bubble';
-import ActionModal from '@/components/modal/ActionModal';
+
+
+
+import Bubble from '@/components/text/Bubble';
+import DiscussionModal from '@/components/modal/DiscussionModal';
 
 import React from 'react';
 
@@ -14,9 +18,19 @@ type Message = {
   response: string;
 };
 
+
+
+
+
+
 const Discussion = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [currentPrompt, setCurrentPrompt] = useState('');
+
+
+
+
+
   
   const sendPrompt = async () => {
   if (!currentPrompt.trim()) return;
@@ -33,14 +47,14 @@ const Discussion = () => {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      prompt: systemPrompt + newPrompt,
+      prompt: newPrompt,
     }),
   });
 
   if (!res.ok || !res.body) {
     setMessages((prev) => {
       const updated = [...prev];
-      updated[updated.length - 1].response = 'Erreur lors de la requête';
+      updated[updated.length - 1].response = "L'intelligence artificielle ne répond pas pour le moment. Réessayer plus tard.";
       return updated;
     });
     return;
@@ -76,37 +90,34 @@ const Discussion = () => {
 
   return (
     <>
-      <Bar>
-        <div className="bar-title">
-          <MessageCircleQuestion className="icon" size={32} strokeWidth={2} />
-          <span className="lg-text">Questions</span>
+      <Bar icon="MessageCircleQuestion" title="Questions"/>
+
+      <div className='view'>
+        <div className='thread'>
+          <span className="sm-text">
+            Écrire à l’intelligence artificielle. Une demande précise permet d’avoir une réponse concise.
+          </span>
+          {messages.map((msg, i) => (
+            <React.Fragment key={i}>
+              <Bubble>{msg.prompt}</Bubble>
+              <span className="sm-text">{msg.response}</span>
+            </React.Fragment>
+          ))}
         </div>
-      </Bar>
-
-      <View>
-        <span className="sm-text">
-          Écrire à l’intelligence artificielle. Une demande précise permet d’avoir une réponse concise.
-        </span>
-
-        {messages.map((msg, i) => (
-          <React.Fragment key={i}>
-            <Bubble>{msg.prompt}</Bubble>
-            <span className="sm-text">{msg.response}</span>
-          </React.Fragment>
-        ))}
-
-        <div className='mb-[150px]'></div>
+      </div>
 
 
-      </View>
 
-      <div className="modal">
-        <ActionModal
+
+      
+
+     
+        <DiscussionModal
           prompt={currentPrompt}
           setPrompt={setCurrentPrompt}
           onSend={sendPrompt}
-          />
-      </div>
+        />
+   
     </>
   );
 };

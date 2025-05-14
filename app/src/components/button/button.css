@@ -10,38 +10,19 @@
     transform: translate(4px, 4px);
 }
 
-.back-button {
+.default-button {
     flex-direction: row;
     border-radius: 15px;
     height: 40px;
-    width: 110px;
     justify-content: center;
     align-items: center;
-    gap: var(--gap);
+    gap: 10px;
     background-color: var(--foreground);
     color: var(--background);
+    width: 160px
 }
 
-.action-button {
-    flex-direction: row;
-    border-radius: 15px;
-    height: 40px;
-    width: 160px;
-    justify-content: center;
-    align-items: center;
-    gap: var(--gap);
-    background-color: var(--foreground);
-    color: var(--background);
-}
-
-.secondary-action-button {
-    flex-direction: row;
-    border-radius: 15px;
-    height: 40px;
-    width: 160px;
-    justify-content: center;
-    align-items: center;
-    gap: var(--gap);
+.secondary-button {
     background-color: var(--background);
     color: var(--foreground);
 }

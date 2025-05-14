@@ -1,7 +1,7 @@
 import React from "react";
 import { MessageCircleQuestion } from 'lucide-react';
 
-import "./bubble.css";
+import "./text.css";
 
 const Bubble = ({ children } : { children : React.ReactNode }) => {
     return (

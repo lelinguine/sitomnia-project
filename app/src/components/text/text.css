@@ -1,0 +1,28 @@
+.bubble {
+    border: solid 4px var(--foreground);    
+    padding: 10px 20px;
+    border-radius: 30px;
+    background-color: var(--background);
+    width: 330px;
+}
+
+.bubble-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+textarea {
+  border: none;
+  outline: none;
+  background: transparent;
+  resize: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  width: 100%;
+  overflow: hidden;
+}

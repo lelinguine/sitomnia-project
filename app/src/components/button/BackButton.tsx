@@ -9,7 +9,7 @@ const BackButton = () => {
 
   return (
     <button
-      className="button back-button"
+      className="button default-button"
       onClick={() => router.back()}
     >
       <CornerDownLeft className="icon" size={20} strokeWidth={2}/>

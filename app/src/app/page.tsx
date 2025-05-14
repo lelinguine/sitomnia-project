@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+
 import Image from 'next/image';
 import Icon from '@assets/icon.png';
 
@@ -27,7 +28,8 @@ const Loading = () => {
           />
           <span className='md-text'>Sitomnia</span>
       </div>
-      <div className="modal">
+
+      <div className='modal'>
         <span className='sm-text'>v0.1-a</span>
       </div>
     </>

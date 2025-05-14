@@ -1,13 +1,30 @@
 import React from "react";
+
 import BackButton from "./button/BackButton";
+
 import "./bar.css";
 
-const Bar = ({ children }: { children: React.ReactNode }) => {
+import { Megaphone, ChartNoAxesGantt, MessageCircleQuestion, User, Cog } from 'lucide-react';
+
+const icons = {
+  Megaphone,
+  ChartNoAxesGantt,
+  MessageCircleQuestion,
+  User,
+  Cog,
+};
+
+const Bar = ({ icon, title }) => {
+  const IconComponent = icons[icon];
+
   return (
     <>
     <div className='bar'>
         <BackButton />
-        {children}
+        <div className="bar-content">
+          {IconComponent && <IconComponent className="icon" size={32} strokeWidth={2}/>}
+          <span className="lg-text">{title}</span>
+        </div>
       </div>
     </>
   );

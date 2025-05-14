@@ -1,16 +1,24 @@
 import React, { useState, useRef, useEffect } from "react";
 import { MessageCircleQuestion } from 'lucide-react';
-import ActionButton from "../button/ActionButton";
 
-import "./input.css";
+import "./text.css";
 
-const TextInput = ({ value, onChange }: { value: string, onChange: (v: string) => void }) => {
+const TextInput = ({
+  value,
+  onChange,
+  handleKeyDown
+}: {
+  value: string,
+  onChange: (v: string) => void,
+  handleKeyDown?: () => void
+}) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+      textareaRef.current.focus();
     }
   }, [value]);
 
@@ -25,6 +33,7 @@ const TextInput = ({ value, onChange }: { value: string, onChange: (v: string) =
         className="md-text auto-textarea"
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={handleKeyDown}
         rows={1}
       />
     </div>

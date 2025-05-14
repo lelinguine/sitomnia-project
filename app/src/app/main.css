@@ -12,9 +12,6 @@
   --background: #F9F7F7;
   --foreground: #000000;
   --font-sofia: "Sofia Sans", sans-serif;
-  --gap: 10px;
-  --padding-item: 20px;
-  --padding-app: 30px;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -43,16 +40,54 @@ main {
   width: 100%;
 }
 
-.modal {
-  position: absolute;
-  bottom: var(--padding-app);
-  left: 50%;
-  transform: translateX(-50%);
+.view {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow-y: scroll;
+}
+
+.thread {
+  width: 390px;
+  min-height: 100%;
+  height: fit-content;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 20px;
+  padding: 30px;
+  padding-bottom: 110px;
+}
+
+@media screen and (orientation: portrait) {
+  .thread {
+    width: 100%;
+  }
+}
+
+.modal {
+  display: flex;
   justify-content: center;
-  gap: var(--gap);
+  align-items: center;
+  width: 390px;
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  margin-left: -195px;
+  gap: 10px;
+  padding: 0 30px;
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-item {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 .lg-text {
