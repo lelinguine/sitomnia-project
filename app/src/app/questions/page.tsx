@@ -3,8 +3,6 @@ import React from 'react';
 import Bar from '@/components/Bar';
 
 import LinkModal from '@/components/modal/LinkModal';
-import { Link } from 'lucide-react';
-
 
 const Questions = () => {
   return (
