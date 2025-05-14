@@ -1,4 +1,4 @@
-"use client"; // important si le composant est dans /app
+"use client";
 
 import { useRouter } from "next/navigation";
 import { CornerDownLeft } from "lucide-react";
