@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { MessageCircleQuestion } from 'lucide-react';
+import { PenLine } from 'lucide-react';
 
 import "./text.css";
 
@@ -25,8 +25,8 @@ const TextInput = ({
   return (
     <div className='bubble'>
       <div className='bubble-title'>
-        <MessageCircleQuestion className="icon" size={20} strokeWidth={2} />
-        <span className="sm-text">Vous</span>
+        <PenLine className="icon" size={20} strokeWidth={2} />
+        <span className="sm-text">Écrire</span>
       </div>
       <textarea
         ref={textareaRef}
