@@ -1,15 +1,19 @@
-import Icon from '@assets/icon.png';
-
-const Empty = () => {
-
+const Questions = () => {
   return (
     <>
-      <div className='flex flex-col items-center justify-center gap-[10px]'>
-        <span className='md-text'>Questions</span>
-        <a href="/acceuil">Retour</a>
+      <div className='bar'>
+        <span>bar</span>
+        <span>test</span>
       </div>
+      <div className='view'>
+        view
+      </div>
+
+      <span className="modal">
+        modal
+      </span>
     </>
   );
 };
 
-export default Empty;
+export default Questions;

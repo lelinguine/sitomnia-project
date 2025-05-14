@@ -15,7 +15,7 @@ const Menu = () => {
         <>
             <div className="menu">
                 {menuItems.map((item, index) => (
-                    <MenuItem key={index}  isMain={index === 0} icon={item.icon} title={item.title} link={item.link} color={item.color}/>
+                    <MenuItem key={index}  isFirst={index === 0} icon={item.icon} title={item.title} link={item.link} color={item.color}/>
                 ))}
             </div>
         </>

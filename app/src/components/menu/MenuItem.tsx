@@ -8,9 +8,9 @@ const icons = {
   Cog,
 };
 
-const MenuItem = ({ isMain, icon, title, link, color }) => {
+const MenuItem = ({ isFirst, icon, title, link, color }) => {
   const IconComponent = icons[icon];
-  const className = isMain ? "menu-item-main" : "menu-item";
+  const className = isFirst ? "menu-item first" : "menu-item";
 
   return (
     <>

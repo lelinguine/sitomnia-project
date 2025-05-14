@@ -12,8 +12,9 @@
   --background: #F9F7F7;
   --foreground: #000000;
   --font-sofia: "Sofia Sans", sans-serif;
-  --app-padding: 30px;
   --gap: 10px;
+  --padding-item: 20px;
+  --padding-app: 30px;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -30,7 +31,6 @@ body {
   font-weight: 500;
   height: 100vh;
   width: 100vw;
-  padding: var(--app-padding);
 }
 
 main {
@@ -41,6 +41,35 @@ main {
   align-items: center;
   height: 100%;
   width: 100%;
+}
+
+.bar {
+  width: 100%;
+  padding: var(--padding-app);
+  background-color: yellow;
+  display: flex;
+  justify-content: space-between;
+}
+
+.view {
+  width: 338px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: grey;
+}
+
+.modal {
+  position: absolute;
+  bottom: var(--padding-app);
+  background-color: yellow;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .lg-text {
