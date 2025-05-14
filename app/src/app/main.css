@@ -43,33 +43,16 @@ main {
   width: 100%;
 }
 
-.bar {
-  width: 100%;
-  padding: var(--padding-app);
-  background-color: yellow;
-  display: flex;
-  justify-content: space-between;
-}
-
-.view {
-  width: 338px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: var(--gap);
-  overflow-x: hidden;
-  overflow-y: scroll;
-  background-color: grey;
-}
-
 .modal {
   position: absolute;
   bottom: var(--padding-app);
-  background-color: yellow;
   left: 50%;
   transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
 }
 
 .lg-text {
@@ -81,5 +64,5 @@ main {
 }
 
 .sm-text {
-  font-size: 18px;
+  font-size: 20px;
 }

@@ -18,19 +18,18 @@ const Loading = () => {
 
   return (
     <>
-      <div className='view'>
-        <Image
-          src={Icon}
-          alt="Loading icon"
-          width={80}
-          height={80}
-        />
-        <span className='md-text'>Sitomnia</span>
+      <div>
+          <Image
+            src={Icon}
+            alt="Loading icon"
+            width={80}
+            height={80}
+          />
+          <span className='md-text'>Sitomnia</span>
       </div>
-
-      <span className="modal sm-text">
-        v0.1-a
-      </span>
+      <div className="modal">
+        <span className='sm-text'>v0.1-a</span>
+      </div>
     </>
   );
 };

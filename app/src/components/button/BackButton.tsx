@@ -1,10 +1,20 @@
-import React from "react";
+"use client"; // important si le composant est dans /app
 
-const BackButton = ({ children }: { children: React.ReactNode }) => {
+import { useRouter } from "next/navigation";
+import { CornerDownLeft } from "lucide-react";
+import "./button.css";
+
+const BackButton = () => {
+  const router = useRouter();
+
   return (
-    <>
-        {children}
-    </>
+    <button
+      className="button back-button"
+      onClick={() => router.back()}
+    >
+      <CornerDownLeft className="icon" size={20} strokeWidth={2}/>
+      <span className="sm-text">Retour</span>
+    </button>
   );
 };
 

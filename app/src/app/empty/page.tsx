@@ -1,17 +1,24 @@
-import Icon from '@assets/icon.png';
+import { CircleSlash2 } from 'lucide-react';
+import Bar from '@/components/Bar';
+import View from '@/components/View';
 
 const Empty = () => {
 
   return (
     <>
-      <div className='flex flex-col items-center justify-center gap-[10px]'>
-        <span className='md-text'>Fonctionnalité non implémentée.</span>
-        <a href="/acceuil">Retour</a>
-      </div>
+    <Bar>
+        <div className='bar-title'>
+          <CircleSlash2 className="icon" size={32} strokeWidth={2.5}/>
+          <span className='lg-text'>Empty</span>
+        </div>
+      </Bar>
 
-      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 sm-text">
-        v0.1-a
-      </span>
+      <View>
+      </View>
+
+      <div className="modal">
+        <span className='sm-text'>v0.1-a</span>
+      </div>
     </>
   );
 };

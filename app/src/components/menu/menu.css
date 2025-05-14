@@ -1,34 +1,23 @@
 .menu {
     display: flex;
-    width: 330px;
+    width: 334px;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
     gap: var(--gap);
-    height: fit-content;
 }
 
 .menu-item {
-    display: flex;
     flex-direction: column;
     border-radius: 40px;
-    padding: var(--padding-item);
-    border: solid 4px var(--foreground);
     height: 160px;
     width: 160px;
-    box-shadow: 4px 4px 0px var(--foreground);
+    padding: var(--padding-item);
 }
 
-.menu-item.first {
+.menu-item-first {
     flex-direction: row;
     align-items: center;
     gap: var(--gap);
     border-radius: 30px;
     height: 80px;
     width: 330px;
-}
-
-.menu-item:active {
-    box-shadow: none;
-    transform: translate(4px, 4px);
 }

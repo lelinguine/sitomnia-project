@@ -1,0 +1,29 @@
+.view {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow-y: scroll;
+}
+
+.container {
+  width: 394px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: calc(2*var(--gap));
+  padding: var(--padding-app);
+}
+
+@media screen and (orientation: portrait) {
+  .container {
+    width: 100%;
+  }
+}
+
+.container-primary {
+  height: 100%;
+  align-items: center;
+  gap: var(--gap);
+}

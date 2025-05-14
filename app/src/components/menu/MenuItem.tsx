@@ -10,12 +10,12 @@ const icons = {
 
 const MenuItem = ({ isFirst, icon, title, link, color }) => {
   const IconComponent = icons[icon];
-  const className = isFirst ? "menu-item first" : "menu-item";
+  const className = isFirst ? "menu-item-first" : "";
 
   return (
     <>
-      <a href={link} className={className} style={{ backgroundColor: color }}>
-         {IconComponent && <IconComponent className="icon" />}
+      <a href={link} className={`button menu-item ${className}`} style={{ backgroundColor: color }}>
+         {IconComponent && <IconComponent className="icon" size={24} strokeWidth={2}/>}
         <span className='md-text'>{ title }</span>
       </a>
     </>

@@ -89,6 +89,10 @@ or
 ```
 .\env\Scripts\Activate.ps1
 ```
+or **MacOS**
+```
+source env/bin/activate
+```
 
 ### ⚠️ optional
 Désactiver l'environnement.

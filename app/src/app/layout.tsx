@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "./main.css";
+import "./../components/button/button.css";
 
 export const metadata: Metadata = {
   title: "Sitomnia",

@@ -1,0 +1,47 @@
+.button {
+    display: flex;
+    border: solid 4px var(--foreground);    
+    box-shadow: 4px 4px 0px var(--foreground);
+    cursor: pointer;
+}
+
+.button:active {
+    box-shadow: none;
+    transform: translate(4px, 4px);
+}
+
+.back-button {
+    flex-direction: row;
+    border-radius: 15px;
+    height: 40px;
+    width: 110px;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap);
+    background-color: var(--foreground);
+    color: var(--background);
+}
+
+.action-button {
+    flex-direction: row;
+    border-radius: 15px;
+    height: 40px;
+    width: 160px;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap);
+    background-color: var(--foreground);
+    color: var(--background);
+}
+
+.secondary-action-button {
+    flex-direction: row;
+    border-radius: 15px;
+    height: 40px;
+    width: 160px;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap);
+    background-color: var(--background);
+    color: var(--foreground);
+}
