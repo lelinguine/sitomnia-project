@@ -12,12 +12,13 @@ const icons = {
     TestTube
 };
 
-const ActionButton = ({ isSecondary, icon, text, onClick }) => {
+const ActionButton = ({ isSecondary, isDisable, icon, text, onClick }) => {
   const IconComponent = icons[icon];
-  const className = isSecondary ? "secondary-button" : "";
+  const classNameIsSecondary = isSecondary ? "secondary-button" : "";
+  const classNameIsDisable = isDisable ? "disable-button" : "";
 
   return (
-    <button className={`button default-button ${className}`} onClick={onClick}>
+    <button className={`button default-button ${classNameIsSecondary} ${classNameIsDisable}`} onClick={isDisable ? undefined : onClick}>
       {IconComponent && <IconComponent className="icon" size={24} strokeWidth={2} />}
       <span className="sm-text">{text}</span>
     </button>

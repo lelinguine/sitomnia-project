@@ -5,9 +5,13 @@
     cursor: pointer;
 }
 
-.button:active {
+.button:active, .disable-button {
     box-shadow: none;
     transform: translate(4px, 4px);
+}
+
+.button:active, .disable-button {
+    opacity: 0.4;
 }
 
 .default-button {

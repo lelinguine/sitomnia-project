@@ -19,7 +19,6 @@ const SpeechInput = ({
 
   const {
     transcript,
-    listening,
     resetTranscript,
     browserSupportsSpeechRecognition
   } = useSpeechRecognition();

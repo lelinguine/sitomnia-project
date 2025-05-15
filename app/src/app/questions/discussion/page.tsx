@@ -1,92 +1,85 @@
 'use client';
 
-import { useState } from 'react';
-
-
+import React, { useState } from 'react';
 
 import Bar from '@/components/Bar';
-
-
-
 import Bubble from '@/components/text/Bubble';
 import DiscussionModal from '@/components/modal/DiscussionModal';
-
-import React from 'react';
 
 type Message = {
   prompt: string;
   response: string;
 };
 
-
-
-
-
-
 const Discussion = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [currentPrompt, setCurrentPrompt] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-
-
-
-
-  
   const sendPrompt = async () => {
-  if (!currentPrompt.trim()) return;
+    if (isLoading || !currentPrompt.trim()) return;
 
-  const newPrompt = currentPrompt;
-  setCurrentPrompt('');
+    setIsLoading(true);
+    const newPrompt = currentPrompt;
+    setCurrentPrompt('');
 
-  // Ajouter un nouveau message avec prompt vide
-  setMessages((prev) => [...prev, { prompt: newPrompt, response: '' }]);
+    const systemPrompt = "Ne te pésente pas. Ne parle pas de toi. Réponds à la question de manière synthétique, en évitant les détails superflus. Ne fais pas d'introduction parle directement du sujet de la question. Ne fais pas de liste. Un maximun de 100 mots pour répondre. Si tu ne sais pas répondre àa la question dis que tu ne sais pas. Réponds en français.\n\n";
 
-  const systemPrompt = "Réponds de manière concise et précise à la question suivante, en évitant les détails superflus :\n\n";
+    setMessages((prev) => [...prev, { prompt: newPrompt, response: '' }]);
 
-  const res = await fetch('http://localhost:8000/ask', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      prompt: newPrompt,
-    }),
-  });
-
-  if (!res.ok || !res.body) {
-    setMessages((prev) => {
-      const updated = [...prev];
-      updated[updated.length - 1].response = "L'intelligence artificielle ne répond pas pour le moment. Réessayer plus tard.";
-      return updated;
+    const res = await fetch('http://localhost:8000/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: [
+          {
+            role: "system",
+            content: systemPrompt
+          },
+          {
+            role: "user",
+            content: newPrompt
+          }
+        ]
+      }),
     });
-    return;
-  }
 
-  const reader = res.body.getReader();
-  const decoder = new TextDecoder('utf-8');
-  let responseSoFar = '';
-
-  while (true) {
-
-    const element = document.querySelector('.view');
-    if (element) {
-      element.scrollTop = element.scrollHeight;
+    if (!res.ok || !res.body) {
+      setMessages((prev) => {
+        const updated = [...prev];
+        updated[updated.length - 1].response =
+          "L'intelligence artificielle ne répond pas pour le moment. Réessayer plus tard.";
+        return updated;
+      });
+      setIsLoading(false);
+      return;
     }
 
-    const { done, value } = await reader.read();
-    if (done) break;
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder('utf-8');
+    let responseSoFar = '';
 
-    const chunk = decoder.decode(value, { stream: true });
-    responseSoFar += chunk;
+    while (true) {
+      const element = document.querySelector('.view');
+      if (element) element.scrollTop = element.scrollHeight;
 
-    setMessages((prev) => {
-      const updated = [...prev];
-      updated[updated.length - 1] = {
-        ...updated[updated.length - 1],
-        response: responseSoFar,
-      };
-      return updated;
-    });
-  }
-};
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      const chunk = decoder.decode(value, { stream: true });
+      responseSoFar += chunk;
+
+      setMessages((prev) => {
+        const updated = [...prev];
+        updated[updated.length - 1] = {
+          ...updated[updated.length - 1],
+          response: responseSoFar,
+        };
+        return updated;
+      });
+    }
+    setIsLoading(false);
+  };
 
   return (
     <>
@@ -106,18 +99,12 @@ const Discussion = () => {
         </div>
       </div>
 
-
-
-
-      
-
-     
-        <DiscussionModal
-          prompt={currentPrompt}
-          setPrompt={setCurrentPrompt}
-          onSend={sendPrompt}
-        />
-   
+      <DiscussionModal
+        prompt={currentPrompt}
+        setPrompt={setCurrentPrompt}
+        onSend={sendPrompt}
+        isLoading={isLoading}
+      />
     </>
   );
 };

@@ -4,7 +4,7 @@ import ActionButton from "../button/ActionButton";
 import TextInput from "../text/TextInput";
 import SpeechInput from "../text/SpeechInput";
 
-const DiscussionModal = ({ prompt, setPrompt, onSend }: {
+const DiscussionModal = ({ prompt, setPrompt, onSend, isLoading }: {
   prompt: string,
   setPrompt: (value: string) => void,
   onSend: () => void
@@ -23,54 +23,38 @@ const DiscussionModal = ({ prompt, setPrompt, onSend }: {
 
   return (
     <>
-    <div className="modal">
-
-      {!isWriting && !isDictating && (
-        <div className="modal-container">
-          <div className="modal-item">
-            <ActionButton isSecondary icon="PenLine" text="Écrire" onClick={() => setIsWriting(true)}/>
-            <ActionButton icon="MicVocal" text="Dicter" onClick={() => setIsDictating(true)}/>
+      <div className="modal">
+        {!isWriting && !isDictating && (
+          <div className="modal-container">
+            <div className="modal-item">
+              <ActionButton isSecondary isDisable={isLoading} icon="PenLine" text="Écrire" onClick={() => setIsWriting(true)}/>
+              <ActionButton isDisable={isLoading} icon="MicVocal" text="Dicter" onClick={() => setIsDictating(true)}/>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {isWriting && (
-        <div className="modal-container">
-          <TextInput value={prompt} onChange={setPrompt} handleKeyDown={handleKeyDown}/>
+        {isWriting && (
+          <div className="modal-container">
+            <TextInput value={prompt} onChange={setPrompt} handleKeyDown={handleKeyDown}/>
 
-          <div className="modal-item">
-            <ActionButton isSecondary icon="X" text="Annuler" onClick={() => { setPrompt(""); setIsWriting(false); }}/>
-            <ActionButton icon="CornerUpRight" text="Demander" onClick={() => { onSend(); setPrompt(""); setIsWriting(false); }}/>
+            <div className="modal-item">
+              <ActionButton isSecondary icon="X" text="Annuler" onClick={() => { setPrompt(""); setIsWriting(false); }}/>
+              <ActionButton icon="CornerUpRight" text="Demander" onClick={() => { onSend(); setPrompt(""); setIsWriting(false); }}/>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
+        {isDictating && (
+          <div className="modal-container">
+            <SpeechInput value={prompt} onChange={setPrompt} />
 
-      {isDictating && (
-        <div className="modal-container">
-          <SpeechInput value={prompt} onChange={setPrompt} />
-
-          <div className="modal-item">
-            <ActionButton isSecondary icon="X" text="Annuler" onClick={() => { setPrompt(""); setIsDictating(false);}}/>
-            <ActionButton icon="CornerUpRight" text="Demander" onClick={() => { onSend(); setPrompt(""); setIsDictating(false); }}/>
+            <div className="modal-item">
+              <ActionButton isSecondary icon="X" text="Annuler" onClick={() => { setPrompt(""); setIsDictating(false);}}/>
+              <ActionButton icon="CornerUpRight" text="Demander" onClick={() => { onSend(); setPrompt(""); setIsDictating(false); }}/>
+            </div>
           </div>
-        </div>
-      )}
-
-
-
-
-      
-
-
-
-
-
-    </div>
-
-
-
-      
+        )}
+      </div>      
     </>
   );
 };

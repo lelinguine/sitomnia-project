@@ -5,6 +5,7 @@ from pydantic import BaseModel
 import fastapi
 import httpx
 import json
+from typing import List
 
 app = FastAPI()
 
@@ -20,8 +21,12 @@ OLLAMA_URL = "http://192.168.1.24:11434/api/chat"
 MODEL_NAME = "llama3.2:3b"
 API_VERSION = "1.0.0-a"
 
+class Message(BaseModel):
+    role: str
+    content: str
+
 class PromptRequest(BaseModel):
-    prompt: str
+    messages: List[Message]
 
 @app.get("/")
 async def root():
@@ -35,9 +40,7 @@ async def root():
 async def ask_model(request: PromptRequest):
     payload = {
         "model": MODEL_NAME,
-        "messages": [
-            {"role": "user", "content": request.prompt}
-        ],
+        "messages": [msg.dict() for msg in request.messages],
         "stream": True
     }
 
