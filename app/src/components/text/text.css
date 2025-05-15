@@ -1,9 +1,19 @@
+.bubble-container {
+    width: 100%;;
+    display: flex;
+    justify-content: end;
+}
+
 .bubble {
     border: solid 4px var(--foreground);    
     padding: 10px 20px;
     border-radius: 30px;
     background-color: var(--background);
     width: 330px;
+}
+
+.description-bubble {
+    cursor: pointer;
 }
 
 .bubble-title {

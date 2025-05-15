@@ -1,26 +1,51 @@
+"use client";
+
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
 import Bar from '@/components/Bar';
-
 import LinkModal from '@/components/modal/LinkModal';
-
-
-import TestSpeech from '@/components/test/TestSpeech';
+import Bubble from '@/components/text/Bubble';
+import { useDiscussion } from '@/context/DiscussionContext';
 
 const Questions = () => {
+  const { discussions } = useDiscussion();
+  const router = useRouter();
+
   return (
     <>
-      <Bar icon="MessageCircleQuestion" title="Questions" color="#BBDED6"/>
+      <Bar icon="MessageCircleQuestion" title="Questions" color="#BBDED6" />
 
-      <div className='view'>
-        <div className='thread'>
+      <div className="view">
+        <div className="thread">
           <span className="sm-text">
             Historique de vos demandes à l’intelligence artificielle.
           </span>
+          
+          {discussions.map((discussion) => {
+            const firstUserMessage = discussion.messages.find(m => m.role === 'user');
+            const preview = firstUserMessage?.content
+              ? firstUserMessage.content.length > 45
+                ? firstUserMessage.content.slice(0, 45) + '…'
+                : firstUserMessage.content
+              : '(Aucun message)';
+
+            return (
+              <Bubble isDescription
+                icon="Search"
+                title="Aperçu"
+                onClick={() => router.push(`/questions/discussion?id=${discussion.id}`)}
+                key={discussion.id}
+              >
+                <div className="bubble-title">{preview}</div>
+              </Bubble>
+            );
+          })}
+
         </div>
       </div>
 
-      <LinkModal icon="MessageCirclePlus" title="Nouveau" link="/questions/discussion"/>
+      <LinkModal icon="MessageCirclePlus" title="Nouveau" link="/questions/discussion" />
     </>
   );
 };

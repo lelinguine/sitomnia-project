@@ -13,13 +13,15 @@ const VoiceInput = () => {
 
   return (
     <>
-      <p>Micro: {listening ? '🎤 On' : '🔇 Off'}</p>
-      <button onClick={() => SpeechRecognition.startListening({ language: 'fr-FR', continuous: true })}>
-        Démarrer
-      </button>
-      <button onClick={SpeechRecognition.stopListening}>Stop</button>
-      <button onClick={resetTranscript}>Réinitialiser</button>
+      <p>Micro : {listening ? 'On' : 'Off'}</p>
       <p>Texte : {transcript}</p>
+      <div className='flex gap-2'>
+        <button onClick={() => SpeechRecognition.startListening({ language: 'fr-FR', continuous: true })}>
+          Démarrer
+        </button>
+        <button onClick={SpeechRecognition.stopListening}>Stop</button>
+        <button onClick={resetTranscript}>Réinitialiser</button>
+      </div>
     </>
   );
 };
