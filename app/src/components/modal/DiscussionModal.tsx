@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import ActionButton from "../button/ActionButton";
 import TextInput from "../text/TextInput";
+import SpeechInput from "../text/SpeechInput";
 
 const DiscussionModal = ({ prompt, setPrompt, onSend }: {
   prompt: string,
@@ -27,8 +28,8 @@ const DiscussionModal = ({ prompt, setPrompt, onSend }: {
       {!isWriting && !isDictating && (
         <div className="modal-container">
           <div className="modal-item">
-            <ActionButton icon="PenLine" text="Écrire" onClick={() => setIsWriting(true)}/>
-            {/* <ActionButton icon="MicVocal" text="Dicter" onClick={() => setIsDictating(true)}/> */}
+            <ActionButton isSecondary icon="PenLine" text="Écrire" onClick={() => setIsWriting(true)}/>
+            <ActionButton icon="MicVocal" text="Dicter" onClick={() => setIsDictating(true)}/>
           </div>
         </div>
       )}
@@ -38,8 +39,8 @@ const DiscussionModal = ({ prompt, setPrompt, onSend }: {
           <TextInput value={prompt} onChange={setPrompt} handleKeyDown={handleKeyDown}/>
 
           <div className="modal-item">
-            <ActionButton isSecondary icon="X" text="Annuler" onClick={() => setIsWriting(false)}/>
-            <ActionButton icon="CornerUpRight" text="Demander" onClick={onSend}/>
+            <ActionButton isSecondary icon="X" text="Annuler" onClick={() => { setPrompt(""); setIsWriting(false); }}/>
+            <ActionButton icon="CornerUpRight" text="Demander" onClick={() => { onSend(); setPrompt(""); setIsWriting(false); }}/>
           </div>
         </div>
       )}
@@ -47,11 +48,11 @@ const DiscussionModal = ({ prompt, setPrompt, onSend }: {
 
       {isDictating && (
         <div className="modal-container">
-          {/* <TextInput value={prompt} onChange={setPrompt} /> */}
+          <SpeechInput value={prompt} onChange={setPrompt} />
 
           <div className="modal-item">
-            <ActionButton isSecondary icon="X" text="Annuler" onClick={() => setIsDictating(false)}/>
-            <ActionButton icon="CornerUpRight" text="Demander" onClick={null}/>
+            <ActionButton isSecondary icon="X" text="Annuler" onClick={() => { setPrompt(""); setIsDictating(false);}}/>
+            <ActionButton icon="CornerUpRight" text="Demander" onClick={() => { onSend(); setPrompt(""); setIsDictating(false); }}/>
           </div>
         </div>
       )}
