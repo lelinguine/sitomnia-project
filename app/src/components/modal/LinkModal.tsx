@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import ActionButton from "../button/ActionButton";
 
-const LinkModal = ({ link }: { link: string }) => {
+const LinkModal = ({ icon, title, link }: { link: string }) => {
   const navigate = useRouter();
 
   const goToLink = () => {
@@ -16,7 +16,7 @@ const LinkModal = ({ link }: { link: string }) => {
     <div className="modal">
       <div className="modal-container">
         <div className="modal-item">
-          <ActionButton icon="MessageCirclePlus" text="Nouveau" onClick={goToLink} />
+          <ActionButton icon={icon} text={title} onClick={goToLink} />
         </div>
       </div>
     </div>

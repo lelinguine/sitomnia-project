@@ -1,6 +1,6 @@
 "use client"; // important si le composant est dans /app
 
-import { MicVocal, PenLine, CornerUpRight, X, MessageCirclePlus } from "lucide-react";
+import { MicVocal, PenLine, CornerUpRight, X, MessageCirclePlus, TestTube } from "lucide-react";
 import "./button.css";
 
 const icons = {
@@ -8,7 +8,8 @@ const icons = {
     PenLine,
     CornerUpRight,
     X,
-    MessageCirclePlus
+    MessageCirclePlus, 
+    TestTube
 };
 
 const ActionButton = ({ isSecondary, icon, text, onClick }) => {

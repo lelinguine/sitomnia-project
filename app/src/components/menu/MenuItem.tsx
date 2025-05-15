@@ -1,4 +1,4 @@
-import { Megaphone, ChartNoAxesGantt, MessageCircleQuestion, User, Cog } from 'lucide-react';
+import { Megaphone, ChartNoAxesGantt, MessageCircleQuestion, User, Cog, TestTube } from 'lucide-react';
 
 const icons = {
   Megaphone,
@@ -6,6 +6,7 @@ const icons = {
   MessageCircleQuestion,
   User,
   Cog,
+  TestTube
 };
 
 const MenuItem = ({ isOnTop, icon, title, link, color }) => {

@@ -90,7 +90,7 @@ const Discussion = () => {
 
   return (
     <>
-      <Bar icon="MessageCircleQuestion" title="Questions"/>
+      <Bar icon="MessageCircleQuestion" title="Questions" color="#BBDED6"/>
 
       <div className='view'>
         <div className='thread'>
