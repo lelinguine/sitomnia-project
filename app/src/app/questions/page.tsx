@@ -35,9 +35,8 @@ const Questions = () => {
                 icon="Search"
                 title="Aperçu"
                 onClick={() => router.push(`/questions/discussion?id=${discussion.id}`)}
-                key={discussion.id}
-              >
-                <div className="bubble-title">{preview}</div>
+                key={discussion.id}>
+                {preview}
               </Bubble>
             );
           })}

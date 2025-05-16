@@ -7,6 +7,8 @@ import Bar from '@/components/Bar';
 import Bubble from '@/components/text/Bubble';
 import { useDiscussion } from '@/context/DiscussionContext';
 
+import risks from '@/assets/data/risks';
+
 const Prevention = () => {
   const { discussions } = useDiscussion();
   const router = useRouter();
@@ -20,23 +22,18 @@ const Prevention = () => {
           <span className="sm-text">
             Découvrir et appréhender les risques liés à l’âge.
           </span>
-          
-          <Bubble isDescription
-                icon="Heart"
-                title="Lieu de vie"
-                onClick={() => router.push(`/prevention`)}
-              >
-                <div className="bubble-title">Aménager les espaces pour la vie quotidienne.</div>
-          </Bubble>
 
-          <Bubble isDescription
-                icon="Activity"
-                title="Activités physiques"
-                onClick={() => router.push(`/prevention`)}
-              >
-                <div className="bubble-title">Adapter l’activité pour progresser en sécurité.</div>
-          </Bubble>
-
+          {risks.map((risk) => (
+            <Bubble
+              key={risk.slug}
+              isDescription
+              icon={risk.icon}
+              title={risk.title}
+              onClick={() => router.push(`/prevention/${risk.slug}`)}
+            >
+              {risk.resume}
+            </Bubble>
+          ))}
         </div>
       </div>
     </>

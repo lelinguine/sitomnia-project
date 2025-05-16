@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./main.css";
 import "./../components/button/button.css";
 
+import Auth from "@/components/Auth";
+
 export const metadata: Metadata = {
   title: "Sitomnia",
 };
@@ -18,7 +20,9 @@ export default function RootLayout({
       <body className="antialiased">
         <main>
           <DiscussionProvider>
-            {children}
+            <Auth>
+              {children}
+            </Auth>
           </DiscussionProvider>
         </main>
       </body>

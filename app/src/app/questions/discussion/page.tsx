@@ -136,7 +136,7 @@ const Discussion = () => {
       <div className="view">
         <div className="thread">
           <span className="sm-text">
-            Écrire à l’intelligence artificielle. Une demande précise permet d’avoir une réponse concise.
+            Poser des questions à l’intelligence artificielle.
           </span>
           {messages
             .filter(msg => msg.role !== 'system')
