@@ -36,7 +36,7 @@ export default function PreventionDetails() {
         <div className="thread">
           <p><strong>Catégorie :</strong> {matchingRisk.title}</p>
           <p><strong>Risques :</strong><br />{formatText(item.risks)}</p>
-          <p><strong>Où :</strong><br />{item.where !== "undefined" ? formatText(item.where) : "Non précisé"}</p>
+          <p><strong>Où :</strong><br />{item.where}</p>
           <p><strong>Prévention :</strong><br />{formatText(item.prevents)}</p>
         </div>
       </div>

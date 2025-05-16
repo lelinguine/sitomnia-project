@@ -27,7 +27,7 @@ const risks: Risk[] = [
         title: "Le tapis",
         slug: "chutes-logement",
         risks: "Chutes : bords relevés, tapis glissants ou mal fixés.\nDéséquilibre : surface irrégulière ou épaisse.\nMobilité réduite : gêne pour les déambulateurs ou fauteuils.\nProblèmes respiratoires : accumulation de poussière et acariens.",
-        where: "undefined",
+        where: "Non précisé",
         prevents: "Retirer le tapis\nAppliquer une surface antidérapante sous le tapis"
       }
     ]
