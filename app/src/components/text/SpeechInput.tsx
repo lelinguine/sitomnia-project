@@ -26,7 +26,6 @@ const SpeechInput = ({
   // Lancer la dictée automatiquement au montage
   useEffect(() => {
     if (!browserSupportsSpeechRecognition) {
-      alert("Votre navigateur ne supporte pas la reconnaissance vocale.");
       return;
     }
 

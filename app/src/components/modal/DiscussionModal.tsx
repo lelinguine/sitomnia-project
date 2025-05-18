@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+import { useSpeechRecognition } from 'react-speech-recognition';
 
 import ActionButton from "../button/ActionButton";
 import TextInput from "../text/TextInput";
@@ -12,6 +14,19 @@ const DiscussionModal = ({ prompt, setPrompt, onSend, isLoading }: {
 
   const [isWriting, setIsWriting] = useState(false);
   const [isDictating, setIsDictating] = useState(false);
+  const [isSpeechSupported, setIsSpeechSupported] = useState(false);
+
+  const {
+    browserSupportsSpeechRecognition
+  } = useSpeechRecognition();
+
+  useEffect(() => {
+    if (!browserSupportsSpeechRecognition) {
+      setIsSpeechSupported(false);
+      return;
+    }
+    setIsSpeechSupported(true);
+  }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -27,8 +42,10 @@ const DiscussionModal = ({ prompt, setPrompt, onSend, isLoading }: {
         {!isWriting && !isDictating && (
           <div className="modal-container">
             <div className="modal-item">
-              <ActionButton isSecondary isDisable={isLoading} icon="PenLine" text="Écrire" onClick={() => setIsWriting(true)}/>
-              <ActionButton isDisable={isLoading} icon="MicVocal" text="Dicter" onClick={() => setIsDictating(true)}/>
+              <ActionButton isSecondary={isSpeechSupported} isDisable={isLoading} icon="PenLine" text="Écrire" onClick={() => setIsWriting(true)}/>
+              {isSpeechSupported && (
+                <ActionButton isDisable={isLoading} icon="MicVocal" text="Dicter" onClick={() => setIsDictating(true)} />
+              )}
             </div>
           </div>
         )}
