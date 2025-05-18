@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { CornerDownLeft } from "lucide-react";
+import Icon from "../Icon";
 import "./button.css";
 
 const BackButton = () => {
@@ -12,7 +12,7 @@ const BackButton = () => {
       className="button default-button back-button"
       onClick={() => router.back()}
     >
-      <CornerDownLeft className="icon" size={20} strokeWidth={2}/>
+      <Icon icon="CornerDownLeft" size={20} />
       <span className="sm-text">Retour</span>
     </button>
   );

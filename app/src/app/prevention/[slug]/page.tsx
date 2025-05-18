@@ -25,7 +25,11 @@ export default function PreventionList() {
         <div className="thread">
           <span className="sm-text">{risk.description}</span>
 
-          <div className="risk-items">
+
+
+
+
+
             {risk.items.map((item) => (
               <Bubble
                 key={item.slug}
@@ -34,7 +38,14 @@ export default function PreventionList() {
               >{item.title}
               </Bubble>
             ))}
-          </div>
+
+
+
+
+
+
+            
+
         </div>
       </div>
     </>

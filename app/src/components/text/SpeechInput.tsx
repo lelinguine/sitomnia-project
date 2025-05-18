@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useRef, useEffect } from "react";
-import { MicVocal } from 'lucide-react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import Icon from "../Icon";
 
 import "./text.css";
 
@@ -54,7 +54,7 @@ const SpeechInput = ({
   return (
     <div className='bubble'>
       <div className='bubble-title'>
-        <MicVocal className="icon" size={20} strokeWidth={2} />
+        <Icon icon="MicVocal" size={20} />
         <span className="sm-text">Dicter</span>
       </div>
       <textarea

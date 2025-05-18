@@ -1,17 +1,9 @@
 import React from "react";
-import { MessageCircleQuestion, Search, Heart, Activity } from 'lucide-react';
 
+import Icon from "../Icon";
 import "./text.css";
 
-const icons = {
-    MessageCircleQuestion,
-    Search,
-    Heart,
-    Activity
-};
-
 const Bubble = ({ children, isDescription, icon, title, onClick } : { children : React.ReactNode }) => {
-      const IconComponent = icons[icon];
       const classNameIsDescription = isDescription ? "description-bubble" : "";
 
       return (
@@ -19,7 +11,7 @@ const Bubble = ({ children, isDescription, icon, title, onClick } : { children :
             <div className="bubble-container" onClick={onClick}>
                 <div className={`bubble ${classNameIsDescription}`}>
                     <div className='bubble-title'>
-                        {IconComponent && <IconComponent className="icon" size={20} strokeWidth={2} />}
+                        <Icon icon={icon} size={20}/>
                         <span className="sm-text">{title}</span>
                     </div>
                     <span className="md-text">{children}</span>

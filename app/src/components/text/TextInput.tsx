@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { PenLine } from 'lucide-react';
 
+import Icon from "../Icon";
 import "./text.css";
 
 const TextInput = ({
@@ -25,7 +25,7 @@ const TextInput = ({
   return (
     <div className='bubble'>
       <div className='bubble-title'>
-        <PenLine className="icon" size={20} strokeWidth={2} />
+        <Icon icon="PenLine" size={20} />
         <span className="sm-text">Écrire</span>
       </div>
       <textarea

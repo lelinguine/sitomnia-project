@@ -1,22 +1,12 @@
-import { Megaphone, ChartNoAxesGantt, MessageCircleQuestion, User, Cog, TestTube } from 'lucide-react';
-
-const icons = {
-  Megaphone,
-  ChartNoAxesGantt,
-  MessageCircleQuestion,
-  User,
-  Cog,
-  TestTube
-};
+import Icon from "../Icon";
 
 const MenuItem = ({ isOnTop, icon, title, link, color }) => {
-  const IconComponent = icons[icon];
   const className = isOnTop ? "ontop-menu-item" : "";
 
   return (
     <>
       <a href={link} className={`button menu-item ${className}`} style={{ backgroundColor: color }}>
-         {IconComponent && <IconComponent className="icon" size={24} strokeWidth={2}/>}
+         <Icon icon={icon} size={24}/>
         <span className='md-text'>{ title }</span>
       </a>
     </>

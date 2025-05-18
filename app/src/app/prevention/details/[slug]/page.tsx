@@ -32,6 +32,11 @@ export default function PreventionDetails() {
     <>
       <Bar icon="Megaphone" title="Prévention" color="#EEE9DA" />
 
+
+
+
+
+
       <div className="view">
         <div className="thread">
           <p><strong>Catégorie :</strong> {matchingRisk.title}</p>
@@ -39,6 +44,13 @@ export default function PreventionDetails() {
           <p><strong>Où :</strong><br />{item.where}</p>
           <p><strong>Prévention :</strong><br />{formatText(item.prevents)}</p>
         </div>
+
+
+
+
+
+
+        
       </div>
     </>
   );
