@@ -1,5 +1,6 @@
 export type RiskItem = {
   title: string; // Title of the risk item
+  isChecked: boolean; // Indicates if the item is checked (for user interaction)
   slug: string; // Slug for the risk item (used in the URL)
   risks: string; // Risks associated with the item
   where: string; // Locations where the risk is present
@@ -25,10 +26,11 @@ const risks: Risk[] = [
     items: [
       {
         title: "Le tapis",
+        isChecked: false,
         slug: "chutes-logement",
-        risks: "Chutes : bords relevés, tapis glissants ou mal fixés.\nDéséquilibre : surface irrégulière ou épaisse.\nMobilité réduite : gêne pour les déambulateurs ou fauteuils.\nProblèmes respiratoires : accumulation de poussière et acariens.",
+        risks: "- Chutes : bords relevés, tapis glissants ou mal fixés.\n- Déséquilibre : surface irrégulière ou épaisse.\n- Mobilité réduite : gêne pour les déambulateurs ou fauteuils.\n- Problèmes respiratoires : accumulation de poussière et acariens.",
         where: "Non précisé",
-        prevents: "Retirer le tapis\nAppliquer une surface antidérapante sous le tapis"
+        prevents: "- Retirer le tapis\n- Appliquer une surface antidérapante sous le tapis"
       }
     ]
   },
@@ -41,24 +43,27 @@ const risks: Risk[] = [
     items: [
       {
         title: "Brûlures et accidents",
+        isChecked: false,
         slug: "brulures-cuisine",
         risks: "Brûlures graves, infection, perte de réflexes, troubles cognitifs.",
         where: "Cuisine (huile chaude, plaques, four, feu allumé oublié)",
-        prevents: "Ne jamais laisser de casseroles sans surveillance\nUtiliser des maniques épaisses\nAppareils à arrêt automatique\nAide d'un proche\nOrganisation de la cuisine à hauteur"
+        prevents: "- Ne jamais laisser de casseroles sans surveillance\n- Utiliser des maniques épaisses\n- Appareils à arrêt automatique\n- Aide d'un proche\n- Organisation de la cuisine à hauteur"
       },
       {
         title: "Coupures lors de la préparation",
+        isChecked: false,
         slug: "coupures-cuisine",
         risks: "Coupures, infections, perte de dextérité ou vision.",
         where: "Utilisation de couteaux, boîtes de conserve, objets en verre ou métal cassés",
-        prevents: "Utiliser des couteaux ergonomiques\nÉviter les outils complexes\nPorter des gants\nDemander de l'aide"
+        prevents: "- Utiliser des couteaux ergonomiques\n- Éviter les outils complexes\n- Porter des gants\n- Demander de l'aide"
       },
       {
         title: "Intoxication alimentaire",
+        isChecked: false,
         slug: "intoxication-alimentaire",
         risks: "Intoxication grave, affaiblissement du système immunitaire.",
         where: "Aliments périmés, mauvaise conservation, mauvaise hygiène",
-        prevents: "Vérifier les dates de péremption\nMaintenir le frigo à 4°C\nSe laver les mains\nNettoyer les surfaces"
+        prevents: "- Vérifier les dates de péremption\n- Maintenir le frigo à 4°C\n- Se laver les mains\n- Nettoyer les surfaces"
       }
     ]
   },
@@ -71,24 +76,27 @@ const risks: Risk[] = [
     items: [
       {
         title: "Intoxication par médicaments",
+        isChecked: false,
         slug: "intoxication-medicaments",
         risks: "Erreur de prise, surdosage, interactions dangereuses.",
         where: "Salle de bain, cuisine, confusion des prises",
-        prevents: "Utiliser un pilulier\nLire les notices\nConsulter médecin ou pharmacien\nNe pas modifier les doses sans avis"
+        prevents: "- Utiliser un pilulier\n- Lire les notices\n- Consulter médecin ou pharmacien\n- Ne pas modifier les doses sans avis"
       },
       {
         title: "Déshydratation",
+        isChecked: false,
         slug: "deshydratation",
         risks: "Confusion, fatigue, chutes, aggravation de maladies.",
         where: "À domicile, en période de chaleur ou maladie",
-        prevents: "Boire régulièrement\nConsommer des aliments riches en eau\nSurveiller les signes : bouche sèche, fatigue"
+        prevents: "- Boire régulièrement\n- Consommer des aliments riches en eau\n- Surveiller les signes : bouche sèche, fatigue"
       },
       {
         title: "Dénutrition",
+        isChecked: false,
         slug: "denutrition",
         risks: "Affaiblissement immunitaire, chutes, ralentissement de guérison.",
         where: "À domicile, en cas de perte d'appétit, solitude, maladie chronique",
-        prevents: "Maintenir une alimentation équilibrée\nSurveiller le poids\nConsulter un diététicien"
+        prevents: "- Maintenir une alimentation équilibrée\n- Surveiller le poids\n- Consulter un diététicien"
       }
     ]
   },
@@ -101,24 +109,27 @@ const risks: Risk[] = [
     items: [
       {
         title: "Électrocution ou incendie",
+        isChecked: false,
         slug: "electrocution-incendie",
         risks: "Électrocution, incendie, courts-circuits.",
         where: "Prises surchargées, appareils anciens ou défectueux",
-        prevents: "Faire vérifier l'installation électrique\nÉviter les multiprises\nDébrancher les appareils\nInstaller des détecteurs"
+        prevents: "- Faire vérifier l'installation électrique\n- Éviter les multiprises\n- Débrancher les appareils\n- Installer des détecteurs"
       },
       {
         title: "Intoxication au monoxyde de carbone",
+        isChecked: false,
         slug: "intoxication-co",
         risks: "Gaz incolore, inodore, mortel : maux de tête, nausées, perte de connaissance, décès.",
         where: "Logements mal ventilés, appareils à combustion, garages fermés",
-        prevents: "Faire réviser les chauffages\nAérer quotidiennement\nNe pas utiliser de groupe électrogène en intérieur\nInstaller un détecteur de CO"
+        prevents: "- Faire réviser les chauffages\n- Aérer quotidiennement\n- Ne pas utiliser de groupe électrogène en intérieur\n- Installer un détecteur de CO"
       },
       {
         title: "Incendie domestique",
+        isChecked: false,
         slug: "incendie-domestique",
         risks: "Blessures graves ou mort, difficulté à réagir rapidement.",
         where: "Cuisine (huile surchauffée, appareils), salon (bougies, cigarettes), chambres (chauffage)",
-        prevents: "Ne jamais laisser de cuisson sans surveillance\nÉteindre les appareils après usage\nInstaller des détecteurs de fumée et les tester"
+        prevents: "- Ne jamais laisser de cuisson sans surveillance\n- Éteindre les appareils après usage\n- Installer des détecteurs de fumée et les tester"
       }
     ]
   },
@@ -131,10 +142,11 @@ const risks: Risk[] = [
     items: [
       {
         title: "Isolement social",
+        isChecked: false,
         slug: "isolement",
         risks: "Dépression, dénutrition, déclin cognitif.",
         where: "À domicile, en cas de solitude ou perte de proches",
-        prevents: "Maintenir des contacts réguliers\nParticiper à des activités sociales\nUtiliser la visioconférence ou le téléphone"
+        prevents: "- Maintenir des contacts réguliers\n- Participer à des activités sociales\n- Utiliser la visioconférence ou le téléphone"
       }
     ]
   },
@@ -147,17 +159,19 @@ const risks: Risk[] = [
     items: [
       {
         title: "Noyade",
+        isChecked: false,
         slug: "noyade",
         risks: "Perte de connaissance ou chute dans l'eau entraînant noyade.",
         where: "Baignoire, piscine, plans d'eau à proximité",
-        prevents: "Ne jamais se baigner seul\nUtiliser des équipements de sécurité\nLimiter l'accès aux zones à risque"
+        prevents: "- Ne jamais se baigner seul\n- Utiliser des équipements de sécurité\n- Limiter l'accès aux zones à risque"
       },
       {
         title: "Suffocation",
+        isChecked: false,
         slug: "suffocation",
         risks: "Asphyxie rapide, fausse route alimentaire.",
         where: "Pendant les repas",
-        prevents: "Adapter la texture des aliments\nManger lentement et assis\nConsulter un professionnel en cas de troubles de la déglutition"
+        prevents: "- Adapter la texture des aliments\n- Manger lentement et assis\n- Consulter un professionnel en cas de troubles de la déglutition"
       }
     ]
   }

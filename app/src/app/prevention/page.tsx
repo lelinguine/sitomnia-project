@@ -5,12 +5,10 @@ import { useRouter } from 'next/navigation';
 
 import Bar from '@/components/Bar';
 import Bubble from '@/components/text/Bubble';
-import { useDiscussion } from '@/context/DiscussionContext';
-
-import risks from '@/assets/data/risks';
+import { useRisk } from '@/context/RiskContext';
 
 const Prevention = () => {
-  const { discussions } = useDiscussion();
+  const { risks } = useRisk();
   const router = useRouter();
 
   return (
@@ -29,7 +27,7 @@ const Prevention = () => {
               isDescription
               icon={risk.icon}
               title={risk.title}
-              onClick={() => router.push(`/prevention/${risk.slug}`)}
+              onClick={() => router.push(`/prevention/list?slug=${risk.slug}`)}
             >
               {risk.resume}
             </Bubble>

@@ -1,7 +1,6 @@
-.bubble-container {
+.bubble-container, .todo-container {
     width: 100%;;
     display: flex;
-    justify-content: end;
 }
 
 .bubble {
@@ -12,7 +11,27 @@
     width: 330px;
 }
 
-.description-bubble {
+.todo {
+    border-radius: 30px;
+    display: flex;
+    align-items: self-start;
+    gap: 10px;
+}
+
+.todo .md-text {
+    max-width: 248px;
+}
+
+.todo .icon {
+    height: 36px;
+}
+
+.checked-todo {
+    background-color: var(--foreground);
+    color: var(--background);
+}
+
+.description-bubble, .todo {
     cursor: pointer;
 }
 

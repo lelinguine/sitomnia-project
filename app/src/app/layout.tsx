@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./main.css";
+import "./base.css";
 import "./../components/button/button.css";
 
 import Auth from "@/components/Auth";
@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 };
 
 import { DiscussionProvider } from '@/context/DiscussionContext';
+import { RiskProvider } from '@/context/RiskContext';
 
 export default function RootLayout({
   children,
@@ -19,11 +20,13 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         <main>
-          <DiscussionProvider>
-            <Auth>
-              {children}
-            </Auth>
-          </DiscussionProvider>
+          <Auth>
+            <DiscussionProvider>
+              <RiskProvider>
+                {children}
+              </RiskProvider>
+            </DiscussionProvider>
+          </Auth>
         </main>
       </body>
     </html>

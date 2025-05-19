@@ -20,7 +20,12 @@ import {
     Cross,
     Zap,
     Users,
-    Droplet
+    Droplet,
+    Circle,
+    CircleCheck,
+    OctagonAlert,
+    Star,
+    Pin
 } from "lucide-react";
 
 const icons = {
@@ -43,7 +48,12 @@ const icons = {
     Cross,
     Zap,
     Users,
-    Droplet
+    Droplet,
+    Circle,
+    CircleCheck,
+    OctagonAlert,
+    Star,
+    Pin
 };
 
 const Icon = ({ icon, size }) => {
@@ -51,7 +61,7 @@ const Icon = ({ icon, size }) => {
 
   return (
     <>
-        {IconComponent && <IconComponent className="icon" size={size} strokeWidth={2} />}
+        {IconComponent && <IconComponent className="icon" size={size} strokeWidth={2.4} />}
     </>
   );
 };

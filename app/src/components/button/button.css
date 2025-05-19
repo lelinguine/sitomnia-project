@@ -16,7 +16,7 @@
 
 .default-button {
     flex-direction: row;
-    border-radius: 15px;
+    border-radius: 30px;
     height: 40px;
     justify-content: center;
     align-items: center;
