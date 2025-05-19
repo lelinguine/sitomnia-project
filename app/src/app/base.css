@@ -59,6 +59,12 @@ main {
   padding-bottom: 110px;
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 @media screen and (orientation: portrait) {
   .thread {
     width: 100%;

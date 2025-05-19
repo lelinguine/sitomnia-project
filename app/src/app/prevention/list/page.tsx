@@ -36,14 +36,16 @@ export default function PreventionList() {
         <div className="thread">
           <span className="sm-text">{risk.description}</span>
 
-          {risk.items.map((item) => (
-            <Todo
-              key={item.slug}
-              onClick={() => router.push(`/prevention/list/detail?slug=${item.slug}`)}
-            >
-              {item.title}
-            </Todo>
-          ))}
+          <div className='content'>
+            {risk.items.map((item) => (
+              <Todo
+                key={item.slug}
+                onClick={() => router.push(`/prevention/list/detail?slug=${item.slug}`)}
+              >
+                {item.title}
+              </Todo>
+            ))}
+          </div>
 
         </div>
       </div>

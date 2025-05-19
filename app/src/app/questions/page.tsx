@@ -21,25 +21,26 @@ const Questions = () => {
           <span className="sm-text">
             Historique de vos demandes à l’intelligence artificielle.
           </span>
-          
-          {discussions.slice().reverse().map((discussion) => {
-            const firstUserMessage = discussion.messages.find(m => m.role === 'user');
-            const preview = firstUserMessage?.content
-              ? firstUserMessage.content.length > 45
-                ? firstUserMessage.content.slice(0, 45) + '…'
-                : firstUserMessage.content
-              : '(Aucun message)';
 
-            return (
-              <Bubble isDescription
-                icon="Search"
-                title="Aperçu"
-                onClick={() => router.push(`/questions/discussion?id=${discussion.id}`)}
-                key={discussion.id}>
-                {preview}
-              </Bubble>
-            );
-          })}
+          <div className='content'>
+            {discussions.slice().reverse().map((discussion) => {
+              const firstUserMessage = discussion.messages.find(m => m.role === 'user');
+              const preview = firstUserMessage?.content
+                ? firstUserMessage.content.length > 45
+                  ? firstUserMessage.content.slice(0, 45) + '…'
+                  : firstUserMessage.content
+                : '(Aucun message)';
+              return (
+                <Bubble isDescription
+                  icon="Search"
+                  title="Aperçu"
+                  onClick={() => router.push(`/questions/discussion?id=${discussion.id}`)}
+                  key={discussion.id}>
+                  {preview}
+                </Bubble>
+              );
+            })}
+          </div>
 
         </div>
       </div>

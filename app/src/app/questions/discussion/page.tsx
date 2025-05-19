@@ -39,8 +39,8 @@ const Discussion = () => {
     if (!id) {
       id = createDiscussionId();
       setActiveDiscussionId(id);
-      router.replace(`/questions/discussion?id=${id}`); // 🔁 rediriger proprement
-      return; // 🛑 éviter d'exécuter la suite avec l'ancien id
+      router.replace(`/questions/discussion?id=${id}`);
+      return;
     }
 
     setActiveDiscussionId(id);
@@ -138,7 +138,8 @@ const Discussion = () => {
           <span className="sm-text">
             Poser des questions à l’intelligence artificielle.
           </span>
-          {messages
+          <div className='content'>
+            {messages
             .filter(msg => msg.role !== 'system')
             .map((msg, i) => (
               <React.Fragment key={i}>
@@ -146,6 +147,7 @@ const Discussion = () => {
                 {msg.role === 'assistant' && <span className="sm-text">{msg.content}</span>}
               </React.Fragment>
             ))}
+          </div>
         </div>
       </div>
 

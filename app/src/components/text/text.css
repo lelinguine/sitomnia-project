@@ -5,7 +5,7 @@
 
 .bubble {
     border: solid 4px var(--foreground);    
-    padding: 10px 20px;
+    padding: 20px;
     border-radius: 30px;
     background-color: var(--background);
     width: 330px;
