@@ -22,7 +22,7 @@ const Questions = () => {
             Historique de vos demandes à l’intelligence artificielle.
           </span>
           
-          {discussions.map((discussion) => {
+          {discussions.slice().reverse().map((discussion) => {
             const firstUserMessage = discussion.messages.find(m => m.role === 'user');
             const preview = firstUserMessage?.content
               ? firstUserMessage.content.length > 45

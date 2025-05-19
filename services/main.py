@@ -11,13 +11,13 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # autorise ton frontend Next.js
+    allow_origins=["http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-OLLAMA_URL = "http://192.168.1.24:11434/api/chat"
+OLLAMA_URL = "http://localhost:11434/api/chat"
 MODEL_NAME = "llama3.2:3b"
 API_VERSION = "1.0.0-a"
 

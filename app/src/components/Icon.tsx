@@ -16,6 +16,11 @@ import {
     Search,
     Heart,
     Activity,
+    Flame,
+    Cross,
+    Zap,
+    Users,
+    Droplet
 } from "lucide-react";
 
 const icons = {
@@ -34,6 +39,11 @@ const icons = {
     Search,
     Heart,
     Activity,
+    Flame,
+    Cross,
+    Zap,
+    Users,
+    Droplet
 };
 
 const Icon = ({ icon, size }) => {
