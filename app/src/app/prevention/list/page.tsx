@@ -37,14 +37,17 @@ export default function PreventionList() {
           <span className="sm-text">{risk.description}</span>
 
           <div className='content'>
-            {risk.items.map((item) => (
-              <Todo
-                key={item.slug}
-                onClick={() => router.push(`/prevention/list/detail?slug=${item.slug}`)}
-              >
-                {item.title}
-              </Todo>
-            ))}
+            {[...risk.items]
+              .sort((a, b) => Number(a.isChecked) - Number(b.isChecked))
+              .map((item) => (
+                <Todo
+                  key={item.slug}
+                  isChecked={item.isChecked}
+                  onClick={() => router.push(`/prevention/list/detail?slug=${item.slug}`)}
+                >
+                  {item.title}
+                </Todo>
+              ))}
           </div>
 
         </div>

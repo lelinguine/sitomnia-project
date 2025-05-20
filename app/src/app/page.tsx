@@ -3,6 +3,9 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
+import { Mirage } from 'ldrs/react'
+import 'ldrs/react/Mirage.css'
+
 import Image from 'next/image';
 import Icon from '@assets/icon.png';
 
@@ -19,7 +22,7 @@ const Loading = () => {
 
   return (
     <>
-      <div>
+      <div className='flex flex-col items-center gap-[10px]'>
           <Image
             src={Icon}
             alt="Loading icon"
@@ -27,6 +30,7 @@ const Loading = () => {
             height={80}
           />
           <span className='md-text'>Sitomnia</span>
+          <Mirage size="40" speed="4" color="black" />
       </div>
 
       <div className='modal'>

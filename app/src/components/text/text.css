@@ -1,5 +1,5 @@
 .bubble-container, .todo-container {
-    width: 100%;;
+    width: 100%;
     display: flex;
 }
 
@@ -8,7 +8,7 @@
     padding: 20px;
     border-radius: 30px;
     background-color: var(--background);
-    width: 330px;
+    width: 100%;
 }
 
 .todo {

@@ -1,17 +1,19 @@
 "use client";
 
 import React from 'react';
-import { notFound, useSearchParams } from 'next/navigation';
+import { useRouter, notFound, useSearchParams } from 'next/navigation';
 
 import Bar from '@/components/Bar';
 import Icon from '@/components/Icon';
+import ActionModal from '@/components/modal/ActionModal';
 import { useRisk } from '@/context/RiskContext';
 
 export default function PreventionDetails() {
   const searchParams = useSearchParams();
   const slug = searchParams.get('slug');
+  const router = useRouter();
 
-  const { risks } = useRisk();
+  const { risks, updateRiskItemCheck } = useRisk();
 
   if (!risks || risks.length === 0) {
     return <></>;
@@ -64,6 +66,18 @@ export default function PreventionDetails() {
 
         </div>
       </div>
+
+      {!item.isChecked && (
+        <ActionModal
+          icon="CircleCheck"
+          title="Compris"
+          onClick={() => {
+            updateRiskItemCheck(matchingRisk.slug, item.slug, true);
+            router.back();
+          }}
+        />
+      )}
+
     </>
   );
 }

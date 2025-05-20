@@ -11,8 +11,8 @@ const Bar = ({ icon, title, color }) => {
     <div className='bar' style={{ backgroundColor: color }}>
         <BackButton />
         <div className="bar-content">
-          <Icon icon={icon} size={32} />
-          <span className="lg-text">{title}</span>
+          <Icon icon={icon} size={24} />
+          <span className="md-text">{title}</span>
         </div>
       </div>
     </>

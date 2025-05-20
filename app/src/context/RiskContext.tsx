@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+
 import type { Risk } from '@assets/data/risks';
 import defaultRisks from '@assets/data/risks';
 
@@ -17,7 +18,7 @@ export const RiskProvider = ({ children }: { children: React.ReactNode }) => {
   const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem('risks');
+    const saved = localStorage.getItem('preventions');
 
     if (saved) {
       try {
@@ -29,7 +30,7 @@ export const RiskProvider = ({ children }: { children: React.ReactNode }) => {
       }
     } else {
       setRisksState(defaultRisks);
-      localStorage.setItem('risks', JSON.stringify(defaultRisks));
+      localStorage.setItem('preventions', JSON.stringify(defaultRisks));
     }
 
     setInitialized(true);
@@ -37,7 +38,7 @@ export const RiskProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (initialized) {
-      localStorage.setItem('risks', JSON.stringify(risks));
+      localStorage.setItem('preventions', JSON.stringify(risks));
     }
   }, [risks, initialized]);
 

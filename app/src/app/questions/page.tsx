@@ -25,11 +25,7 @@ const Questions = () => {
           <div className='content'>
             {discussions.slice().reverse().map((discussion) => {
               const firstUserMessage = discussion.messages.find(m => m.role === 'user');
-              const preview = firstUserMessage?.content
-                ? firstUserMessage.content.length > 45
-                  ? firstUserMessage.content.slice(0, 45) + '…'
-                  : firstUserMessage.content
-                : '(Aucun message)';
+              const preview = firstUserMessage?.content;
               return (
                 <Bubble isDescription
                   icon="Search"

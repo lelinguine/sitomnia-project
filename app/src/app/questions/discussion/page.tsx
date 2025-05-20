@@ -3,6 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
+import { Mirage } from 'ldrs/react'
+import 'ldrs/react/Mirage.css'
+
 import Bar from '@/components/Bar';
 import Bubble from '@/components/text/Bubble';
 import DiscussionModal from '@/components/modal/DiscussionModal';
@@ -147,6 +150,11 @@ const Discussion = () => {
                 {msg.role === 'assistant' && <span className="sm-text">{msg.content}</span>}
               </React.Fragment>
             ))}
+
+            {isLoading && (
+                <Mirage size="40" speed="4" color="black" />
+            )}
+
           </div>
         </div>
       </div>
