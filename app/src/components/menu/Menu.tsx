@@ -7,7 +7,7 @@ const Menu = () => {
         // { icon: "ChartNoAxesGantt", title: "Agenda", link: "/acceuil", color: "#A0C3D2" },
         { icon:"MessageCircleQuestion", title: "Questions", link: "/questions", color: "#BBDED6" },
         // { icon:"User", title: "Vous", link: "/acceuil", color: "#F9F7F7" },
-        // { icon:"Cog", title: "Réglages", link: "/acceuil", color: "#F9F7F7" },
+        { icon:"Cog", title: "Réglages", link: "/acceuil", color: "#F9F7F7" },
         { icon:"TestTube", title: "Test", link: "/test", color: "#F9F7F7" },
     ];
 
