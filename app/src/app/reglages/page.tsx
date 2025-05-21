@@ -1,13 +1,16 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import Bar from '@/components/Bar';
-import Bubble from '@/components/text/Bubble';
+import ToggleButton from '@/components/button/ToggleButton';
 
 const Reglages = () => {
   const router = useRouter();
+
+  const [isFirstChecked, setIsFirstChecked] = useState(false);
+  const [isSecondChecked, setIsSecondChecked] = useState(true);
 
   return (
     <>
@@ -22,6 +25,15 @@ const Reglages = () => {
           <div className='content'>
             <span className='md-text'>TODO</span>
 
+            <ToggleButton
+              isChecked={isFirstChecked}
+              onClick={() => setIsFirstChecked(prev => !prev)}
+            />
+            <ToggleButton
+              isChecked={isSecondChecked}
+              onClick={() => setIsSecondChecked(prev => !prev)}
+            />
+
             {/* <Bubble
               icon="Search"
               title="Aperçu"
@@ -29,15 +41,7 @@ const Reglages = () => {
             >
               <span className='md-text'>Ceci est une note</span>
             </Bubble> */}
-
-
-
-
-
-
-
           </div>
-
         </div>
       </div>
     </>
