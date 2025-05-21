@@ -3,7 +3,7 @@ import React from "react";
 import Icon from "../Icon";
 import "./text.css";
 
-const Todo = ({ children, isChecked, icon, onClick } : { children : React.ReactNode }) => {
+const Todo = ({ children, isChecked, onClick } : { children : React.ReactNode }) => {
       const classNameIsChecked = isChecked ? "checked-todo" : "";
       const iconName = isChecked ? "CircleCheck" : "Circle";
 

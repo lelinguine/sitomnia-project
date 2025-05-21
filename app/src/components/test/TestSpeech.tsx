@@ -8,7 +8,6 @@ const VoiceInput = () => {
     transcript,
     listening,
     resetTranscript,
-    browserSupportsSpeechRecognition
   } = useSpeechRecognition();
 
   return (
