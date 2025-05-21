@@ -8,7 +8,6 @@ const Menu = () => {
         { icon: "PencilLine", title: "Notes", link: "/notes", color: "#EEE9DA" },
         { icon:"MessageCircleQuestion", title: "Questions", link: "/questions", color: "#BBDED6" },
         { icon:"Cog", title: "Réglages", link: "/reglages", color: "#F9F7F7" },
-        //{ icon:"TestTube", title: "Test", link: "/test", color: "#F9F7F7" },
     ];
 
     return (
