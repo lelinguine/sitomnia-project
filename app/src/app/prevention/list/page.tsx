@@ -4,7 +4,7 @@ import React from 'react';
 import { useRouter, notFound, useSearchParams } from 'next/navigation';
 
 import Bar from '@/components/Bar';
-import Todo from '@/components/text/Todo';
+import Check from '@/components/text/Check';
 
 import { useRisk } from '@/context/RiskContext';
 
@@ -30,7 +30,7 @@ export default function PreventionList() {
 
   return (
     <>
-      <Bar icon="Megaphone" title="Prévention" color="#EEE9DA" />
+      <Bar icon="Megaphone" title="Prévention" color="#e5c39a" />
 
       <div className="view">
         <div className="thread">
@@ -40,13 +40,13 @@ export default function PreventionList() {
             {[...risk.items]
               .sort((a, b) => Number(a.isChecked) - Number(b.isChecked))
               .map((item) => (
-                <Todo
+                <Check
                   key={item.slug}
                   isChecked={item.isChecked}
                   onClick={() => router.push(`/prevention/list/detail?slug=${item.slug}`)}
                 >
                   {item.title}
-                </Todo>
+                </Check>
               ))}
           </div>
 

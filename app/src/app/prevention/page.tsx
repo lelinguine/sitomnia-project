@@ -13,7 +13,7 @@ const Prevention = () => {
 
   return (
     <>
-      <Bar icon="Megaphone" title="Prévention" color="#EEE9DA" />
+      <Bar icon="Megaphone" title="Prévention" color="#e5c39a" />
 
       <div className="view">
         <div className="thread">

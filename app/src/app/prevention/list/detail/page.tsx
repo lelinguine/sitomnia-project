@@ -39,7 +39,7 @@ export default function PreventionDetails() {
 
   return (
     <>
-      <Bar icon="Megaphone" title="Prévention" color="#EEE9DA" />
+      <Bar icon="Megaphone" title="Prévention" color="#e5c39a" />
 
       <div className="view">
         <div className="thread">
@@ -59,8 +59,8 @@ export default function PreventionDetails() {
           <span className='md-text'>{formatText(item.where)}</span>
 
           <div className='flex flex-row items-center gap-2 align-middle'>
-            <Icon icon="Star" size={20} />
-            <span className='sm-text'>Prévention</span>
+            <Icon icon="Info" size={20} />
+            <span className='sm-text'>Conseils</span>
           </div>
           <span className='md-text'>{formatText(item.prevents)}</span>
 
