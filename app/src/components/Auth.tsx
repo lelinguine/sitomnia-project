@@ -8,9 +8,9 @@ export default function Auth({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const mail = localStorage.getItem("mail");
-    // if (!mail) {
-    //   router.replace("/connexion");
-    // }
+    if (!mail) {
+      //router.replace("/connexion");
+    }
   }, [router]);
 
   return <>{children}</>;
