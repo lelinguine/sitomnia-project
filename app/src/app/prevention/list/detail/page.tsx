@@ -46,24 +46,30 @@ export default function PreventionDetails() {
 
           <span className='md-text'>{item.title}</span>
 
-          <div className='flex flex-row items-center gap-2 align-middle'>
-            <Icon icon="OctagonAlert" size={20} />
-            <span className='sm-text'>Risques</span>
+          <div className='content'>
+            <div className='flex flex-row items-center gap-2 align-middle'>
+              <Icon icon="OctagonAlert" size={20} />
+              <span className='sm-text'>Risques</span>
+            </div>
+            <span className='md-text'>{formatText(item.risks)}</span>
           </div>
-          <span className='md-text'>{formatText(item.risks)}</span>
 
-          <div className='flex flex-row items-center gap-2 align-middle'>
-            <Icon icon="Pin" size={20} />
-            <span className='sm-text'>Où</span>
+          <div className='content'>
+            <div className='flex flex-row items-center gap-2 align-middle'>
+              <Icon icon="Pin" size={20} />
+              <span className='sm-text'>Où</span>
+            </div>
+            <span className='md-text'>{formatText(item.where)}</span>
           </div>
-          <span className='md-text'>{formatText(item.where)}</span>
 
-          <div className='flex flex-row items-center gap-2 align-middle'>
-            <Icon icon="Info" size={20} />
-            <span className='sm-text'>Conseils</span>
+          <div className='content'>
+            <div className='flex flex-row items-center gap-2 align-middle'>
+              <Icon icon="Info" size={20} />
+              <span className='sm-text'>Conseils</span>
+            </div>
+            <span className='md-text'>{formatText(item.prevents)}</span>
           </div>
-          <span className='md-text'>{formatText(item.prevents)}</span>
-
+          
         </div>
       </div>
 

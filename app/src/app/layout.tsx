@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 
 import { DiscussionProvider } from '@/context/DiscussionContext';
 import { RiskProvider } from '@/context/RiskContext';
+import { NotesProvider } from '@/context/NotesContext';
 
 export default function RootLayout({
   children,
@@ -21,11 +22,13 @@ export default function RootLayout({
       <body className="antialiased">
         <main>
           <Auth>
-            <DiscussionProvider>
-              <RiskProvider>
-                {children}
-              </RiskProvider>
-            </DiscussionProvider>
+            <NotesProvider>
+              <DiscussionProvider>
+                <RiskProvider>
+                  {children}
+                </RiskProvider>
+              </DiscussionProvider>
+            </NotesProvider>
           </Auth>
         </main>
       </body>
