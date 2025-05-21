@@ -147,7 +147,7 @@ const Discussion = () => {
             .map((msg, i) => (
               <React.Fragment key={i}>
                 {msg.role === 'user' && <Bubble icon="MessageCircleQuestion" title="Vous">{msg.content}</Bubble>}
-                {msg.role === 'assistant' && <span className="sm-text">{msg.content}</span>}
+                {msg.role === 'assistant' && <span className="md-text">{msg.content}</span>}
               </React.Fragment>
             ))}
 

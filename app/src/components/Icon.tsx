@@ -11,7 +11,6 @@ import {
     Megaphone,
     ChartNoAxesGantt,
     MessageCircleQuestion,
-    User,
     Cog,
     Search,
     Heart,
@@ -25,7 +24,8 @@ import {
     CircleCheck,
     OctagonAlert,
     Star,
-    Pin
+    Pin,
+    PencilLine
 } from "lucide-react";
 
 const icons = {
@@ -39,7 +39,6 @@ const icons = {
     Megaphone,
     ChartNoAxesGantt,
     MessageCircleQuestion,
-    User,
     Cog,
     Search,
     Heart,
@@ -53,7 +52,8 @@ const icons = {
     CircleCheck,
     OctagonAlert,
     Star,
-    Pin
+    Pin,
+    PencilLine
 };
 
 const Icon = ({ icon, size }) => {
