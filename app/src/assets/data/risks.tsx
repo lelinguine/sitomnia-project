@@ -46,7 +46,7 @@ const risks: Risk[] = [
         isChecked: false,
         slug: "brulures-cuisine",
         risks: "- Brûlures graves\n- Infection\n- Perte de réflexes\n- Troubles cognitifs.",
-        where: "Cuisine (huile chaude, plaques, four, feu allumé oublié)",
+        where: "Cuisine : huile chaude, plaques, four, feu allumé oublié.",
         prevents: "- Ne jamais laisser de casseroles sans surveillance\n- Utiliser des maniques épaisses\n- Appareils à arrêt automatique\n- Aide d'un proche\n- Organisation de la cuisine à hauteur"
       },
       {
@@ -87,7 +87,7 @@ const risks: Risk[] = [
         isChecked: false,
         slug: "deshydratation",
         risks: "- Confusion\n- Fatigue\n- Chutes\n- Aggravation de maladies.",
-        where: "À domicile, en période de chaleur ou maladie",
+        where: "- À domicile\n- Période de chaleur\n- Maladie",
         prevents: "- Boire régulièrement\n- Consommer des aliments riches en eau\n- Surveiller les signes : bouche sèche, fatigue"
       },
       {
