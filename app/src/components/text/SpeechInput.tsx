@@ -35,7 +35,7 @@ const SpeechInput = ({
     return () => {
       SpeechRecognition.stopListening();
     };
-  }, []);
+  }, [browserSupportsSpeechRecognition]);
 
   // Mettre à jour le texte dicté
   useEffect(() => {
