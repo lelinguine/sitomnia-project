@@ -22,6 +22,14 @@ const systemPrompt: Message = {
   content: "Ne te présente pas. Ne parle pas de toi. Réponds à la question de manière synthétique, en évitant les détails superflus. Ne fais pas d'introduction, parle directement du sujet de la question. Ne fais pas de liste. Un maximum de 100 mots pour répondre. Si tu ne sais pas répondre à la question, dis que tu ne sais pas. Réponds en français."
 };
 
+const speak = (text: string) => {
+  if (typeof window !== 'undefined' && window.speechSynthesis) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'fr-FR';
+    window.speechSynthesis.speak(utterance);
+  }
+};
+
 const Discussion = () => {
   const searchParams = useSearchParams();
   const discussionId = searchParams.get('id');
@@ -70,6 +78,13 @@ const Discussion = () => {
     }
   }, [messages]);
 
+  useEffect(() => {
+    return () => {
+      if (typeof window !== 'undefined' && window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
 
   const sendPrompt = async () => {
     if (isLoading || !currentPrompt.trim() || !activeDiscussionId) return;
@@ -130,6 +145,8 @@ const Discussion = () => {
     addMessage(activeDiscussionId, { role: 'assistant', content: responseSoFar });
 
     setIsLoading(false);
+
+    speak(responseSoFar);
   };
 
   return (
