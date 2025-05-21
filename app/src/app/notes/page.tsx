@@ -20,14 +20,15 @@ const Notes = () => {
           </span>
 
           <div className='content'>
+            <span className='md-text'>TODO</span>
 
-            <Bubble
+            {/* <Bubble
               icon="Search"
               title="Aperçu"
               onClick={() => router.push('/notes/details')}
             >
               <span className='md-text'>Ceci est une note</span>
-            </Bubble>
+            </Bubble> */}
 
 
 
