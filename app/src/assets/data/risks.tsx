@@ -45,7 +45,7 @@ const risks: Risk[] = [
         title: "Brûlures et accidents",
         isChecked: false,
         slug: "brulures-cuisine",
-        risks: "Brûlures graves, infection, perte de réflexes, troubles cognitifs.",
+        risks: "- Brûlures graves\n- Infection\n- Perte de réflexes\n- Troubles cognitifs.",
         where: "Cuisine (huile chaude, plaques, four, feu allumé oublié)",
         prevents: "- Ne jamais laisser de casseroles sans surveillance\n- Utiliser des maniques épaisses\n- Appareils à arrêt automatique\n- Aide d'un proche\n- Organisation de la cuisine à hauteur"
       },
@@ -53,16 +53,16 @@ const risks: Risk[] = [
         title: "Coupures lors de la préparation",
         isChecked: false,
         slug: "coupures-cuisine",
-        risks: "Coupures, infections, perte de dextérité ou vision.",
-        where: "Utilisation de couteaux, boîtes de conserve, objets en verre ou métal cassés",
+        risks: "- Coupures\n- Infections\n- Perte de dextérité ou vision.",
+        where: "- Utilisation de couteaux\n- Boîtes de conserve\n- Objets en verre ou métal cassés",
         prevents: "- Utiliser des couteaux ergonomiques\n- Éviter les outils complexes\n- Porter des gants\n- Demander de l'aide"
       },
       {
         title: "Intoxication alimentaire",
         isChecked: false,
         slug: "intoxication-alimentaire",
-        risks: "Intoxication grave, affaiblissement du système immunitaire.",
-        where: "Aliments périmés, mauvaise conservation, mauvaise hygiène",
+        risks: "- Intoxication grave\n- Affaiblissement du système immunitaire.",
+        where: "- Aliments périmés\n- Mauvaise conservation\n- Mauvaise hygiène",
         prevents: "- Vérifier les dates de péremption\n- Maintenir le frigo à 4°C\n- Se laver les mains\n- Nettoyer les surfaces"
       }
     ]
@@ -78,15 +78,15 @@ const risks: Risk[] = [
         title: "Intoxication par médicaments",
         isChecked: false,
         slug: "intoxication-medicaments",
-        risks: "Erreur de prise, surdosage, interactions dangereuses.",
-        where: "Salle de bain, cuisine, confusion des prises",
+        risks: "- Erreur de prise\n- Surdosage\n- Interactions dangereuses.",
+        where: "- Salle de bain\n- Cuisine\n- Confusion des prises",
         prevents: "- Utiliser un pilulier\n- Lire les notices\n- Consulter médecin ou pharmacien\n- Ne pas modifier les doses sans avis"
       },
       {
         title: "Déshydratation",
         isChecked: false,
         slug: "deshydratation",
-        risks: "Confusion, fatigue, chutes, aggravation de maladies.",
+        risks: "- Confusion\n- Fatigue\n- Chutes\n- Aggravation de maladies.",
         where: "À domicile, en période de chaleur ou maladie",
         prevents: "- Boire régulièrement\n- Consommer des aliments riches en eau\n- Surveiller les signes : bouche sèche, fatigue"
       },
@@ -94,8 +94,8 @@ const risks: Risk[] = [
         title: "Dénutrition",
         isChecked: false,
         slug: "denutrition",
-        risks: "Affaiblissement immunitaire, chutes, ralentissement de guérison.",
-        where: "À domicile, en cas de perte d'appétit, solitude, maladie chronique",
+        risks: "- Affaiblissement immunitaire\n- Chutes\n- Ralentissement de guérison.",
+        where: "- À domicile, en cas de perte d'appétit\n- Solitude\n- Maladie chronique",
         prevents: "- Maintenir une alimentation équilibrée\n- Surveiller le poids\n- Consulter un diététicien"
       }
     ]
@@ -111,24 +111,24 @@ const risks: Risk[] = [
         title: "Électrocution ou incendie",
         isChecked: false,
         slug: "electrocution-incendie",
-        risks: "Électrocution, incendie, courts-circuits.",
-        where: "Prises surchargées, appareils anciens ou défectueux",
+        risks: "- Électrocution\n- Incendie\n- Courts-circuits.",
+        where: "- Prises surchargées\n- Appareils anciens ou défectueux",
         prevents: "- Faire vérifier l'installation électrique\n- Éviter les multiprises\n- Débrancher les appareils\n- Installer des détecteurs"
       },
       {
         title: "Intoxication au monoxyde de carbone",
         isChecked: false,
         slug: "intoxication-co",
-        risks: "Gaz incolore, inodore, mortel : maux de tête, nausées, perte de connaissance, décès.",
-        where: "Logements mal ventilés, appareils à combustion, garages fermés",
+        risks: "- Gaz incolore\n- Inodore\n- Mortel : maux de tête, nausées, perte de connaissance, décès.",
+        where: "- Logements mal ventilés\n- Appareils à combustion\n- Garages fermés",
         prevents: "- Faire réviser les chauffages\n- Aérer quotidiennement\n- Ne pas utiliser de groupe électrogène en intérieur\n- Installer un détecteur de CO"
       },
       {
         title: "Incendie domestique",
         isChecked: false,
         slug: "incendie-domestique",
-        risks: "Blessures graves ou mort, difficulté à réagir rapidement.",
-        where: "Cuisine (huile surchauffée, appareils), salon (bougies, cigarettes), chambres (chauffage)",
+        risks: "- Blessures graves ou mort\n- Difficulté à réagir rapidement.",
+        where: "- Cuisine (huile surchauffée, appareils)\n- Salon (bougies, cigarettes)\n- Chambres (chauffage)",
         prevents: "- Ne jamais laisser de cuisson sans surveillance\n- Éteindre les appareils après usage\n- Installer des détecteurs de fumée et les tester"
       }
     ]
@@ -144,7 +144,7 @@ const risks: Risk[] = [
         title: "Isolement social",
         isChecked: false,
         slug: "isolement",
-        risks: "Dépression, dénutrition, déclin cognitif.",
+        risks: "- Dépression\n- Dénutrition\n- Déclin cognitif.",
         where: "À domicile, en cas de solitude ou perte de proches",
         prevents: "- Maintenir des contacts réguliers\n- Participer à des activités sociales\n- Utiliser la visioconférence ou le téléphone"
       }
@@ -162,14 +162,14 @@ const risks: Risk[] = [
         isChecked: false,
         slug: "noyade",
         risks: "Perte de connaissance ou chute dans l'eau entraînant noyade.",
-        where: "Baignoire, piscine, plans d'eau à proximité",
+        where: "- Baignoire\n- Piscine\n- Plans d'eau à proximité",
         prevents: "- Ne jamais se baigner seul\n- Utiliser des équipements de sécurité\n- Limiter l'accès aux zones à risque"
       },
       {
         title: "Suffocation",
         isChecked: false,
         slug: "suffocation",
-        risks: "Asphyxie rapide, fausse route alimentaire.",
+        risks: "- Asphyxie rapide\n- Fausse route alimentaire.",
         where: "Pendant les repas",
         prevents: "- Adapter la texture des aliments\n- Manger lentement et assis\n- Consulter un professionnel en cas de troubles de la déglutition"
       }

@@ -24,7 +24,8 @@ import {
     OctagonAlert,
     Star,
     Pin,
-    PencilLine
+    PencilLine,
+    Info
 } from "lucide-react";
 
 const icons = {
@@ -51,7 +52,8 @@ const icons = {
     OctagonAlert,
     Star,
     Pin,
-    PencilLine
+    PencilLine,
+    Info
 };
 
 const Icon = ({ icon, size }) => {

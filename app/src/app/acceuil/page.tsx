@@ -5,7 +5,7 @@ const Main = () => {
     <>
       <div>
         <div className='flex flex-col pb-[30px] w-full'>
-          <span className='lg-text mb-[-10px]'>Bonjour ! 👋🏻</span>
+          <span className='lg-text mb-[-10px]'>Bonjour Valentin !</span>
           <span className='md-text'>Que puis-je faire pour vous ?</span>
         </div>
         <Menu/>
