@@ -1,16 +1,17 @@
 "use client";
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 
 import Bar from '@/components/Bar';
 import ToggleButton from '@/components/button/ToggleButton';
 
+import { useUser } from '@/context/UserContext';
+
 const Reglages = () => {
   const router = useRouter();
 
-  const [isFirstChecked, setIsFirstChecked] = useState(false);
-  const [isSecondChecked, setIsSecondChecked] = useState(true);
+  const { settings, toggleTextToSpeech, toggleSharePersonalData } = useUser();
 
   return (
     <>
@@ -23,24 +24,30 @@ const Reglages = () => {
           </span>
 
           <div className='content'>
-            <span className='md-text'>TODO</span>
 
-            <ToggleButton
-              isChecked={isFirstChecked}
-              onClick={() => setIsFirstChecked(prev => !prev)}
-            />
-            <ToggleButton
-              isChecked={isSecondChecked}
-              onClick={() => setIsSecondChecked(prev => !prev)}
-            />
 
-            {/* <Bubble
-              icon="Search"
-              title="Aperçu"
-              onClick={() => router.push('/notes/details')}
-            >
-              <span className='md-text'>Ceci est une note</span>
-            </Bubble> */}
+            <div>
+              <div className='flex items-center gap-[10px]'>
+                <ToggleButton isChecked={settings.textToSpeechEnabled} onClick={toggleTextToSpeech} />
+                <span className="md-text">Synthèse vocale</span>
+              </div>
+              <span className="sm-text">
+                Activer la synthèse vocale pour écouter les réponses de l’intelligence artificielle.
+              </span>
+            </div>
+
+            {/* <div>
+              <div className='flex items-center gap-[10px]'>
+                <ToggleButton isChecked={settings.sharePersonalData} onClick={toggleSharePersonalData} />
+                <span className="md-text">Partage des informations</span>
+              </div>
+              <span className="sm-text">
+                Activer le partage des informations personnelles pour améliorer l’expérience de l’intelligence artificielle.
+              </span>
+            </div> */}
+
+            
+
           </div>
         </div>
       </div>

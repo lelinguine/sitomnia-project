@@ -11,6 +11,7 @@ import Bubble from '@/components/text/Bubble';
 import DiscussionModal from '@/components/modal/DiscussionModal';
 
 import { useDiscussion } from '@/context/DiscussionContext';
+import { useUser } from '@/context/UserContext';
 
 type Message = {
   role: 'user' | 'assistant' | 'system';
@@ -40,6 +41,8 @@ const Discussion = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [currentPrompt, setCurrentPrompt] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const { settings } = useUser();
 
   // À l'initialisation, créer une discussion si aucune n'est active
   const router = useRouter();
@@ -146,7 +149,9 @@ const Discussion = () => {
 
     setIsLoading(false);
 
-    speak(responseSoFar);
+    if(settings.textToSpeechEnabled) {
+      speak(responseSoFar);
+    }
   };
 
   return (
