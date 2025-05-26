@@ -29,6 +29,13 @@ export const NoteProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.setItem('notes', JSON.stringify(notes));
   }, [notes]);
 
+  useEffect(() => {
+    const filtered = notes.filter(note => note.content.trim() !== "");
+    if (filtered.length !== notes.length) {
+      setNotes(filtered);
+    }
+  }, [notes]);
+
   const getNote = (id: string) => notes.find(n => n.id === id);
 
   const addOrUpdateNote = (id: string, content: string) => {
