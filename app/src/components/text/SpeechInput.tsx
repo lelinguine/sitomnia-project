@@ -65,7 +65,7 @@ const SpeechInput = ({
         className="md-text auto-textarea"
         value={value}
         readOnly
-        placeholder="Parlez pour dicter votre texte..."
+        placeholder="Parlez pour dicter..."
         onKeyDown={handleKeyDown}
         rows={1}
       />
