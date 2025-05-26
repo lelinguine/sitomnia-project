@@ -19,6 +19,7 @@ const Details = () => {
 
   const { getNote, addOrUpdateNote } = useNote();
   const [content, setContent] = useState('');
+  const [prevTranscript, setPrevTranscript] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const { transcript, resetTranscript, listening, browserSupportsSpeechRecognition } = useSpeechRecognition();
@@ -50,18 +51,31 @@ const Details = () => {
 
   useEffect(() => {
     if (listening) {
-      setContent(transcript);
-      if (noteId) {
-        addOrUpdateNote(noteId, transcript);
+      const newText = transcript.slice(prevTranscript.length);
+      if (newText) {
+        const updated = content + (content.endsWith(' ') ? '' : ' ') + newText;
+
+        setContent(updated);
+        setPrevTranscript(transcript);
+
+        if (noteId) {
+          addOrUpdateNote(noteId, updated);
+        }
       }
     }
-  }, [transcript]);
+  }, [transcript, listening]);
 
   useEffect(() => {
     if (!listening && textareaRef.current) {
       textareaRef.current.focus();
     }
   }, [listening]);
+
+  useEffect(() => {
+    return () => {
+      SpeechRecognition.abortListening();
+    };
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
@@ -72,6 +86,7 @@ const Details = () => {
 
   const startDictation = () => {
     resetTranscript();
+    setPrevTranscript('');
     SpeechRecognition.startListening({ continuous: true, language: 'fr-FR' });
   };
 
@@ -86,7 +101,7 @@ const Details = () => {
       <div className="view">
         <div className="thread">
           <span className="sm-text">
-            Écrire un note pour se souvenir des informations.
+            Écrire une note pour se souvenir des informations.
           </span>
 
           <div className="content">
@@ -97,12 +112,12 @@ const Details = () => {
               value={content}
               onChange={handleChange}
               onInput={adjustHeight}
-              placeholder={listening ? "Dictée votre note..." : "Tapez votre note..."}
+              placeholder={listening ? "Dictez votre note..." : "Tapez votre note..."}
               rows={1}
               style={{ overflow: 'hidden', resize: 'none' }}
               readOnly={listening}
             />
-            {listening && (<Mirage size="40" speed="4" color="black" />)}
+            {listening && <Mirage size="40" speed="4" color="black" />}
           </div>
         </div>
       </div>
