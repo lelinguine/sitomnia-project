@@ -16,6 +16,7 @@ const ToggleButton = ({ isChecked, onClick }) => {
             alt="Loading icon"
             width={40}
             height={40}
+            priority
           />
       ) : (
         <Image
@@ -23,6 +24,7 @@ const ToggleButton = ({ isChecked, onClick }) => {
             alt="Loading icon"
             width={40}
             height={40}
+            priority
           />
       )}
     </button>

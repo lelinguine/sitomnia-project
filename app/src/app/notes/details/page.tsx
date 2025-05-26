@@ -1,13 +1,38 @@
 "use client";
 
-import React from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 import Bar from '@/components/Bar';
-import Bubble from '@/components/text/Bubble';
+import { useNote } from '@/context/NotesContext';
 
-const Notes = () => {
+const Details = () => {
+  const searchParams = useSearchParams();
+  const noteId = searchParams.get('id');
   const router = useRouter();
+
+  const { getNote, addOrUpdateNote } = useNote();
+  const [content, setContent] = useState('');
+
+  useEffect(() => {
+    if (!noteId) {
+      const id = crypto.randomUUID();
+      router.replace(`/notes/details?id=${id}`);
+      return;
+    }
+
+    const existingNote = getNote(noteId);
+    if (existingNote) {
+      setContent(existingNote.content);
+    }
+  }, [noteId, getNote, router]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(e.target.value);
+    if (noteId) {
+      addOrUpdateNote(noteId, e.target.value);
+    }
+  };
 
   return (
     <>
@@ -20,28 +45,18 @@ const Notes = () => {
           </span>
 
           <div className='content'>
-            <span className='md-text'>TODO- Détails</span>
-
-            {/* <Bubble
-              icon="Search"
-              title="Aperçu"
-              onClick={() => router.push('/notes/details')}
-            >
-              <span className='md-text'>Ceci est une note</span>
-            </Bubble> */}
-
-
-
-
-
-
-
+            <textarea
+              className="md-text auto-textarea"
+              autoFocus
+              value={content}
+              onChange={handleChange}
+              placeholder="Tapez votre note ici..."
+            />
           </div>
-
         </div>
       </div>
     </>
   );
 };
 
-export default Notes;
+export default Details;

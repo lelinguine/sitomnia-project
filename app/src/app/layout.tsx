@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 
 import { DiscussionProvider } from '@/context/DiscussionContext';
 import { RiskProvider } from '@/context/RiskContext';
+import { NoteProvider } from "@/context/NotesContext";
 import { UserProvider } from '@/context/UserContext';
 
 export default function RootLayout({
@@ -23,11 +24,13 @@ export default function RootLayout({
         <main>
           <Auth>
             <UserProvider>
-              <DiscussionProvider>
-                <RiskProvider>
-                  {children}
-                </RiskProvider>
-              </DiscussionProvider>
+              <NoteProvider>
+                <DiscussionProvider>
+                  <RiskProvider>
+                    {children}
+                  </RiskProvider>
+                </DiscussionProvider>
+              </NoteProvider>
             </UserProvider>
           </Auth>
         </main>
