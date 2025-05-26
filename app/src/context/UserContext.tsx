@@ -15,8 +15,8 @@ type UserContextType = {
 };
 
 const defaultSettings: UserSettings = {
-  textToSpeechEnabled: false,
-  sharePersonalData: false,
+  textToSpeechEnabled: true,
+  sharePersonalData: true,
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);

@@ -23,19 +23,23 @@ const Questions = () => {
           </span>
 
           <div className='content'>
-            {discussions.slice().reverse().map((discussion) => {
-              const firstUserMessage = discussion.messages.find(m => m.role === 'user');
-              const preview = firstUserMessage?.content;
-              return (
-                <Bubble isDescription
-                  icon="Search"
-                  title="Aperçu"
-                  onClick={() => router.push(`/questions/discussion?id=${discussion.id}`)}
-                  key={discussion.id}>
-                  {preview}
-                </Bubble>
-              );
-            })}
+            {discussions.length === 0 ? (
+              <span className="md-text">Aucune question n’a encore été posée.</span>
+            ) : (
+              discussions.slice().reverse().map((discussion) => {
+                const firstUserMessage = discussion.messages.find(m => m.role === 'user');
+                const preview = firstUserMessage?.content;
+                return (
+                  <Bubble isDescription
+                    icon="Search"
+                    title="Aperçu"
+                    onClick={() => router.push(`/questions/discussion?id=${discussion.id}`)}
+                    key={discussion.id}>
+                    {preview}
+                  </Bubble>
+                );
+              })
+            )}
           </div>
 
         </div>
