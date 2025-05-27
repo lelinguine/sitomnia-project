@@ -41,17 +41,3 @@
     align-items: center;
     gap: 10px;
 }
-
-textarea {
-  border: none;
-  outline: none;
-  background: transparent;
-  resize: none;
-  box-shadow: none;
-  padding: 0;
-  margin: 0;
-  font: inherit;
-  color: inherit;
-  width: 100%;
-  overflow: hidden;
-}

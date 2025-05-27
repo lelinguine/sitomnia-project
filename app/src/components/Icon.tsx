@@ -25,7 +25,10 @@ import {
     Star,
     Pin,
     PencilLine,
-    Info
+    Info,
+    TestTube,
+    SquarePen,
+    CircleStop
 } from "lucide-react";
 
 const icons = {
@@ -53,7 +56,10 @@ const icons = {
     Star,
     Pin,
     PencilLine,
-    Info
+    Info,
+    TestTube,
+    SquarePen,
+    CircleStop
 };
 
 const Icon = ({ icon, size }) => {

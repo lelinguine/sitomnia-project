@@ -4,10 +4,13 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 
 import Bar from '@/components/Bar';
+import LinkModal from '@/components/modal/LinkModal';
 import Bubble from '@/components/text/Bubble';
+import { useNote } from '@/context/NotesContext';
 
 const Notes = () => {
   const router = useRouter();
+  const { notes } = useNote();
 
   return (
     <>
@@ -20,26 +23,26 @@ const Notes = () => {
           </span>
 
           <div className='content'>
-            <span className='md-text'>TODO</span>
-
-            {/* <Bubble
-              icon="Search"
-              title="Aperçu"
-              onClick={() => router.push('/notes/details')}
-            >
-              <span className='md-text'>Ceci est une note</span>
-            </Bubble> */}
-
-
-
-
-
-
-
+            {notes.length === 0 ? (
+              <span className="md-text">Aucune note n'a été écrite.</span>
+            ) : (
+              notes.slice().reverse().map((note) => (
+                <Bubble isDescription
+                  icon="Search"
+                  title="Aperçu"
+                  onClick={() => router.push(`/notes/details?id=${note.id}`)}
+                  key={note.id}>
+                  {note.content
+                    ? note.content.slice(0, 42) + (note.content.length > 42 ? '...' : '')
+                    : 'Aucun contenu'}
+                </Bubble>
+              ))
+            )}
           </div>
-
         </div>
       </div>
+
+      <LinkModal icon="SquarePen" title="Créer" link="/notes/details" />
     </>
   );
 };

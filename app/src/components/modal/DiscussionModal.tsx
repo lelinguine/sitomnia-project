@@ -29,12 +29,18 @@ const DiscussionModal = ({ prompt, setPrompt, onSend, isLoading }: {
   }, [browserSupportsSpeechRecognition]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
+  const isEnter = e.key === "Enter";
+  const isShift = e.shiftKey;
+  const isEmpty = prompt.trim() === "";
+
+  if (isEnter && !isShift) {
+    e.preventDefault();
+    if (!isEmpty) {
       setIsWriting(false);
       onSend?.();
     }
-  };
+  }
+};
 
   return (
     <>
@@ -56,7 +62,7 @@ const DiscussionModal = ({ prompt, setPrompt, onSend, isLoading }: {
 
             <div className="modal-item">
               <ActionButton isSecondary icon="X" text="Annuler" onClick={() => { setPrompt(""); setIsWriting(false); }}/>
-              <ActionButton icon="CornerUpRight" text="Demander" onClick={() => { onSend(); setPrompt(""); setIsWriting(false); }}/>
+              <ActionButton isDisable={prompt.trim() === ""} icon="CornerUpRight" text="Demander" onClick={() => { onSend(); setPrompt(""); setIsWriting(false); }}/>
             </div>
           </div>
         )}
@@ -67,7 +73,7 @@ const DiscussionModal = ({ prompt, setPrompt, onSend, isLoading }: {
 
             <div className="modal-item">
               <ActionButton isSecondary icon="X" text="Annuler" onClick={() => { setPrompt(""); setIsDictating(false);}}/>
-              <ActionButton icon="CornerUpRight" text="Demander" onClick={() => { onSend(); setPrompt(""); setIsDictating(false); }}/>
+              <ActionButton isDisable={prompt.trim() === ""} icon="CornerUpRight" text="Demander" onClick={() => { onSend(); setPrompt(""); setIsDictating(false); }}/>
             </div>
           </div>
         )}

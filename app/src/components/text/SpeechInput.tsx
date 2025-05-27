@@ -4,6 +4,9 @@ import React, { useRef, useEffect } from "react";
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import Icon from "../Icon";
 
+import { Mirage } from 'ldrs/react'
+import 'ldrs/react/Mirage.css'
+
 import "./text.css";
 
 const SpeechInput = ({
@@ -62,9 +65,11 @@ const SpeechInput = ({
         className="md-text auto-textarea"
         value={value}
         readOnly
+        placeholder="Parlez pour dicter..."
         onKeyDown={handleKeyDown}
         rows={1}
       />
+      <Mirage size="40" speed="4" color="black" />
     </div>
   );
 };

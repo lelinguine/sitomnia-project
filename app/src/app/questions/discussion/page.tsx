@@ -11,6 +11,7 @@ import Bubble from '@/components/text/Bubble';
 import DiscussionModal from '@/components/modal/DiscussionModal';
 
 import { useDiscussion } from '@/context/DiscussionContext';
+import { useUser } from '@/context/UserContext';
 
 type Message = {
   role: 'user' | 'assistant' | 'system';
@@ -20,6 +21,14 @@ type Message = {
 const systemPrompt: Message = {
   role: 'system',
   content: "Ne te présente pas. Ne parle pas de toi. Réponds à la question de manière synthétique, en évitant les détails superflus. Ne fais pas d'introduction, parle directement du sujet de la question. Ne fais pas de liste. Un maximum de 100 mots pour répondre. Si tu ne sais pas répondre à la question, dis que tu ne sais pas. Réponds en français."
+};
+
+const speak = (text: string) => {
+  if (typeof window !== 'undefined' && window.speechSynthesis) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'fr-FR';
+    window.speechSynthesis.speak(utterance);
+  }
 };
 
 const Discussion = () => {
@@ -32,6 +41,8 @@ const Discussion = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [currentPrompt, setCurrentPrompt] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const { settings } = useUser();
 
   // À l'initialisation, créer une discussion si aucune n'est active
   const router = useRouter();
@@ -70,6 +81,13 @@ const Discussion = () => {
     }
   }, [messages]);
 
+  useEffect(() => {
+    return () => {
+      if (typeof window !== 'undefined' && window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
 
   const sendPrompt = async () => {
     if (isLoading || !currentPrompt.trim() || !activeDiscussionId) return;
@@ -130,6 +148,10 @@ const Discussion = () => {
     addMessage(activeDiscussionId, { role: 'assistant', content: responseSoFar });
 
     setIsLoading(false);
+
+    if(settings.textToSpeechEnabled) {
+      speak(responseSoFar);
+    }
   };
 
   return (

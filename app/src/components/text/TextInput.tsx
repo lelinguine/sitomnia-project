@@ -32,6 +32,7 @@ const TextInput = ({
         ref={textareaRef}
         className="md-text auto-textarea"
         value={value}
+        placeholder="Tapez votre question..."
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={handleKeyDown}
         rows={1}
