@@ -101,8 +101,11 @@ main {
 .sm-text {
   font-size: 20px;
 }
+.error {
+  color: #e8505b;
+}
 
-textarea {
+textarea, input {
   border: none;
   outline: none;
   background: transparent;
@@ -114,3 +117,7 @@ textarea {
   width: 100%;
   overflow: hidden;
 }
+
+/* textarea::placeholder, input::placeholder {
+  color: #66737a;
+} */

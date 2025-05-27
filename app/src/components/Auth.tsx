@@ -7,9 +7,11 @@ export default function Auth({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   useEffect(() => {
-    const mail = localStorage.getItem("mail");
-    if (!mail) {
-      //router.replace("/connexion");
+    const email = localStorage.getItem("email");
+    if (!email) {
+      router.replace("/connexion");
+    } else {
+      // récupérer les données utilisateur
     }
   }, [router]);
 
