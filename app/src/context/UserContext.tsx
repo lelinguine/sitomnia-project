@@ -27,7 +27,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Chargement initial depuis localStorage
   useEffect(() => {
-    const saved = localStorage.getItem('userSettings');
+    const saved = localStorage.getItem('settings');
     if (saved) {
       try {
         const parsed: UserSettings = JSON.parse(saved);
@@ -42,7 +42,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   // Sauvegarde automatique dans localStorage
   useEffect(() => {
     if (initialized) {
-      localStorage.setItem('userSettings', JSON.stringify(settings));
+      localStorage.setItem('settings', JSON.stringify(settings));
     }
   }, [settings, initialized]);
 
