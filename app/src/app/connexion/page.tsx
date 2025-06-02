@@ -19,8 +19,8 @@ const Connexion = () => {
 
   const inputRef = useRef(null);
 
-  useEffect(() => {    
-    inputRef.current.focus();
+  useEffect(() => {
+    inputRef.current?.focus();
   }, []);
 
   const validateEmail = (value) => {
@@ -52,7 +52,9 @@ const Connexion = () => {
     });
 
     if (!res.ok) {
-      console.error('Erreur HTTP:', res.status);
+      // router.push('/parametrage');
+      setError("Cet email n'est pas reconnu");
+      setIsEmailValid(false);
       return;
     }
 
