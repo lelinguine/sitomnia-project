@@ -42,9 +42,23 @@ const Connexion = () => {
   };
 
   const connectUser = async () => {
+
     if (!isEmailValid) return;
 
-    localStorage.setItem('email', email);
+    const res = await fetch('http://localhost:8000/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email }),
+    });
+
+    if (!res.ok) {
+      console.error('Erreur HTTP:', res.status);
+      return;
+    }
+
+    const data = await res.json();
+    
+    localStorage.setItem('email', data.user.email);
     router.push('/acceuil');
   };
 
