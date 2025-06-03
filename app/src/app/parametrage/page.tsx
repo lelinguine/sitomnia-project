@@ -11,7 +11,7 @@ import { useUser } from '@/context/UserContext';
 
 const Parametrage = () => {
   const router = useRouter();
-  const { settings } = useUser();
+  const { updateUser } = useUser();
 
   const [name, setName] = useState('');
   const [error, setError] = useState('');
@@ -42,10 +42,9 @@ const Parametrage = () => {
   };
 
   const setUser = async () => {
-
     if (!isNameValid) return;
-    
-    router.push('/questionnaire');
+    updateUser({ name: name });
+    router.push('/acceuil');
   };
 
   return (

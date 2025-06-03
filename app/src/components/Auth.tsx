@@ -1,14 +1,19 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function Auth({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const checkAuth = async () => {
-      const email = localStorage.getItem("email");
+
+      const user = JSON.parse(localStorage.getItem("utilisateur") || "{}");
+
+      const email = user.email || "";
+
       if (!email) {
         localStorage.clear();
         router.replace("/connexion");
@@ -22,15 +27,16 @@ export default function Auth({ children }: { children: React.ReactNode }) {
           body: JSON.stringify({ email }),
         });
 
-        if (!res.ok) {
+        const shouldRedirect = pathname !== "/parametrage";
+
+        if (!res.ok && shouldRedirect) {
           // Email non reconnu par le backend → rediriger
-          router.replace("/connexion");
+          //router.replace("/connexion");
         }
 
         const data = await res.json();
 
-        localStorage.setItem('notes', JSON.stringify(data.notes || []));
-        localStorage.setItem('discussions', JSON.stringify(data.discussions || []));
+        //charger les données utilisateur : TODO
 
       } catch (error) {
         console.error("Erreur d'authentification :", error);
@@ -39,7 +45,7 @@ export default function Auth({ children }: { children: React.ReactNode }) {
     };
 
     checkAuth();
-  }, [router]);
+  }, [router, pathname]);
 
   return <>{children}</>;
 }

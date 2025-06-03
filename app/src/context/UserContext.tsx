@@ -1,4 +1,3 @@
-// context/UserContext.tsx
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
@@ -8,10 +7,17 @@ type UserSettings = {
   sharePersonalData: boolean;
 };
 
+type UserInfo = {
+  name: string;
+  email: string;
+};
+
 type UserContextType = {
   settings: UserSettings;
+  user: UserInfo;
   toggleTextToSpeech: () => void;
   toggleSharePersonalData: () => void;
+  updateUser: (newUser: Partial<UserInfo>) => void;
 };
 
 const defaultSettings: UserSettings = {
@@ -19,32 +25,55 @@ const defaultSettings: UserSettings = {
   sharePersonalData: true,
 };
 
+const defaultUser: UserInfo = {
+  name: '',
+  email: '',
+};
+
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [settings, setSettings] = useState<UserSettings>(defaultSettings);
+  const [user, setUser] = useState<UserInfo>(defaultUser);
   const [initialized, setInitialized] = useState(false);
 
   // Chargement initial depuis localStorage
   useEffect(() => {
-    const saved = localStorage.getItem('reglages');
-    if (saved) {
+    const savedSettings = localStorage.getItem('reglages');
+    const savedUser = localStorage.getItem('utilisateur');
+
+    if (savedSettings) {
       try {
-        const parsed: UserSettings = JSON.parse(saved);
-        setSettings(parsed);
+        setSettings(JSON.parse(savedSettings));
       } catch (e) {
-        console.error("Erreur de parsing des paramètres utilisateur", e);
+        console.error("Erreur de parsing des réglages utilisateur", e);
       }
     }
+
+    if (savedUser) {
+      try {
+        setUser(JSON.parse(savedUser));
+      } catch (e) {
+        console.error("Erreur de parsing des infos utilisateur", e);
+      }
+    }
+
     setInitialized(true);
   }, []);
 
-  // Sauvegarde automatique dans localStorage
+  // Sauvegarde des réglages
   useEffect(() => {
     if (initialized) {
       localStorage.setItem('reglages', JSON.stringify(settings));
     }
   }, [settings, initialized]);
+
+  // Sauvegarde des infos utilisateur
+  useEffect(() => {
+    if (initialized) {
+      localStorage.setItem('utilisateur', JSON.stringify(user));
+    }
+  }, [user, initialized]);
 
   const toggleTextToSpeech = () => {
     setSettings(prev => ({
@@ -60,12 +89,18 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     }));
   };
 
+  const updateUser = (newUser: Partial<UserInfo>) => {
+    setUser(prev => ({ ...prev, ...newUser }));
+  };
+
   return (
     <UserContext.Provider
       value={{
         settings,
+        user,
         toggleTextToSpeech,
         toggleSharePersonalData,
+        updateUser,
       }}
     >
       {children}
