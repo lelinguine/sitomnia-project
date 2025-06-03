@@ -53,7 +53,6 @@ const Connexion = () => {
 
     if (!res.ok) {
       router.push('/parametrage');
-      setError("Cet email n'est pas reconnu");
       setIsEmailValid(false);
       return;
     }
