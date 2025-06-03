@@ -31,7 +31,8 @@ import {
     CircleStop,
     User,
     Unplug,
-    CircleX
+    CircleX,
+    CheckCheck
 } from "lucide-react";
 
 const icons = {
@@ -65,7 +66,8 @@ const icons = {
     CircleStop,
     User,
     Unplug,
-    CircleX
+    CircleX,
+    CheckCheck
 };
 
 const Icon = ({ icon, size }) => {
