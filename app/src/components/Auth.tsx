@@ -29,8 +29,8 @@ export default function Auth({ children }: { children: React.ReactNode }) {
 
         const data = await res.json();
 
-        localStorage.setItem('notes', JSON.stringify(data.notes));
-        localStorage.setItem('discussions', JSON.stringify(data.discussions));
+        localStorage.setItem('notes', JSON.stringify(data.notes || []));
+        localStorage.setItem('discussions', JSON.stringify(data.discussions || []));
 
       } catch (error) {
         console.error("Erreur d'authentification :", error);

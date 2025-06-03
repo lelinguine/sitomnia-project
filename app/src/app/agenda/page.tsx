@@ -16,7 +16,7 @@ const Agenda = () => {
       <div className="view">
         <div className="thread">
           <span className="sm-text">
-            Panifier les évènements particuliers ou récurrents de votre journée.
+            Planifier les évènements particuliers ou récurrents de votre journée.
           </span>
 
           <div className='content'>

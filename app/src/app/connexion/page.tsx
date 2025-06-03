@@ -24,7 +24,7 @@ const Connexion = () => {
   }, []);
 
   const validateEmail = (value) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const regex = /^[^\s@]{2,}@[^\s@]{2,}\.[^\s@]{2,}$/;
     return regex.test(value);
   };
 
@@ -52,8 +52,7 @@ const Connexion = () => {
     });
 
     if (!res.ok) {
-      // router.push('/parametrage');
-      setError("Cet email n'est pas reconnu");
+      router.push('/parametrage');
       setIsEmailValid(false);
       return;
     }
