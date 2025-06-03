@@ -17,17 +17,21 @@ const NoteContext = createContext<NoteContextType | undefined>(undefined);
 
 export const NoteProvider = ({ children }: { children: React.ReactNode }) => {
   const [notes, setNotes] = useState<Note[]>([]);
+  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem('notes');
     if (stored) {
       setNotes(JSON.parse(stored));
     }
+    setInitialized(true);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('notes', JSON.stringify(notes));
-  }, [notes]);
+    if (initialized) {
+      localStorage.setItem('notes', JSON.stringify(notes));
+    }
+  }, [notes, initialized]);
 
   useEffect(() => {
     const filtered = notes.filter(note => note.content.trim() !== "");

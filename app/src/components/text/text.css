@@ -3,7 +3,7 @@
     display: flex;
 }
 
-.bubble {
+.bubble, .field {
     border: solid 4px var(--foreground);    
     padding: 20px;
     border-radius: 30px;

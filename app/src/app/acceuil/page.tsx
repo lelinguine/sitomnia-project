@@ -12,7 +12,7 @@ const Main = () => {
       </div>
 
       <div className='modal'>
-        <span className='sm-text'>v0.1-a</span>
+        <span className='sm-text'>v0.2-a</span>
       </div>
     </>
   );

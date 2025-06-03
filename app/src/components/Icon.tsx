@@ -28,7 +28,10 @@ import {
     Info,
     TestTube,
     SquarePen,
-    CircleStop
+    CircleStop,
+    User,
+    Unplug,
+    CircleX
 } from "lucide-react";
 
 const icons = {
@@ -59,7 +62,10 @@ const icons = {
     Info,
     TestTube,
     SquarePen,
-    CircleStop
+    CircleStop,
+    User,
+    Unplug,
+    CircleX
 };
 
 const Icon = ({ icon, size }) => {
