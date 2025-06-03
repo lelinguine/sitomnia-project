@@ -11,7 +11,7 @@ import { useUser } from '@/context/UserContext';
 
 const Connexion = () => {
   const router = useRouter();
-  const { settings } = useUser();
+  const { updateUser } = useUser();
 
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
@@ -52,14 +52,16 @@ const Connexion = () => {
     });
 
     if (!res.ok) {
-      router.push('/parametrage');
+      updateUser({ email: email });
       setIsEmailValid(false);
+      router.push('/parametrage');
       return;
     }
 
     const data = await res.json();
+    const user = data.user
     
-    localStorage.setItem('email', data.user.email);
+    updateUser({ email: user.email, name: user.prenom });
     router.push('/acceuil');
   };
 
