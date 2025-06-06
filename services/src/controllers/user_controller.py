@@ -1,54 +1,59 @@
 from fastapi import HTTPException
-from ..models.user import User, AuthRequest, UserUpdateRequest
+from ..models.user import User, UserRequest
+from ..auth.jwt_handler import create_access_token
 from typing import List
 
 # Données factices
-fake_users_db: List[User] = [
-    User(email="alice@example.com", prenom="Alice", id="1"),
-    User(email="bob@example.com", prenom="Bob", id="2"),
+users_db: List[User] = [
+    User(
+        id="1",
+        email="alice@example.com",
+        name="Alice",
+        reglages= [{
+            "textToSpeechEnabled": False,
+            "sharePersonalData": True,
+        }],
+        discussions=[{"id":"6d3e8241-6bc2-42f9-b7df-c619ef3c408d","messages":[{"role":"user","content":"Quels sont les risques domestiques qui apparaissent avec l'âge ?"},{"role":"assistant","content":"Les risques domestiques liés à l'âge incluent une augmentation du risque d'accidents et de blessures chez les personnes âgées. Parmi ceux-ci, on peut citer :\n\n* Les chutes en raison de problèmes de mobilité ou de vision,\n* Les troubles de la marche qui rendent difficile la navigation dans des surfaces non régulières,\n* Des accidents liés à la manipulation de produits domestiques avec des griffes raccordées,\n* Des problèmes respiratoires causés par les fumées des cordes électriques ou des feux de cheminée sans surveillance.\n\nCes risques peuvent être atténués en améliorant la sécurité de l'environnement et en mettant en place des mesures préventives adaptées."}]}],
+        notes=[],
+        agenda=[],
+        preventions=[],
+        questionnaire=[]
+    ),
 ]
 
-def authenticate_user(request: AuthRequest):
-    for user in fake_users_db:
+# Fonction pour gérer la connexion d'un utilisateur
+def login_user(request: UserRequest):
+    for user in users_db:
         if user.email == request.email:
+            token = create_access_token({"sub": user.email})
             return {
                 "status": "success",
-                "user": user.dict(exclude={"id"})
+                "token": token,
+                "user": user.model_dump(exclude={"id"})
             }
     raise HTTPException(status_code=404, detail="Email not found")
 
-def update_user_info(request: UserUpdateRequest):
-    for idx, user in enumerate(fake_users_db):
-        if user.email == request.email:
-            original = user.copy()
-            update_data = request.dict(exclude_unset=True, exclude={"email"})
-            for field, value in update_data.items():
-                setattr(user, field, value)
-            fake_users_db[idx] = user
+# Fonction pour obtenir les informations d'un utilisateur
+def get_user_info(email: str):
+    for user in users_db:
+        if user.email == email:
             return {
                 "status": "success",
-                "original_user": original,
-                "updated_user": user
+                "user": user.model_dump(exclude={"id"})
             }
-    raise HTTPException(status_code=404, detail="Email not found")
+    raise HTTPException(status_code=404, detail="User not found")
 
-def create_user_info(request: UserUpdateRequest):
-    """
-    Si l'email existe déjà, renvoie une erreur 400.
-    Sinon, ajoute l'utilisateur à la base de données factice et renvoie les informations de l'utilisateur créé.
-    """
-    # Vérifier si l'email existe déjà
-    for user in fake_users_db:
+# Fonction pour créer un nouvel utilisateur
+def create_user_info(request: UserRequest):
+    for user in users_db:
         if user.email == request.email:
             raise HTTPException(status_code=400, detail="Email already exists")
 
-    # Créer un nouvel id d'utilisateur
-    new_id = str(len(fake_users_db) + 1)
+    new_id = str(len(users_db) + 1)
 
-    # Créer un nouvel utilisateur avec les données fournies
     new_user = User(
         email=request.email,
-        prenom=request.prenom or "",    # si prenom est None, le mettre à une chaîne vide
+        name=request.name or "",
         id=new_id,
         discussions=request.discussions or [],
         notes=request.notes or [],
@@ -58,11 +63,26 @@ def create_user_info(request: UserUpdateRequest):
         questionnaire=request.questionnaire or []
     )
 
-    # Ajouter le nouvel utilisateur à la base de données factice
-    fake_users_db.append(new_user)
+    users_db.append(new_user)
+    token = create_access_token({"sub": new_user.email})
 
-    # Retourner une réponse de succès
     return {
         "status": "success",
+        "token": token,
         "user": new_user
     }
+
+# Fonction pour mettre à jour les informations d'un utilisateur
+def update_user_info(request: UserRequest, email: str):
+    for idx, user in enumerate(users_db):
+        if user.email == email:
+            original = user.model_copy()
+            update_data = request.model_dump(exclude_unset=True, exclude={"email"})
+            for field, value in update_data.items():
+                setattr(user, field, value)
+            users_db[idx] = user
+            return {
+                "status": "success",
+                "user": user
+            }
+    raise HTTPException(status_code=404, detail="Email not found")

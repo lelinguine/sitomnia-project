@@ -3,44 +3,43 @@
 import { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
+import { verifyUser } from "@controller/UserController";
+
+import { useUser } from '@/context/UserContext';
+import { useDiscussion } from "@/context/DiscussionContext";
+
 export default function Auth({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
 
+  const { updateUser, updateSettings } = useUser();
+  const { updateDiscussions, discussions } = useDiscussion();
+
   useEffect(() => {
     const checkAuth = async () => {
 
-      const user = JSON.parse(localStorage.getItem("utilisateur") || "{}");
-
-      const email = user.email || "";
-
-      if (!email) {
-        localStorage.clear();
-        router.replace("/connexion");
+      const token = localStorage.getItem("token");
+      if (!token) {
+        if (pathname !== "/parametrage" && pathname !== "/questionnaire") {
+          router.replace("/connexion");
+        }
         return;
       }
 
-      try {
-        const res = await fetch("http://localhost:8000/auth", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
+      const res = await verifyUser(token);
+      if (!res || res.status !== "success") {
+        localStorage.clear();
+        router.replace("/connexion");
+        return;
+      } else {
+        updateUser({ email: res.user.email, name: res.user.name });
+
+        updateSettings({
+          textToSpeechEnabled: res.user.reglages[0].textToSpeechEnabled,
+          sharePersonalData: res.user.reglages[0].sharePersonalData,
         });
 
-        const shouldRedirect = pathname !== "/parametrage";
-
-        if (!res.ok && shouldRedirect) {
-          // Email non reconnu par le backend → rediriger
-          //router.replace("/connexion");
-        }
-
-        const data = await res.json();
-
-        //charger les données utilisateur : TODO
-
-      } catch (error) {
-        console.error("Erreur d'authentification :", error);
-        router.replace("/connexion");
+        updateDiscussions(res.user.discussions);
       }
     };
 

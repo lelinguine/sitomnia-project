@@ -1,6 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useRef } from 'react';
+import { updateUserData } from "@controller/UserController";
 
 type UserSettings = {
   textToSpeechEnabled: boolean;
@@ -18,6 +19,7 @@ type UserContextType = {
   toggleTextToSpeech: () => void;
   toggleSharePersonalData: () => void;
   updateUser: (newUser: Partial<UserInfo>) => void;
+  updateSettings: (newSettings: Partial<UserSettings>) => void;
 };
 
 const defaultSettings: UserSettings = {
@@ -35,45 +37,55 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [settings, setSettings] = useState<UserSettings>(defaultSettings);
   const [user, setUser] = useState<UserInfo>(defaultUser);
-  const [initialized, setInitialized] = useState(false);
 
-  // Chargement initial depuis localStorage
-  useEffect(() => {
-    const savedSettings = localStorage.getItem('reglages');
-    const savedUser = localStorage.getItem('utilisateur');
-
-    if (savedSettings) {
-      try {
-        setSettings(JSON.parse(savedSettings));
-      } catch (e) {
-        console.error("Erreur de parsing des réglages utilisateur", e);
-      }
-    }
-
-    if (savedUser) {
-      try {
-        setUser(JSON.parse(savedUser));
-      } catch (e) {
-        console.error("Erreur de parsing des infos utilisateur", e);
-      }
-    }
-
-    setInitialized(true);
-  }, []);
+  const isInitialMount = useRef(true);
+  const skipNextSettingsSave = useRef(false);
+  const skipNextUserSave = useRef(false);
 
   // Sauvegarde des réglages
   useEffect(() => {
-    if (initialized) {
-      localStorage.setItem('reglages', JSON.stringify(settings));
+    if (isInitialMount.current || skipNextSettingsSave.current) {
+      skipNextSettingsSave.current = false;
+      return;
     }
-  }, [settings, initialized]);
+
+    const token = localStorage.getItem("token") || "";
+
+    const saveSettings = async () => {
+      try {
+        await updateUserData({ reglages: [settings] }, token);
+      } catch (error) {
+        console.error("Error updating user settings:", error);
+      }
+    };
+
+    saveSettings();
+  }, [settings]);
 
   // Sauvegarde des infos utilisateur
   useEffect(() => {
-    if (initialized) {
-      localStorage.setItem('utilisateur', JSON.stringify(user));
+    if (isInitialMount.current || skipNextUserSave.current) {
+      skipNextUserSave.current = false;
+      return;
     }
-  }, [user, initialized]);
+
+    const token = localStorage.getItem("token") || "";
+
+    const saveUser = async () => {
+      try {
+        await updateUserData({ name: user.name }, token);
+      } catch (error) {
+        console.error("Error updating user info:", error);
+      }
+    };
+
+    saveUser();
+  }, [user]);
+
+  // Reset le flag initial mount
+  useEffect(() => {
+    isInitialMount.current = false;
+  }, []);
 
   const toggleTextToSpeech = () => {
     setSettings(prev => ({
@@ -90,7 +102,13 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const updateUser = (newUser: Partial<UserInfo>) => {
+    skipNextUserSave.current = true;
     setUser(prev => ({ ...prev, ...newUser }));
+  };
+
+  const updateSettings = (newSettings: Partial<UserSettings>) => {
+    skipNextSettingsSave.current = true;
+    setSettings(prev => ({ ...prev, ...newSettings }));
   };
 
   return (
@@ -101,6 +119,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         toggleTextToSpeech,
         toggleSharePersonalData,
         updateUser,
+        updateSettings
       }}
     >
       {children}

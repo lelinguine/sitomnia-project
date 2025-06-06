@@ -14,13 +14,13 @@ type DiscussionContextType = {
   discussions: Discussion[];
   createDiscussionId: () => string;
   addMessage: (discussionId: string, message: Message) => void;
+  updateDiscussions: (newDiscussions: Discussion[]) => void;
 };
 
 const DiscussionContext = createContext<DiscussionContextType | undefined>(undefined);
 
 export const DiscussionProvider = ({ children }: { children: React.ReactNode }) => {
   const [discussions, setDiscussions] = useState<Discussion[]>([]);
-  const [initialized, setInitialized] = useState(false);
 
   const createDiscussionId = (): string => {
     return uuidv4();
@@ -47,24 +47,18 @@ export const DiscussionProvider = ({ children }: { children: React.ReactNode }) 
     });
   };
 
-  // Restauration depuis localStorage
-  useEffect(() => {
-    const saved = localStorage.getItem('discussions');
-    if (saved) {
-      const parsed: Discussion[] = JSON.parse(saved);
-      if (parsed.length > 0) {
-        setDiscussions(parsed);
-      }
-    }
-    setInitialized(true);
-  }, []);
-
   // Sauvegarde automatique
   useEffect(() => {
-    if (initialized) {
-      localStorage.setItem('discussions', JSON.stringify(discussions));
-    }
-  }, [discussions, initialized]);
+
+
+
+
+
+  }, [discussions]);
+
+  const updateDiscussions = (newDiscussions: Discussion[]) => {
+    setDiscussions(newDiscussions);
+  }
 
   return (
     <DiscussionContext.Provider
@@ -72,6 +66,7 @@ export const DiscussionProvider = ({ children }: { children: React.ReactNode }) 
         discussions,
         createDiscussionId,
         addMessage,
+        updateDiscussions,
       }}
     >
       {children}

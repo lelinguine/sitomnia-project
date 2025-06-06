@@ -38,3 +38,7 @@
 .back-button {
     width: 160px;
 }
+
+.toggle-button {
+    cursor: pointer;
+}

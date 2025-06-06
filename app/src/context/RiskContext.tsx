@@ -15,7 +15,6 @@ const RiskContext = createContext<RiskContextType | undefined>(undefined);
 
 export const RiskProvider = ({ children }: { children: React.ReactNode }) => {
   const [risks, setRisksState] = useState<Risk[]>([]);
-  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem('preventions');
@@ -32,15 +31,11 @@ export const RiskProvider = ({ children }: { children: React.ReactNode }) => {
       setRisksState(defaultRisks);
       localStorage.setItem('preventions', JSON.stringify(defaultRisks));
     }
-
-    setInitialized(true);
   }, []);
 
   useEffect(() => {
-    if (initialized) {
-      localStorage.setItem('preventions', JSON.stringify(risks));
-    }
-  }, [risks, initialized]);
+    localStorage.setItem('preventions', JSON.stringify(risks));
+  }, [risks]);
 
   const setRisks = (newRisks: Risk[]) => {
     setRisksState(newRisks);

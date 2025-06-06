@@ -22,17 +22,17 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         <main>
-          <UserProvider>
-            <NoteProvider>
-              <DiscussionProvider>
-                <RiskProvider>
+          <NoteProvider>
+            <DiscussionProvider>
+              <RiskProvider>
+                <UserProvider>
                   <Auth>
                     {children}
                   </Auth>
-                </RiskProvider>
-              </DiscussionProvider>
-            </NoteProvider>
-          </UserProvider>
+                </UserProvider>
+              </RiskProvider>
+            </DiscussionProvider>
+          </NoteProvider>
         </main>
       </body>
     </html>

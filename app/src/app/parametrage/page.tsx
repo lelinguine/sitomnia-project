@@ -21,6 +21,11 @@ const Parametrage = () => {
 
   useEffect(() => {
     inputRef.current?.focus();
+    const savedName = localStorage.getItem('name');
+    if (savedName) {
+      setName(savedName);
+      setIsNameValid(validateName(savedName));
+    }
   }, []);
 
   const validateName = (value) => {
@@ -43,8 +48,8 @@ const Parametrage = () => {
 
   const setUser = async () => {
     if (!isNameValid) return;
-    updateUser({ name: name });
-    router.push('/acceuil');
+    localStorage.setItem('name', name);
+    router.push('/questionnaire');
   };
 
   return (
@@ -59,10 +64,10 @@ const Parametrage = () => {
 
           <div className='content'>
             <TextField
-              title="Nom"
-              subtitle="Votre nom permettra de personnaliser l'expérience."
+              title="Prénom"
+              subtitle="Votre prénom personnalise l'expérience."
               value={name}
-              placeholder="Tapez votre nom"
+              placeholder="Tapez votre prénom"
               type="name"
               handleChange={handleNameChange}
               onKeyDown={setUser}
