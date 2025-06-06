@@ -8,7 +8,12 @@ fake_users_db: List[User] = [
     User(email="bob@example.com", prenom="Bob", id="2"),
 ]
 
+
 def authenticate_user(request: AuthRequest):
+    """
+    Authentifie un utilisateur en vérifiant l'email et le mot de passe.
+    Si l'email et le mot de passe correspondent, renvoie les informations de l'utilisateur.
+    """
     for user in fake_users_db:
         if user.email == request.email:
             return {
@@ -18,6 +23,10 @@ def authenticate_user(request: AuthRequest):
     raise HTTPException(status_code=404, detail="Email not found")
 
 def update_user_info(request: UserUpdateRequest):
+    """
+    Met à jour les informations de l'utilisateur en fonction de l'email fourni.
+    Si l'email n'existe pas, renvoie une erreur 404. 
+    """
     for idx, user in enumerate(fake_users_db):
         if user.email == request.email:
             original = user.copy()
