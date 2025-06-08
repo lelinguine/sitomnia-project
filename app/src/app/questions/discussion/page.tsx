@@ -18,11 +18,6 @@ type Message = {
   content: string;
 };
 
-const systemPrompt: Message = {
-  role: 'system',
-  content: "Ne te présente pas. Ne parle pas de toi. Réponds à la question de manière synthétique, en évitant les détails superflus. Ne fais pas d'introduction, parle directement du sujet de la question. Ne fais pas de liste. Un maximum de 100 mots pour répondre. Si tu ne sais pas répondre à la question, dis que tu ne sais pas. Réponds en français."
-};
-
 const speak = (text: string) => {
   if (typeof window !== 'undefined' && window.speechSynthesis) {
     const utterance = new SpeechSynthesisUtterance(text);
@@ -42,7 +37,16 @@ const Discussion = () => {
   const [currentPrompt, setCurrentPrompt] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const { settings } = useUser();
+  const { settings, user, questionnaire } = useUser();
+
+  const systemPrompt: Message = {
+    role: 'system',
+    content: "Ne te présente pas. Ne parle pas de toi. Réponds à la question de manière synthétique, en évitant les détails superflus. Ne fais pas d'introduction, parle directement du sujet de la question. Ne fais pas de liste. Un maximum de 100 mots pour répondre. Si tu ne sais pas répondre à la question, dis que tu ne sais pas. Réponds en français."
+  };
+
+  if (settings.sharePersonalData) {
+    systemPrompt.content += `\n\nVoici quelques information me concernant :\n- Nom : ${user.name}\n- Questionnaire : ${questionnaire}\n Utilises ces informations pour personnaliser tes réponses; Appelles l'utilisateur par son nom mais ne mentionne pas le questionnaire, utilises simplement les réponses pour orienter tes réponses`;
+  }
 
   const currentController = useRef<AbortController | null>(null);
 
