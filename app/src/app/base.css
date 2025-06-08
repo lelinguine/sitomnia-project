@@ -110,7 +110,21 @@ main {
   color: #e8505b;
 }
 
-textarea, input:not([type="checkbox"]) {
+textarea {
+  border: none;
+  outline: none;
+  background: transparent;
+  resize: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  width: 100%;
+  overflow: hidden;
+}
+
+
+input::not([type="checkbox"]) {
   border: none;
   outline: none;
   background: transparent;

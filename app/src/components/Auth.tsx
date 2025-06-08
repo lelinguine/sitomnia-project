@@ -8,6 +8,7 @@ import { verifyUser } from "@controller/UserController";
 import { useUser } from '@/context/UserContext';
 import { useDiscussion } from "@/context/DiscussionContext";
 import { useNote } from "@/context/NotesContext";
+import { useRisk } from "@/context/RiskContext";
 
 export default function Auth({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -16,6 +17,7 @@ export default function Auth({ children }: { children: React.ReactNode }) {
   const { updateUser, updateSettings, updateQuestionnaire } = useUser();
   const { updateDiscussions } = useDiscussion();
   const { updateNotes } = useNote();
+  const { updateRiks } = useRisk();
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -46,12 +48,13 @@ export default function Auth({ children }: { children: React.ReactNode }) {
         } 
 
         updateSettings({
-          textToSpeechEnabled: res.user.reglages.textToSpeechEnabled,
-          sharePersonalData: res.user.reglages.sharePersonalData,
+          textToSpeechEnabled: res.user.reglages[0].textToSpeechEnabled,
+          sharePersonalData: res.user.reglages[0].sharePersonalData,
         });
 
         updateDiscussions(res.user.discussions);
         updateNotes(res.user.notes);
+        updateRiks(res.user.preventions);
       }
     };
 

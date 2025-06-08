@@ -1,13 +1,13 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 
 import type { Risk } from '@assets/data/risks';
-import defaultRisks from '@assets/data/risks';
+
+import { updateUserData } from "@controller/UserController";
 
 type RiskContextType = {
   risks: Risk[];
-  setRisks: (newRisks: Risk[]) => void;
   updateRiskItemCheck: (riskSlug: string, itemSlug: string, checked: boolean) => void;
   updateRiks: (newRisks: Risk[]) => void;
   addRisks: (newRisks: Risk[]) => void;
@@ -18,17 +18,8 @@ const RiskContext = createContext<RiskContextType | undefined>(undefined);
 export const RiskProvider = ({ children }: { children: React.ReactNode }) => {
   const [risks, setRisksState] = useState<Risk[]>([]);
 
-  useEffect(() => {
-
-  }, []);
-
-  useEffect(() => {
-    //localStorage.setItem('preventions', JSON.stringify(risks));
-  }, [risks]);
-
-  const setRisks = (newRisks: Risk[]) => {
-    setRisksState(newRisks);
-  };
+  const isInitialMount = useRef(true);
+  const skipNextSave = useRef(false);
 
   const updateRiskItemCheck = (riskSlug: string, itemSlug: string, checked: boolean) => {
     setRisksState(prev =>
@@ -45,7 +36,41 @@ export const RiskProvider = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
+  // Reset le flag initial mount
+  useEffect(() => {
+    isInitialMount.current = false;
+  }, []);
+
+  //Sauvegarde
+    useEffect(() => {
+
+    if (isInitialMount.current || skipNextSave.current) {
+      skipNextSave.current = false;
+      return;
+    }
+
+    if (risks.length === 0) {
+      return;
+    }
+
+    const token = localStorage.getItem("token") || "";
+    
+    const saveRisks = async () => {
+      try {
+        const preventions = risks;
+        const res = await updateUserData({ preventions }, token);
+        console.log("Risks updated successfully:", res);
+      } catch (error) {
+        console.error("Error updating discussions:", error);
+      }
+    };
+  
+    saveRisks();
+
+  }, [risks]);
+
   const updateRiks = (newRisks: Risk[]) => {
+    skipNextSave.current = true;
     setRisksState(newRisks);
   }
 
@@ -54,7 +79,7 @@ export const RiskProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <RiskContext.Provider value={{ risks, setRisks, updateRiskItemCheck, updateRiks, addRisks }}>
+    <RiskContext.Provider value={{ risks, updateRiskItemCheck, updateRiks, addRisks }}>
       {children}
     </RiskContext.Provider>
   );

@@ -20,20 +20,20 @@ const Resultats = () => {
                         Vous avez terminé le questionnaire. Voici les réponses que vous avez fournies.
                     </span>
 
-                            {questionnaire.length === 0 ? (
-                            <span className="md-text">Aucune réponse fournie.</span>
-                        ) : (
-                            questionnaire.map((item, index) => (
-                                <div key={index} className="content">
-                                    <span className="md-text">{item.question}</span>
-                                    <ul className="pl-4 list-disc">
-                                        {item.reponses.map((rep, idx) => (
-                                            <li key={idx} className="sm-text">{rep}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            ))
-                        )}
+                    { questionnaire && questionnaire.length > 0 ? (
+                        questionnaire.map((item, index) => (
+                            <div key={index} className="content">
+                                <span className="md-text">{item.question}</span>
+                                <ul className="pl-4 list-disc">
+                                    {item.reponses.map((rep, idx) => (
+                                        <li key={idx} className="sm-text">{rep}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))
+                    ) : (
+                        <span className="md-text">Aucune réponse fournie.</span>
+                    )}
 
                 </div>
             </div>

@@ -38,7 +38,7 @@ const Reglages = () => {
             </div>
           </div>
 
-          {/* <div className='content'>
+          <div className='content'>
             <div>
               <div className='flex items-center gap-[10px]'>
                 <ToggleButton isChecked={settings.sharePersonalData} onClick={toggleSharePersonalData} />
@@ -48,7 +48,7 @@ const Reglages = () => {
                 Activer le partage des informations personnelles pour améliorer les réponses de l’intelligence artificielle.
               </span>
             </div>
-          </div> */}
+          </div>
 
           {/* <div className='content'>
             <TextField
@@ -89,7 +89,7 @@ const Reglages = () => {
 
           </div>
 
-          {/* <div className='content'>
+          <div className='content'>
             <span className="md-text mb-[-10px]">
               Rapport de bug
             </span>
@@ -101,10 +101,10 @@ const Reglages = () => {
             <ActionButton
               icon="Bug"
               text="Rapport"
-              onClick={null}
+              onClick={() => router.push('mailto:valentin.luginbuhl@etu.univ-grenoble-alpes.fr?subject=Rapport de bug - Sitomnia')}
             />
 
-          </div> */}
+          </div>
 
         </div>
       </div>

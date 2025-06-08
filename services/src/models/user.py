@@ -1,10 +1,6 @@
 from pydantic import BaseModel, EmailStr
 from typing import List, Optional
 
-class UserSettings(BaseModel):
-    textToSpeechEnabled: bool
-    sharePersonalData: bool
-
 class User(BaseModel):
     id: str
     email: EmailStr
@@ -13,7 +9,7 @@ class User(BaseModel):
     notes: List = []
     agenda: List = []
     preventions: List = []
-    reglages: List[UserSettings] = []
+    reglages: List = []
     questionnaire: List = []
 
 class UserRequest(BaseModel):
@@ -23,5 +19,5 @@ class UserRequest(BaseModel):
     notes: Optional[List] = None
     agenda: Optional[List] = None
     preventions: Optional[List] = None
-    reglages: Optional[UserSettings] = None
+    reglages: Optional[List] = None
     questionnaire: Optional[List] = None

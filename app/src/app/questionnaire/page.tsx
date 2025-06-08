@@ -4,11 +4,13 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { getAllQuestions } from '@assets/data/questions';
+import defaultRisks from '@assets/data/risks';
 
 import Bar from '@/components/Bar';
 import ActionModal from '@/components/modal/ActionModal';
 
 import { useUser } from '@/context/UserContext';
+import { useRisk } from '@/context/RiskContext';
 
 const optionToQuestionMap = [
   { option: "Entrée", index: 1 },
@@ -28,6 +30,7 @@ const optionToQuestionMap = [
 const Questionnaire = () => {
     const router = useRouter();
     const { addQuestionnaireAnswer, questionnaire } = useUser();
+    const { addRisks } = useRisk();
 
     const allQuestions = getAllQuestions();
 
@@ -104,16 +107,8 @@ const Questionnaire = () => {
             //set questionnaire
             addQuestionnaireAnswer(data);
 
-
-
-
             //set risks
-
-
-
-
-
-
+            addRisks(defaultRisks);
 
             router.push('/questionnaire/resultats');
         }

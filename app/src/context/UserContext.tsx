@@ -68,7 +68,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
     const saveSettings = async () => {
       try {
-        await updateUserData({ reglages: settings }, token);
+        await updateUserData({ reglages: [settings] }, token);
       } catch (error) {
         console.error("Error updating user settings:", error);
       }
