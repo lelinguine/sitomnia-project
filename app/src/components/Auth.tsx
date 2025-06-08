@@ -13,7 +13,7 @@ export default function Auth({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const { updateUser, updateSettings } = useUser();
+  const { updateUser, updateSettings, updateQuestionnaire } = useUser();
   const { updateDiscussions } = useDiscussion();
   const { updateNotes } = useNote();
 
@@ -22,7 +22,7 @@ export default function Auth({ children }: { children: React.ReactNode }) {
 
       const token = localStorage.getItem("token");
       if (!token) {
-        if (pathname !== "/parametrage" && pathname !== "/questionnaire" && pathname !== "/connexion" && pathname !== "/demarrage") {
+        if (pathname !== "/parametrage" && pathname !== "/connexion" && pathname !== "/demarrage") {
           localStorage.clear();
           router.replace("/demarrage");
         }
@@ -37,15 +37,17 @@ export default function Auth({ children }: { children: React.ReactNode }) {
       } else {
         updateUser({ email: res.user.email, name: res.user.name });
 
-        // if (res.user.questionnaire.length === 0) {
-        //   if (pathname !== "/questionnaire") {
-        //     router.replace("/questionnaire");
-        //   }
-        // }
+        updateQuestionnaire(res.user.questionnaire);
+        if (res.user.questionnaire.length === 0) {
+          if (pathname !== "/questionnaire" && pathname !== "/connexion" && pathname !== "/demarrage"
+            && pathname !== "/parametrage") {
+              router.replace("/questionnaire");
+          }
+        } 
 
         updateSettings({
-          textToSpeechEnabled: res.user.reglages[0].textToSpeechEnabled,
-          sharePersonalData: res.user.reglages[0].sharePersonalData,
+          textToSpeechEnabled: res.user.reglages.textToSpeechEnabled,
+          sharePersonalData: res.user.reglages.sharePersonalData,
         });
 
         updateDiscussions(res.user.discussions);

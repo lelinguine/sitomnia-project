@@ -13,13 +13,21 @@ type UserInfo = {
   email: string;
 };
 
+type QuestionnaireAnswer = {
+  question: string;
+  reponses: string[];
+};
+
 type UserContextType = {
   settings: UserSettings;
   user: UserInfo;
+  questionnaire: QuestionnaireAnswer;
   toggleTextToSpeech: () => void;
   toggleSharePersonalData: () => void;
   updateUser: (newUser: Partial<UserInfo>) => void;
   updateSettings: (newSettings: Partial<UserSettings>) => void;
+  updateQuestionnaire: (newQuestionnaire: QuestionnaireAnswer) => void;
+  addQuestionnaireAnswer: (newQuestionnaire: QuestionnaireAnswer) => void;
 };
 
 const defaultSettings: UserSettings = {
@@ -32,15 +40,22 @@ const defaultUser: UserInfo = {
   email: '',
 };
 
+const defaultQuestionnaire: QuestionnaireAnswer = {
+  question: '',
+  reponses: [],
+};
+
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [settings, setSettings] = useState<UserSettings>(defaultSettings);
   const [user, setUser] = useState<UserInfo>(defaultUser);
+  const [questionnaire, setQuestionnaire] = useState<QuestionnaireAnswer>(defaultQuestionnaire);
 
   const isInitialMount = useRef(true);
   const skipNextSettingsSave = useRef(false);
   const skipNextUserSave = useRef(false);
+  const skipNextQuestionnaireSave = useRef(false);
 
   // Sauvegarde des réglages
   useEffect(() => {
@@ -53,7 +68,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
     const saveSettings = async () => {
       try {
-        await updateUserData({ reglages: [settings] }, token);
+        await updateUserData({ reglages: settings }, token);
       } catch (error) {
         console.error("Error updating user settings:", error);
       }
@@ -81,6 +96,26 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
     saveUser();
   }, [user]);
+
+  // Sauvegarde des réponses au questionnaire
+  useEffect(() => {
+    if (isInitialMount.current || skipNextQuestionnaireSave.current) {
+      skipNextQuestionnaireSave.current = false;
+      return;
+    }
+
+    const token = localStorage.getItem("token") || "";
+
+    const saveQuestionnaire = async () => {
+      try {
+        await updateUserData({ questionnaire: questionnaire }, token);
+      } catch (error) {
+        console.error("Error updating questionnaire:", error);
+      }
+    };
+
+    saveQuestionnaire();
+  }, [questionnaire]);
 
   // Reset le flag initial mount
   useEffect(() => {
@@ -111,15 +146,27 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     setSettings(prev => ({ ...prev, ...newSettings }));
   };
 
+  const updateQuestionnaire = (newQuestionnaire: QuestionnaireAnswer[]) => {
+    skipNextQuestionnaireSave.current = true;
+    setQuestionnaire(newQuestionnaire);
+  };
+
+  const addQuestionnaireAnswer = (newQuestionnaire: QuestionnaireAnswer) => {
+    setQuestionnaire(newQuestionnaire);
+  };
+
   return (
     <UserContext.Provider
       value={{
         settings,
         user,
+        questionnaire,
         toggleTextToSpeech,
         toggleSharePersonalData,
         updateUser,
-        updateSettings
+        updateSettings,
+        updateQuestionnaire,
+        addQuestionnaireAnswer
       }}
     >
       {children}

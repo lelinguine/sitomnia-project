@@ -73,7 +73,7 @@ const DiscussionModal = ({ prompt, setPrompt, onSend, isLoading }: {
 
             <div className="modal-item">
               <ActionButton isSecondary icon="X" text="Annuler" onClick={() => { setPrompt(""); setIsWriting(false); textInputEnable()}}/>
-              <ActionButton isDisable={prompt.trim() === ""} icon="CornerUpRight" text="Demander" onClick={() => { onSend(); setPrompt(""); setIsWriting(false); }}/>
+              <ActionButton isDisable={prompt.trim() === ""} icon="CornerUpRight" text="Demander" onClick={() => { onSend(); setPrompt(""); setIsWriting(false); textInputEnable()}}/>
             </div>
           </div>
         )}
@@ -84,7 +84,7 @@ const DiscussionModal = ({ prompt, setPrompt, onSend, isLoading }: {
 
             <div className="modal-item">
               <ActionButton isSecondary icon="X" text="Annuler" onClick={() => { setPrompt(""); setIsDictating(false); textInputEnable()}}/>
-              <ActionButton isDisable={prompt.trim() === ""} icon="CornerUpRight" text="Demander" onClick={() => { onSend(); setPrompt(""); setIsDictating(false); }}/>
+              <ActionButton isDisable={prompt.trim() === ""} icon="CornerUpRight" text="Demander" onClick={() => { onSend(); setPrompt(""); setIsDictating(false); textInputEnable()}}/>
             </div>
           </div>
         )}

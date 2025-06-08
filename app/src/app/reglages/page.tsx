@@ -27,6 +27,30 @@ const Reglages = () => {
           </span>
 
           <div className='content'>
+            <div>
+              <div className='flex items-center gap-[10px]'>
+                <ToggleButton isChecked={settings.textToSpeechEnabled} onClick={toggleTextToSpeech} />
+                <span className="md-text">Synthèse vocale</span>
+              </div>
+              <span className="sm-text">
+                Activer la synthèse vocale pour écouter les réponses de l’intelligence artificielle.
+              </span>
+            </div>
+          </div>
+
+          {/* <div className='content'>
+            <div>
+              <div className='flex items-center gap-[10px]'>
+                <ToggleButton isChecked={settings.sharePersonalData} onClick={toggleSharePersonalData} />
+                <span className="md-text">Partage des informations</span>
+              </div>
+              <span className="sm-text">
+                Activer le partage des informations personnelles pour améliorer les réponses de l’intelligence artificielle.
+              </span>
+            </div>
+          </div> */}
+
+          {/* <div className='content'>
             <TextField
               isDisable
               title="Adresse email"
@@ -46,7 +70,7 @@ const Reglages = () => {
               placeholder="Tapez votre prénom"
               type="name"
             />
-          </div>
+          </div> */}
 
           <div className='content'>
             <span className="md-text mb-[-10px]">
@@ -60,34 +84,27 @@ const Reglages = () => {
             <ActionButton
               icon="RotateCcw"
               text="Relancer"
-              onClick={() => router.push('/questionnaire')}
+              onClick={() => router.push('/questionnaire/resultats')}
             />
 
           </div>
 
-          <div className='content'>
-            <div>
-              <div className='flex items-center gap-[10px]'>
-                <ToggleButton isChecked={settings.sharePersonalData} onClick={toggleSharePersonalData} />
-                <span className="md-text">Partage des informations</span>
-              </div>
-              <span className="sm-text">
-                Activer le partage des informations personnelles pour améliorer les réponses de l’intelligence artificielle.
-              </span>
-            </div>
-          </div>
+          {/* <div className='content'>
+            <span className="md-text mb-[-10px]">
+              Rapport de bug
+            </span>
 
-          <div className='content'>
-            <div>
-              <div className='flex items-center gap-[10px]'>
-                <ToggleButton isChecked={settings.textToSpeechEnabled} onClick={toggleTextToSpeech} />
-                <span className="md-text">Synthèse vocale</span>
-              </div>
-              <span className="sm-text">
-                Activer la synthèse vocale pour écouter les réponses de l’intelligence artificielle.
-              </span>
-            </div>
-          </div>
+            <span className="sm-text">
+              L'application est un prototype. Si vous rencontrez un bug, n'hésitez pas à le signaler.
+            </span>
+
+            <ActionButton
+              icon="Bug"
+              text="Rapport"
+              onClick={null}
+            />
+
+          </div> */}
 
         </div>
       </div>

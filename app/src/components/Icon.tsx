@@ -34,7 +34,9 @@ import {
     CircleX,
     CheckCheck,
     Check,
-    RotateCcw
+    RotateCcw,
+    CircleHelp,
+    Bug
 } from "lucide-react";
 
 const icons = {
@@ -71,7 +73,9 @@ const icons = {
     CircleX,
     CheckCheck,
     Check,
-    RotateCcw
+    RotateCcw,
+    CircleHelp,
+    Bug
 };
 
 const Icon = ({ icon, size }) => {

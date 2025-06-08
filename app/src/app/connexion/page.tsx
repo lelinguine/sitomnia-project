@@ -59,6 +59,7 @@ const Connexion = () => {
     if (res.status === "success") {
       localStorage.clear();
       localStorage.setItem('token', res.token);
+      localStorage.setItem('email', email);
       router.push('/acceuil');
       return;
     } else {

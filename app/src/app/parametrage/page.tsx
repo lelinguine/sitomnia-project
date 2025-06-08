@@ -20,6 +20,11 @@ const Parametrage = () => {
 
   useEffect(() => {
     inputRef.current?.focus();
+    const savedName = localStorage.getItem('name');
+    if (savedName) {
+      setName(savedName);
+      setIsNameValid(validateName(savedName));
+    }
   }, []);
 
   const validateName = (value) => {
@@ -41,6 +46,7 @@ const Parametrage = () => {
   };
 
   const setUser = async () => {
+    localStorage.setItem('name', name);
     if (!isNameValid) return;
 
     const data = {
@@ -50,22 +56,17 @@ const Parametrage = () => {
 
     const res = await createUserData(data);
 
-    console.log("res", res);
-
     if (!res) {
       setError("Erreur de connexion aux services.");
       return;
     }
     
     if (res.status === "success") {
-      localStorage.clear();
       localStorage.setItem('token', res.token);
 
-      // Redirect to the questionnaire page
-      // router.push('/questionnaire');
-      router.push('/acceuil');
+      router.push('/questionnaire');
     } else {
-      setError("Erreur lors de la création du compte.");
+      setError("Le compte existe déjà, veuillez vous connecter.");
     }
   };
 

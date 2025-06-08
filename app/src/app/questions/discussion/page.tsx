@@ -98,6 +98,9 @@ const Discussion = () => {
   const sendPrompt = async () => {
     if (isLoading || !currentPrompt.trim() || !activeDiscussionId) return;
 
+    const view = document.querySelector(".view") as HTMLElement;
+    view.style.opacity = "1";
+
     setIsLoading(true);
     const newPrompt = currentPrompt;
     setCurrentPrompt('');

@@ -30,6 +30,11 @@ body {
   width: 100vw;
 }
 
+::selection {
+  background: var(--foreground);
+  color: var(--background);
+}
+
 main {
   position: relative;
   display: flex;
@@ -105,7 +110,7 @@ main {
   color: #e8505b;
 }
 
-textarea, input {
+textarea, input:not([type="checkbox"]) {
   border: none;
   outline: none;
   background: transparent;
@@ -116,6 +121,40 @@ textarea, input {
   color: inherit;
   width: 100%;
   overflow: hidden;
+}
+
+.checkbox-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.checkbox-item {
+  border: solid 4px #000000;
+  width: 28px;
+  height: 28px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.checkbox-item > input[type="checkbox"] {
+  opacity: 0;
+}
+
+.checkbox-item.enabled {
+  background-color: #000000;
+}
+
+.checkbox-item.enabled > input[type="checkbox"] {
+  opacity: 1;
+}
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: black;
+  cursor: pointer;
+  border: solid 1px #000000;
 }
 
 /* textarea::placeholder, input::placeholder {

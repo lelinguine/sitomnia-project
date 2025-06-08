@@ -23,5 +23,5 @@ class UserRequest(BaseModel):
     notes: Optional[List] = None
     agenda: Optional[List] = None
     preventions: Optional[List] = None
-    reglages: Optional[List] = None
-    questionnaire: Optional[List[UserSettings]] = None
+    reglages: Optional[UserSettings] = None
+    questionnaire: Optional[List] = None

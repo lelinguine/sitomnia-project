@@ -9,6 +9,8 @@ type RiskContextType = {
   risks: Risk[];
   setRisks: (newRisks: Risk[]) => void;
   updateRiskItemCheck: (riskSlug: string, itemSlug: string, checked: boolean) => void;
+  updateRiks: (newRisks: Risk[]) => void;
+  addRisks: (newRisks: Risk[]) => void;
 };
 
 const RiskContext = createContext<RiskContextType | undefined>(undefined);
@@ -17,24 +19,11 @@ export const RiskProvider = ({ children }: { children: React.ReactNode }) => {
   const [risks, setRisksState] = useState<Risk[]>([]);
 
   useEffect(() => {
-    const saved = localStorage.getItem('preventions');
 
-    if (saved) {
-      try {
-        const parsed: Risk[] = JSON.parse(saved);
-        setRisksState(parsed);
-      } catch (e) {
-        console.error("Erreur de parsing localStorage", e);
-        setRisksState(defaultRisks);
-      }
-    } else {
-      setRisksState(defaultRisks);
-      localStorage.setItem('preventions', JSON.stringify(defaultRisks));
-    }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('preventions', JSON.stringify(risks));
+    //localStorage.setItem('preventions', JSON.stringify(risks));
   }, [risks]);
 
   const setRisks = (newRisks: Risk[]) => {
@@ -56,8 +45,16 @@ export const RiskProvider = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
+  const updateRiks = (newRisks: Risk[]) => {
+    setRisksState(newRisks);
+  }
+
+  const addRisks = (newRisks: Risk[]) => {
+    setRisksState(newRisks);
+  }
+
   return (
-    <RiskContext.Provider value={{ risks, setRisks, updateRiskItemCheck }}>
+    <RiskContext.Provider value={{ risks, setRisks, updateRiskItemCheck, updateRiks, addRisks }}>
       {children}
     </RiskContext.Provider>
   );
