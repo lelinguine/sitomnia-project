@@ -42,15 +42,26 @@ const DiscussionModal = ({ prompt, setPrompt, onSend, isLoading }: {
   }
 };
 
+
+  const textInputEnable = () => {
+    
+    const view = document.querySelector(".view") as HTMLElement;
+    if (view && !isWriting && !isDictating) {
+      view.style.opacity = "0.08";
+    } else if (view && (isWriting || isDictating)) {
+      view.style.opacity = "1";
+    }
+  }
+
   return (
     <>
       <div className="modal">
         {!isWriting && !isDictating && (
           <div className="modal-container">
             <div className="modal-item">
-              <ActionButton isSecondary={isSpeechSupported} isDisable={isLoading} icon="PenLine" text="Écrire" onClick={() => setIsWriting(true)}/>
+              <ActionButton isSecondary={isSpeechSupported} isDisable={isLoading} icon="PenLine" text="Écrire" onClick={() => {setIsWriting(true); textInputEnable()}}/>
               {isSpeechSupported && (
-                <ActionButton isDisable={isLoading} icon="MicVocal" text="Dicter" onClick={() => setIsDictating(true)} />
+                <ActionButton isDisable={isLoading} icon="MicVocal" text="Dicter" onClick={() => {setIsDictating(true); textInputEnable()}} />
               )}
             </div>
           </div>
@@ -61,7 +72,7 @@ const DiscussionModal = ({ prompt, setPrompt, onSend, isLoading }: {
             <TextInput value={prompt} onChange={setPrompt} handleKeyDown={handleKeyDown}/>
 
             <div className="modal-item">
-              <ActionButton isSecondary icon="X" text="Annuler" onClick={() => { setPrompt(""); setIsWriting(false); }}/>
+              <ActionButton isSecondary icon="X" text="Annuler" onClick={() => { setPrompt(""); setIsWriting(false); textInputEnable()}}/>
               <ActionButton isDisable={prompt.trim() === ""} icon="CornerUpRight" text="Demander" onClick={() => { onSend(); setPrompt(""); setIsWriting(false); }}/>
             </div>
           </div>
@@ -72,7 +83,7 @@ const DiscussionModal = ({ prompt, setPrompt, onSend, isLoading }: {
             <SpeechInput value={prompt} onChange={setPrompt} />
 
             <div className="modal-item">
-              <ActionButton isSecondary icon="X" text="Annuler" onClick={() => { setPrompt(""); setIsDictating(false);}}/>
+              <ActionButton isSecondary icon="X" text="Annuler" onClick={() => { setPrompt(""); setIsDictating(false); textInputEnable()}}/>
               <ActionButton isDisable={prompt.trim() === ""} icon="CornerUpRight" text="Demander" onClick={() => { onSend(); setPrompt(""); setIsDictating(false); }}/>
             </div>
           </div>

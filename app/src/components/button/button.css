@@ -42,3 +42,8 @@
 .toggle-button {
     cursor: pointer;
 }
+
+.delete-button {
+    background-color: #ef6461;
+    color: black;
+}

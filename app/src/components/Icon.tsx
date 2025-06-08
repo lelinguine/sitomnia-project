@@ -33,7 +33,8 @@ import {
     Unplug,
     CircleX,
     CheckCheck,
-    Check
+    Check,
+    RotateCcw
 } from "lucide-react";
 
 const icons = {
@@ -69,7 +70,8 @@ const icons = {
     Unplug,
     CircleX,
     CheckCheck,
-    Check
+    Check,
+    RotateCcw
 };
 
 const Icon = ({ icon, size }) => {

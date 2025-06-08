@@ -21,7 +21,7 @@ const Parametrage = () => {
 
   return (
     <>
-        <Bar icon="" title="" color="#F9F7F7" noBack/>
+        <Bar icon="" title="" color="#F9F7F7"/>
         <div className="view">
             <div className="thread">
                 <span className="sm-text">

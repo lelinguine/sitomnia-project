@@ -81,7 +81,7 @@ const Connexion = () => {
           <div className='content'>
             <TextField
               title="Adresse email"
-              subtitle="Votre email sert d'identifiant."
+              subtitle="Votre email sert d'identifiant. Il est utilisé pour synchroniser vos données."
               value={email}
               placeholder="Tapez votre adresse mail"
               type="email"

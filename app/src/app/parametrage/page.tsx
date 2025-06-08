@@ -82,7 +82,7 @@ const Parametrage = () => {
           <div className='content'>
             <TextField
               title="Prénom"
-              subtitle="Votre prénom personnalise l'expérience."
+              subtitle="Votre prénom sert à personnaliser l'expérience et les réponses de l'intelligence artificielle."
               value={name}
               placeholder="Tapez votre prénom"
               type="name"
