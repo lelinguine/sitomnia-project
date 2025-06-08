@@ -1,6 +1,8 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useRef } from 'react';
+
+import { updateUserData } from "@controller/UserController";
 
 type Note = {
   id: string;
@@ -11,6 +13,7 @@ type NoteContextType = {
   notes: Note[];
   getNote: (id: string) => Note | undefined;
   addOrUpdateNote: (id: string, content: string) => void;
+  updateNotes: (newNotes: Note[]) => void;
 };
 
 const NoteContext = createContext<NoteContextType | undefined>(undefined);
@@ -18,23 +21,8 @@ const NoteContext = createContext<NoteContextType | undefined>(undefined);
 export const NoteProvider = ({ children }: { children: React.ReactNode }) => {
   const [notes, setNotes] = useState<Note[]>([]);
 
-  useEffect(() => {
-    const stored = localStorage.getItem('notes');
-    if (stored) {
-      setNotes(JSON.parse(stored));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('notes', JSON.stringify(notes));
-  }, [notes]);
-
-  useEffect(() => {
-    const filtered = notes.filter(note => note.content.trim() !== "");
-    if (filtered.length !== notes.length) {
-      setNotes(filtered);
-    }
-  }, [notes]);
+  const isInitialMount = useRef(true);
+  const skipNextSave = useRef(false);
 
   const getNote = (id: string) => notes.find(n => n.id === id);
 
@@ -48,8 +36,50 @@ export const NoteProvider = ({ children }: { children: React.ReactNode }) => {
     });
   };
 
+  // Reset le flag initial mount
+  useEffect(() => {
+    isInitialMount.current = false;
+  }, []);
+
+  // Sauvegarde automatique
+  useEffect(() => {
+    if (isInitialMount.current || skipNextSave.current) {
+      skipNextSave.current = false;
+      return;
+    }
+
+    if (notes.length === 0) {
+      return;
+    }
+
+    const token = localStorage.getItem("token") || "";
+
+    const saveNotes = async () => {
+      try {
+        await updateUserData({ notes: notes }, token);
+      } catch (error) {
+        console.error("Error updating user notes:", error);
+      }
+    };
+
+    saveNotes();
+
+  }, [notes]);
+
+  const updateNotes = (newNotes: Note[]) => {
+    skipNextSave.current = true;
+    const cleanedNotes = newNotes.filter(note => note.content.trim() !== "");
+    setNotes(cleanedNotes);
+  };
+
+
   return (
-    <NoteContext.Provider value={{ notes, getNote, addOrUpdateNote }}>
+    <NoteContext.Provider
+      value={{
+        notes,
+        getNote,
+        addOrUpdateNote,
+        updateNotes }}>
       {children}
     </NoteContext.Provider>
   );

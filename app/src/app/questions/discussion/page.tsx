@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
 import { Mirage } from 'ldrs/react'
@@ -44,6 +44,8 @@ const Discussion = () => {
 
   const { settings } = useUser();
 
+  const currentController = useRef<AbortController | null>(null);
+
   // À l'initialisation, créer une discussion si aucune n'est active
   const router = useRouter();
 
@@ -86,6 +88,10 @@ const Discussion = () => {
       if (typeof window !== 'undefined' && window.speechSynthesis) {
         window.speechSynthesis.cancel();
       }
+
+      if (currentController.current) {
+        currentController.current.abort();
+      }
     };
   }, []);
 
@@ -102,57 +108,65 @@ const Discussion = () => {
     const userMessage: Message = { role: 'user', content: newPrompt };
     const fullMessages = [systemPrompt, ...messages, userMessage];
 
-    // Mise à jour locale immédiate + contexte
     setMessages(prev => [...prev, userMessage]);
     addMessage(activeDiscussionId, userMessage);
 
-    const res = await fetch('http://localhost:8000/ask', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: fullMessages }),
-    });
+    const controller = new AbortController();
+    const signal = controller.signal;
 
-    if (!res.ok || !res.body) {
-      setIsLoading(false);
-      return;
-    }
+    // Enregistre le controller pour l’abandon sur unmount
+    currentController.current = controller;
 
-    const reader = res.body.getReader();
-    const decoder = new TextDecoder('utf-8');
-    let responseSoFar = '';
-
-    // Ajout placeholder assistant localement (pour afficher la bulle vide)
-    setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
-
-    while (true) {
-      const element = document.querySelector('.view');
-      if (element) element.scrollTop = element.scrollHeight;
-
-      const { done, value } = await reader.read();
-      if (done) break;
-
-      const chunk = decoder.decode(value, { stream: true });
-      responseSoFar += chunk;
-
-      // Mise à jour locale seulement
-      setMessages(prev => {
-        const last = prev[prev.length - 1];
-        if (last?.role === 'assistant') {
-          return [...prev.slice(0, -1), { ...last, content: responseSoFar }];
-        }
-        return prev;
+    try {
+      const res = await fetch('http://localhost:8000/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: fullMessages }),
+        signal,
       });
-    }
 
-    // À la fin du streaming, mise à jour unique du contexte
-    addMessage(activeDiscussionId, { role: 'assistant', content: responseSoFar });
+      if (!res.ok || !res.body) {
+        throw new Error("Fetch failed");
+      }
 
-    setIsLoading(false);
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder('utf-8');
+      let responseSoFar = '';
 
-    if(settings.textToSpeechEnabled) {
-      speak(responseSoFar);
+      setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        responseSoFar += chunk;
+
+        setMessages(prev => {
+          const last = prev[prev.length - 1];
+          if (last?.role === 'assistant') {
+            return [...prev.slice(0, -1), { ...last, content: responseSoFar }];
+          }
+          return prev;
+        });
+      }
+
+      addMessage(activeDiscussionId, { role: 'assistant', content: responseSoFar });
+
+      if (settings.textToSpeechEnabled) {
+        speak(responseSoFar);
+      }
+
+    } catch (error) {
+      if (error.name !== 'AbortError') {
+        console.error("Erreur dans le stream :", error);
+      }
+    } finally {
+      setIsLoading(false);
+      currentController.current = null;
     }
   };
+
 
   return (
     <>

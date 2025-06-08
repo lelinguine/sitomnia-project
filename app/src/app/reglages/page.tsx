@@ -24,7 +24,7 @@ const Reglages = () => {
             Gérer la paramétrage de l’application et de l’intelligence artificielle.
           </span>
 
-          <div className='content'>
+          {/* <div className='content'>
             <TextField
               isDisable
               title="Adresse email"
@@ -44,7 +44,7 @@ const Reglages = () => {
               placeholder="Tapez votre prénom"
               type="name"
             />
-          </div>
+          </div> */}
 
           <div className='content'>
             <div>
@@ -58,7 +58,7 @@ const Reglages = () => {
             </div>
           </div>
 
-          <div className='content'>
+          {/* <div className='content'>
             <div>
               <div className='flex items-center gap-[10px]'>
                 <ToggleButton isChecked={settings.sharePersonalData} onClick={toggleSharePersonalData} />
@@ -68,7 +68,7 @@ const Reglages = () => {
                 Activer le partage des informations personnelles pour améliorer l’expérience de l’intelligence artificielle.
               </span>
             </div>
-          </div>
+          </div> */}
 
         </div>
       </div>

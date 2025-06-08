@@ -1,7 +1,9 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+
+import { updateUserData } from "@controller/UserController";
 
 type Message = { role: 'user' | 'assistant' | 'system'; content: string };
 
@@ -21,6 +23,9 @@ const DiscussionContext = createContext<DiscussionContextType | undefined>(undef
 
 export const DiscussionProvider = ({ children }: { children: React.ReactNode }) => {
   const [discussions, setDiscussions] = useState<Discussion[]>([]);
+
+  const isInitialMount = useRef(true);
+  const skipNextSave = useRef(false);
 
   const createDiscussionId = (): string => {
     return uuidv4();
@@ -47,16 +52,39 @@ export const DiscussionProvider = ({ children }: { children: React.ReactNode }) 
     });
   };
 
+  // Reset le flag initial mount
+  useEffect(() => {
+    isInitialMount.current = false;
+  }, []);
+
   // Sauvegarde automatique
   useEffect(() => {
 
+    if (isInitialMount.current || skipNextSave.current) {
+      skipNextSave.current = false;
+      return;
+    }
 
+    if (discussions.length === 0) {
+      return;
+    }
 
+    const token = localStorage.getItem("token") || "";
 
+    const saveDiscussions = async () => {
+      try {
+        await updateUserData({ discussions }, token);
+      } catch (error) {
+        console.error("Error updating discussions:", error);
+      }
+    };
+
+    saveDiscussions();
 
   }, [discussions]);
 
   const updateDiscussions = (newDiscussions: Discussion[]) => {
+    skipNextSave.current = true;
     setDiscussions(newDiscussions);
   }
 

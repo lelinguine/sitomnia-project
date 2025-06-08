@@ -48,18 +48,21 @@ def create_user_info(request: UserRequest):
     for user in users_db:
         if user.email == request.email:
             raise HTTPException(status_code=400, detail="Email already exists")
+        
+        if not request.email or not request.name:
+            raise HTTPException(status_code=400, detail="Email and name are required")
 
     new_id = str(len(users_db) + 1)
 
     new_user = User(
         email=request.email,
-        name=request.name or "",
+        name=request.name,
         id=new_id,
         discussions=request.discussions or [],
         notes=request.notes or [],
         agenda=request.agenda or [],
         preventions=request.preventions or [],
-        reglages=request.reglages or [],
+        reglages=request.reglages or [{"textToSpeechEnabled": True, "sharePersonalData": True}],
         questionnaire=request.questionnaire or []
     )
 
