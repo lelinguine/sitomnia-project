@@ -9,6 +9,7 @@ import 'ldrs/react/Mirage.css'
 import Bar from '@/components/Bar';
 import Bubble from '@/components/text/Bubble';
 import DiscussionModal from '@/components/modal/DiscussionModal';
+import ActionButton from '@/components/button/ActionButton';
 
 import { useDiscussion } from '@/context/DiscussionContext';
 import { useUser } from '@/context/UserContext';
@@ -45,7 +46,7 @@ const Discussion = () => {
   };
 
   if (settings.sharePersonalData) {
-    systemPrompt.content += `\n\nVoici quelques information me concernant :\n- Nom : ${user.name}\n- Questionnaire : ${questionnaire}\n Utilises ces informations pour personnaliser tes réponses; Appelles l'utilisateur par son nom mais ne mentionne pas le questionnaire, utilises simplement les réponses pour orienter tes réponses`;
+    systemPrompt.content += `\n\nVoici quelques information me concernant :\n- Nom : ${user.name}\n- Questionnaire : ${questionnaire}\n Utilises ces informations pour personnaliser tes réponses; Appelles moi par mon nom, utilises les réponses du questionnaire pour orienter tes réponses auw questions.`;
   }
 
   const currentController = useRef<AbortController | null>(null);
@@ -100,6 +101,7 @@ const Discussion = () => {
   }, []);
 
   const sendPrompt = async () => {
+    console.log("Envoi du prompt :", currentPrompt);
     if (isLoading || !currentPrompt.trim() || !activeDiscussionId) return;
 
     const view = document.querySelector(".view") as HTMLElement;
@@ -197,6 +199,38 @@ const Discussion = () => {
             {isLoading && (
                 <Mirage size="40" speed="4" color="black" />
             )}
+
+            
+
+            {/* {!isLoading && (
+              <div className='w-full flex flex-col items-end gap-[10px]'>
+
+                <ActionButton
+                  isSecondary
+                  isExample
+                  text="Quels sont les risques liés à mon domicile ?"
+                  onClick={() => {
+                    setCurrentPrompt("Quels sont les risques liés à mon domicile ? En fonction du questionnaire que j'ai rempli sur mon domicile.");
+                    sendPrompt();
+                  }}
+                />
+
+                <ActionButton
+                  isSecondary
+                  isExample
+                  text="Quel temps fait-il aujourd'hui ?"
+                  onClick={() => {
+                    setCurrentPrompt("Quel temps fait-il aujourd'hui ?");
+                    sendPrompt();
+                  }}
+                />
+
+              </div>
+            )} */}
+
+            
+
+
 
           </div>
         </div>

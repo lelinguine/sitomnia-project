@@ -1,6 +1,6 @@
 const allQuestions = [
   {
-    question: "Quelles sont les pièces de votre appartement ou maison :",
+    question: "Quelles sont les pièces de votre appartement ou maison :",
     options: [
       "Entrée",
       "Salon",
@@ -34,11 +34,11 @@ const allQuestions = [
     ],
   },
   {
-    question: "Dans votre entrée, quels sont vos équipementsv présent ?",
+    question: "Dans votre entrée, quels sont les équipements présent ?",
     options: [
       "Porte-manteau",
       "Console d'entrée",
-      "Rangement chaussure",
+      "Rangement de chaussures",
       "Banc",
       "Tapis",
       "Porte-parapluie",
@@ -47,7 +47,7 @@ const allQuestions = [
   },
   {
     question:
-      "Dans votre salon, quels sont les équipements que vous possédez ?",
+      "Dans votre salon, quels sont les équipements que vous possédez ?",
     options: [
       "Canapé",
       "Canapé d’angle",
@@ -64,7 +64,7 @@ const allQuestions = [
   },
   {
     question:
-      "Dans votre cuisine, quels sont les appareils que vous possédez ?",
+      "Dans votre cuisine, quels sont les appareils que vous possédez ?",
     options: [
       "Réfrigérateur",
       "Grille-pain",
@@ -100,7 +100,7 @@ const allQuestions = [
     ],
   },
   {
-    question: "Dans votre chambre principale ou celle d'amis, quels sont les équimpements présent ?",
+    question: "Dans votre chambre principale ou d'amis, quels sont les équimpements présent ?",
     options : [
       "Lit",
       "Commode",
@@ -111,10 +111,12 @@ const allQuestions = [
     ],
   },
   {
-    question : "Dans votre salle de bain, salle de douche, vos équipements que celle-ci possède ?",
+    question : "Dans votre salle de bain ou de douche, quels sont les équipements que vous possédez ?",
     options : [
-      "Evier",
+      "Lavabo",
       "Douche",
+      "Baignoire",
+      "Toilette",
       "Tapis",
       "Meuble",
       "Poubelle",
@@ -128,7 +130,7 @@ const allQuestions = [
     ],
   },
   {
-    question:"Quels sont les équipements dans vos WC ?",
+    question:"Quels sont les équipements dans vos toilettes ?",
     options: [
       "Cadre de sécurité",
       "Meuble de rangement",
@@ -148,9 +150,8 @@ const allQuestions = [
     ],
   },
   {
-    question: "Quels slont les équipements que vous possédez sur votre terrasse, votre jardin, votre patio ?",
+    question: "Quels slont les équipements que vous possédez sur votre terrasse, jardin ou patio ?",
     options : [
-      "Lit",
       "Fauteuil",
       "Canapé",
       "Bain de soleil",
