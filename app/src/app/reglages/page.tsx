@@ -23,7 +23,7 @@ const Reglages = () => {
       <div className="view">
         <div className="thread">
           <span className="sm-text">
-            Gérer la paramétrage de vos informations afin de personnaliser l'expérience.
+            Gérer la paramétrage de l'application afin de personnaliser l'expérience.
           </span>
 
           <div className='content'>

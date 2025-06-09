@@ -11,7 +11,7 @@ const Demarrage = () => {
         <div className="view">
             <div className="thread">
                 <span className="sm-text">
-                    Bienvenue !
+                    Démarrage de l'application.
                 </span>
 
                 <div className='content'>

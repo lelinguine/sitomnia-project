@@ -4,10 +4,14 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 
 import Bar from '@/components/Bar';
+import LinkModal from '@/components/modal/LinkModal';
 import Bubble from '@/components/text/Bubble';
+
+import { useAgenda } from '@/context/AgendaContext';
 
 const Agenda = () => {
   const router = useRouter();
+  const { agenda } = useAgenda();
 
   return (
     <>
@@ -20,26 +24,27 @@ const Agenda = () => {
           </span>
 
           <div className='content'>
-            <span className='md-text'>TODO</span>
-
-            {/* <Bubble
-              icon="Search"
-              title="Aperçu"
-              onClick={() => router.push('/notes/details')}
-            >
-              <span className='md-text'>Ceci est une note</span>
-            </Bubble> */}
-
-
-
-
-
-
-
+            {agenda.length === 0 ? (
+              <span className="md-text">Aucun événement n'a été planifié.</span>
+            ) : (
+              agenda.slice().reverse().map((agenda) => (
+                <Bubble isDescription
+                  icon="Search"
+                  title="Aperçu"
+                  onClick={() => router.push(`/agenda/details?id=${agenda.id}`)}
+                  key={agenda.id}>
+                  {agenda.title
+                    ? agenda.title.slice(0, 42) + (agenda.title.length > 42 ? '...' : '')
+                    : 'Aucun contenu'}
+                </Bubble>
+              ))
+            )}
           </div>
 
         </div>
       </div>
+
+      <LinkModal icon="BellPlus" title="Planifier" link="/agenda/details" />
     </>
   );
 };

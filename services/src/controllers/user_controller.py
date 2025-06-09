@@ -15,7 +15,7 @@ users_db: List[User] = [
         }],
         discussions=[{"id":"6d3e8241-6bc2-42f9-b7df-c619ef3c408d","messages":[{"role":"user","content":"Quels sont les risques domestiques qui apparaissent avec l'âge ?"},{"role":"assistant","content":"Les risques domestiques liés à l'âge incluent une augmentation du risque d'accidents et de blessures chez les personnes âgées. Parmi ceux-ci, on peut citer :\n\n* Les chutes en raison de problèmes de mobilité ou de vision,\n* Les troubles de la marche qui rendent difficile la navigation dans des surfaces non régulières,\n* Des accidents liés à la manipulation de produits domestiques avec des griffes raccordées,\n* Des problèmes respiratoires causés par les fumées des cordes électriques ou des feux de cheminée sans surveillance.\n\nCes risques peuvent être atténués en améliorant la sécurité de l'environnement et en mettant en place des mesures préventives adaptées."}]}],
         notes=[],
-        agenda=[],
+        agenda=[{"id":"6d3e8241-6bc2-42f9-b7df-c619ef3c408d","title":"Rendez-vous médical"}],
         preventions=[],
         questionnaire=[]
     ),
