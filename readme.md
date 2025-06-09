@@ -44,15 +44,15 @@ npm run dev
 Guide d'installation et de lancement du modèle d'intelligence artificielle.
 
 ### Download
-Télécharger ollama sur [le site](https://ollama.com/).
+Télécharger Ollama sur [le site](https://ollama.com/).
 
 ### Model
-Télécharger le modèle de l'intelligence artificielle avec ollama.
+Télécharger le modèle de l'intelligence artificielle avec Ollama.
 ```
 ollama pull llama3.2:3b
 ```
 ### ⚠️ optional
-Arrêter ollama. La prochaine étape peut ne pas fonctionner si ollama est déjà démarré.<br><br>
+Arrêter Ollama. La prochaine étape peut ne pas fonctionner si Ollama est déjà démarré.<br><br>
 **Linux / MacOS**
 ```bash
 ps aux | grep ollama
@@ -64,7 +64,7 @@ Get-Process | Where-Object { $_.Path -like "*ollama*" }
 ```
 
 ### Run
-Lancer le serveur ollama avec le modèle d'intelligence artificielle.
+Lancer le serveur Ollama avec le modèle d'intelligence artificielle.
 ```
 ollama serve & ollama run llama3.2:3b
 ```
