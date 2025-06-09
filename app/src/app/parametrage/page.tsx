@@ -7,11 +7,10 @@ import Bar from '@/components/Bar';
 import ActionModal from '@/components/modal/ActionModal';
 import TextField from '@/components/text/TextField';
 
-import { useUser } from '@/context/UserContext';
+import { createUserData } from "@controller/UserController";
 
 const Parametrage = () => {
   const router = useRouter();
-  const { updateUser } = useUser();
 
   const [name, setName] = useState('');
   const [error, setError] = useState('');
@@ -21,6 +20,11 @@ const Parametrage = () => {
 
   useEffect(() => {
     inputRef.current?.focus();
+    const savedName = localStorage.getItem('name');
+    if (savedName) {
+      setName(savedName);
+      setIsNameValid(validateName(savedName));
+    }
   }, []);
 
   const validateName = (value) => {
@@ -42,9 +46,28 @@ const Parametrage = () => {
   };
 
   const setUser = async () => {
+    localStorage.setItem('name', name);
     if (!isNameValid) return;
-    updateUser({ name: name });
-    router.push('/acceuil');
+
+    const data = {
+      name: name,
+      email: localStorage.getItem('email'),
+    }
+
+    const res = await createUserData(data);
+
+    if (!res) {
+      setError("Erreur de connexion aux services.");
+      return;
+    }
+    
+    if (res.status === "success") {
+      localStorage.setItem('token', res.token);
+
+      router.push('/questionnaire');
+    } else {
+      setError("Le compte existe déjà, veuillez vous connecter.");
+    }
   };
 
   return (
@@ -59,10 +82,10 @@ const Parametrage = () => {
 
           <div className='content'>
             <TextField
-              title="Nom"
-              subtitle="Votre nom permettra de personnaliser l'expérience."
+              title="Prénom"
+              subtitle="Votre prénom sert à personnaliser l'expérience et les réponses de l'intelligence artificielle."
               value={name}
-              placeholder="Tapez votre nom"
+              placeholder="Tapez votre prénom"
               type="name"
               handleChange={handleNameChange}
               onKeyDown={setUser}

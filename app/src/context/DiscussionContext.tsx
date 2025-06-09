@@ -1,7 +1,9 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+
+import { updateUserData } from "@controller/UserController";
 
 type Message = { role: 'user' | 'assistant' | 'system'; content: string };
 
@@ -14,13 +16,16 @@ type DiscussionContextType = {
   discussions: Discussion[];
   createDiscussionId: () => string;
   addMessage: (discussionId: string, message: Message) => void;
+  updateDiscussions: (newDiscussions: Discussion[]) => void;
 };
 
 const DiscussionContext = createContext<DiscussionContextType | undefined>(undefined);
 
 export const DiscussionProvider = ({ children }: { children: React.ReactNode }) => {
   const [discussions, setDiscussions] = useState<Discussion[]>([]);
-  const [initialized, setInitialized] = useState(false);
+
+  const isInitialMount = useRef(true);
+  const skipNextSave = useRef(false);
 
   const createDiscussionId = (): string => {
     return uuidv4();
@@ -47,24 +52,41 @@ export const DiscussionProvider = ({ children }: { children: React.ReactNode }) 
     });
   };
 
-  // Restauration depuis localStorage
+  // Reset le flag initial mount
   useEffect(() => {
-    const saved = localStorage.getItem('discussions');
-    if (saved) {
-      const parsed: Discussion[] = JSON.parse(saved);
-      if (parsed.length > 0) {
-        setDiscussions(parsed);
-      }
-    }
-    setInitialized(true);
+    isInitialMount.current = false;
   }, []);
 
   // Sauvegarde automatique
   useEffect(() => {
-    if (initialized) {
-      localStorage.setItem('discussions', JSON.stringify(discussions));
+
+    if (isInitialMount.current || skipNextSave.current) {
+      skipNextSave.current = false;
+      return;
     }
-  }, [discussions, initialized]);
+
+    if (discussions.length === 0) {
+      return;
+    }
+
+    const token = localStorage.getItem("token") || "";
+
+    const saveDiscussions = async () => {
+      try {
+        await updateUserData({ discussions }, token);
+      } catch (error) {
+        console.error("Error updating discussions:", error);
+      }
+    };
+
+    saveDiscussions();
+
+  }, [discussions]);
+
+  const updateDiscussions = (newDiscussions: Discussion[]) => {
+    skipNextSave.current = true;
+    setDiscussions(newDiscussions);
+  }
 
   return (
     <DiscussionContext.Provider
@@ -72,6 +94,7 @@ export const DiscussionProvider = ({ children }: { children: React.ReactNode }) 
         discussions,
         createDiscussionId,
         addMessage,
+        updateDiscussions,
       }}
     >
       {children}

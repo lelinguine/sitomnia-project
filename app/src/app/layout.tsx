@@ -12,6 +12,7 @@ import { DiscussionProvider } from '@/context/DiscussionContext';
 import { RiskProvider } from '@/context/RiskContext';
 import { NoteProvider } from "@/context/NotesContext";
 import { UserProvider } from '@/context/UserContext';
+import { AgendaProvider } from "@/context/AgendaContext";
 
 export default function RootLayout({
   children,
@@ -22,17 +23,19 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         <main>
-          <UserProvider>
-            <NoteProvider>
-              <DiscussionProvider>
-                <RiskProvider>
-                  <Auth>
-                    {children}
-                  </Auth>
-                </RiskProvider>
-              </DiscussionProvider>
-            </NoteProvider>
-          </UserProvider>
+          <NoteProvider>
+            <DiscussionProvider>
+              <RiskProvider>
+                <AgendaProvider>
+                  <UserProvider>
+                    <Auth>
+                      {children}
+                    </Auth>
+                  </UserProvider>
+                </AgendaProvider>
+              </RiskProvider>
+            </DiscussionProvider>
+          </NoteProvider>
         </main>
       </body>
     </html>

@@ -1,13 +1,10 @@
 from pydantic import BaseModel, EmailStr
 from typing import List, Optional
 
-class AuthRequest(BaseModel):
-    email: EmailStr
-
 class User(BaseModel):
-    email: EmailStr
-    prenom: str
     id: str
+    email: EmailStr
+    name: str
     discussions: List = []
     notes: List = []
     agenda: List = []
@@ -15,9 +12,9 @@ class User(BaseModel):
     reglages: List = []
     questionnaire: List = []
 
-class UserUpdateRequest(BaseModel):
-    email: EmailStr
-    prenom: Optional[str] = None
+class UserRequest(BaseModel):
+    email: Optional[EmailStr] = None
+    name: Optional[str] = None
     discussions: Optional[List] = None
     notes: Optional[List] = None
     agenda: Optional[List] = None

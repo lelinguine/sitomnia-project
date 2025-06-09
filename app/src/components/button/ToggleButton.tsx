@@ -6,13 +6,13 @@ import Unchecked from '@assets/settings-unchecked.svg';
 import "./button.css";
 
 const ToggleButton = ({ isChecked, onClick }) => {
-  const classNameIsChecked = isChecked ? "disable-button" : "";
 
   return (
     <button onClick={onClick}>
       {isChecked ? (
         <Image
             src={Checked}
+            className='toggle-button'
             alt="Loading icon"
             width={40}
             height={40}
@@ -21,6 +21,7 @@ const ToggleButton = ({ isChecked, onClick }) => {
       ) : (
         <Image
             src={Unchecked}
+            className='toggle-button'
             alt="Loading icon"
             width={40}
             height={40}

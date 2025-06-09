@@ -1,17 +1,16 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 
 import Bar from '@/components/Bar';
 import ActionModal from '@/components/modal/ActionModal';
 import TextField from '@/components/text/TextField';
 
-import { useUser } from '@/context/UserContext';
+import { loginUser } from "@controller/UserController";
 
 const Connexion = () => {
   const router = useRouter();
-  const { updateUser } = useUser();
 
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
@@ -21,6 +20,11 @@ const Connexion = () => {
 
   useEffect(() => {
     inputRef.current?.focus();
+    const savedEmail = localStorage.getItem('email');
+    if (savedEmail) {
+      setEmail(savedEmail);
+      setIsEmailValid(validateEmail(savedEmail));
+    }
   }, []);
 
   const validateEmail = (value) => {
@@ -45,24 +49,24 @@ const Connexion = () => {
 
     if (!isEmailValid) return;
 
-    const res = await fetch('http://localhost:8000/auth', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email }),
-    });
+    const res = await loginUser(email);
 
-    if (!res.ok) {
-      updateUser({ email: email });
-      setIsEmailValid(false);
-      router.push('/parametrage');
+    if (!res) {
+      setError("Erreur de connexion aux services.");
       return;
     }
 
-    const data = await res.json();
-    const user = data.user
-    
-    updateUser({ email: user.email, name: user.prenom });
-    router.push('/acceuil');
+    if (res.status === "success") {
+      localStorage.clear();
+      localStorage.setItem('token', res.token);
+      localStorage.setItem('email', email);
+      router.push('/acceuil');
+      return;
+    } else {
+      localStorage.clear();
+      localStorage.setItem('email', email);
+      router.push('/parametrage');
+    }
   };
 
   return (
@@ -78,7 +82,7 @@ const Connexion = () => {
           <div className='content'>
             <TextField
               title="Adresse email"
-              subtitle="Votre email sert d'identifiant."
+              subtitle="Votre email sert d'identifiant. Il est utilisé pour synchroniser vos données."
               value={email}
               placeholder="Tapez votre adresse mail"
               type="email"

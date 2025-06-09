@@ -18,6 +18,7 @@ app.include_router(router)
 @app.get("/")
 async def root():
     return {
+        "status": "success",
         "api_version": "1.0.0-a",
         "fastapi_version": "0.110.0",
         "model": "llama3.2:3b"

@@ -18,6 +18,9 @@ Valentin LUGINBUHL : valentin.luginbuhl@etu.univ-grenoble-alpes.fr<br>
 # 💿 - Install *Application***
 Guide d'installation et de lancement de l'application web.
 
+### Download
+Télécharger NodeJS sur [le site](https://nodejs.org/fr).
+
 ### Move
 Déplacez-vous dans le dossier de l'application.
 ```bash

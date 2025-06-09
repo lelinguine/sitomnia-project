@@ -1,50 +1,25 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 
 import type { Risk } from '@assets/data/risks';
-import defaultRisks from '@assets/data/risks';
+
+import { updateUserData } from "@controller/UserController";
 
 type RiskContextType = {
   risks: Risk[];
-  setRisks: (newRisks: Risk[]) => void;
   updateRiskItemCheck: (riskSlug: string, itemSlug: string, checked: boolean) => void;
+  updateRiks: (newRisks: Risk[]) => void;
+  addRisks: (newRisks: Risk[]) => void;
 };
 
 const RiskContext = createContext<RiskContextType | undefined>(undefined);
 
 export const RiskProvider = ({ children }: { children: React.ReactNode }) => {
   const [risks, setRisksState] = useState<Risk[]>([]);
-  const [initialized, setInitialized] = useState(false);
 
-  useEffect(() => {
-    const saved = localStorage.getItem('preventions');
-
-    if (saved) {
-      try {
-        const parsed: Risk[] = JSON.parse(saved);
-        setRisksState(parsed);
-      } catch (e) {
-        console.error("Erreur de parsing localStorage", e);
-        setRisksState(defaultRisks);
-      }
-    } else {
-      setRisksState(defaultRisks);
-      localStorage.setItem('preventions', JSON.stringify(defaultRisks));
-    }
-
-    setInitialized(true);
-  }, []);
-
-  useEffect(() => {
-    if (initialized) {
-      localStorage.setItem('preventions', JSON.stringify(risks));
-    }
-  }, [risks, initialized]);
-
-  const setRisks = (newRisks: Risk[]) => {
-    setRisksState(newRisks);
-  };
+  const isInitialMount = useRef(true);
+  const skipNextSave = useRef(false);
 
   const updateRiskItemCheck = (riskSlug: string, itemSlug: string, checked: boolean) => {
     setRisksState(prev =>
@@ -61,8 +36,50 @@ export const RiskProvider = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
+  // Reset le flag initial mount
+  useEffect(() => {
+    isInitialMount.current = false;
+  }, []);
+
+  //Sauvegarde
+    useEffect(() => {
+
+    if (isInitialMount.current || skipNextSave.current) {
+      skipNextSave.current = false;
+      return;
+    }
+
+    if (risks.length === 0) {
+      return;
+    }
+
+    const token = localStorage.getItem("token") || "";
+    
+    const saveRisks = async () => {
+      try {
+        const preventions = risks;
+        const res = await updateUserData({ preventions }, token);
+        console.log("Risks updated successfully:", res);
+      } catch (error) {
+        console.error("Error updating discussions:", error);
+      }
+    };
+  
+    saveRisks();
+
+  }, [risks]);
+
+  const updateRiks = (newRisks: Risk[]) => {
+    skipNextSave.current = true;
+    setRisksState(newRisks);
+  }
+
+  const addRisks = (newRisks: Risk[]) => {
+    setRisksState(newRisks);
+  }
+
   return (
-    <RiskContext.Provider value={{ risks, setRisks, updateRiskItemCheck }}>
+    <RiskContext.Provider value={{ risks, updateRiskItemCheck, updateRiks, addRisks }}>
       {children}
     </RiskContext.Provider>
   );

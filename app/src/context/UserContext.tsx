@@ -1,6 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useRef } from 'react';
+import { updateUserData } from "@controller/UserController";
 
 type UserSettings = {
   textToSpeechEnabled: boolean;
@@ -12,12 +13,21 @@ type UserInfo = {
   email: string;
 };
 
+type QuestionnaireAnswer = {
+  question: string;
+  reponses: string[];
+};
+
 type UserContextType = {
   settings: UserSettings;
   user: UserInfo;
+  questionnaire: QuestionnaireAnswer;
   toggleTextToSpeech: () => void;
   toggleSharePersonalData: () => void;
   updateUser: (newUser: Partial<UserInfo>) => void;
+  updateSettings: (newSettings: Partial<UserSettings>) => void;
+  updateQuestionnaire: (newQuestionnaire: QuestionnaireAnswer) => void;
+  addQuestionnaireAnswer: (newQuestionnaire: QuestionnaireAnswer) => void;
 };
 
 const defaultSettings: UserSettings = {
@@ -30,50 +40,87 @@ const defaultUser: UserInfo = {
   email: '',
 };
 
+const defaultQuestionnaire: QuestionnaireAnswer = {
+  question: '',
+  reponses: [],
+};
+
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [settings, setSettings] = useState<UserSettings>(defaultSettings);
   const [user, setUser] = useState<UserInfo>(defaultUser);
-  const [initialized, setInitialized] = useState(false);
+  const [questionnaire, setQuestionnaire] = useState<QuestionnaireAnswer>(defaultQuestionnaire);
 
-  // Chargement initial depuis localStorage
-  useEffect(() => {
-    const savedSettings = localStorage.getItem('reglages');
-    const savedUser = localStorage.getItem('utilisateur');
-
-    if (savedSettings) {
-      try {
-        setSettings(JSON.parse(savedSettings));
-      } catch (e) {
-        console.error("Erreur de parsing des réglages utilisateur", e);
-      }
-    }
-
-    if (savedUser) {
-      try {
-        setUser(JSON.parse(savedUser));
-      } catch (e) {
-        console.error("Erreur de parsing des infos utilisateur", e);
-      }
-    }
-
-    setInitialized(true);
-  }, []);
+  const isInitialMount = useRef(true);
+  const skipNextSettingsSave = useRef(false);
+  const skipNextUserSave = useRef(false);
+  const skipNextQuestionnaireSave = useRef(false);
 
   // Sauvegarde des réglages
   useEffect(() => {
-    if (initialized) {
-      localStorage.setItem('reglages', JSON.stringify(settings));
+    if (isInitialMount.current || skipNextSettingsSave.current) {
+      skipNextSettingsSave.current = false;
+      return;
     }
-  }, [settings, initialized]);
+
+    const token = localStorage.getItem("token") || "";
+
+    const saveSettings = async () => {
+      try {
+        await updateUserData({ reglages: [settings] }, token);
+      } catch (error) {
+        console.error("Error updating user settings:", error);
+      }
+    };
+
+    saveSettings();
+  }, [settings]);
 
   // Sauvegarde des infos utilisateur
   useEffect(() => {
-    if (initialized) {
-      localStorage.setItem('utilisateur', JSON.stringify(user));
+    if (isInitialMount.current || skipNextUserSave.current) {
+      skipNextUserSave.current = false;
+      return;
     }
-  }, [user, initialized]);
+
+    const token = localStorage.getItem("token") || "";
+
+    const saveUser = async () => {
+      try {
+        await updateUserData({ name: user.name }, token);
+      } catch (error) {
+        console.error("Error updating user info:", error);
+      }
+    };
+
+    saveUser();
+  }, [user]);
+
+  // Sauvegarde des réponses au questionnaire
+  useEffect(() => {
+    if (isInitialMount.current || skipNextQuestionnaireSave.current) {
+      skipNextQuestionnaireSave.current = false;
+      return;
+    }
+
+    const token = localStorage.getItem("token") || "";
+
+    const saveQuestionnaire = async () => {
+      try {
+        await updateUserData({ questionnaire: questionnaire }, token);
+      } catch (error) {
+        console.error("Error updating questionnaire:", error);
+      }
+    };
+
+    saveQuestionnaire();
+  }, [questionnaire]);
+
+  // Reset le flag initial mount
+  useEffect(() => {
+    isInitialMount.current = false;
+  }, []);
 
   const toggleTextToSpeech = () => {
     setSettings(prev => ({
@@ -90,7 +137,22 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const updateUser = (newUser: Partial<UserInfo>) => {
+    skipNextUserSave.current = true;
     setUser(prev => ({ ...prev, ...newUser }));
+  };
+
+  const updateSettings = (newSettings: Partial<UserSettings>) => {
+    skipNextSettingsSave.current = true;
+    setSettings(prev => ({ ...prev, ...newSettings }));
+  };
+
+  const updateQuestionnaire = (newQuestionnaire: QuestionnaireAnswer[]) => {
+    skipNextQuestionnaireSave.current = true;
+    setQuestionnaire(newQuestionnaire);
+  };
+
+  const addQuestionnaireAnswer = (newQuestionnaire: QuestionnaireAnswer) => {
+    setQuestionnaire(newQuestionnaire);
   };
 
   return (
@@ -98,9 +160,13 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       value={{
         settings,
         user,
+        questionnaire,
         toggleTextToSpeech,
         toggleSharePersonalData,
         updateUser,
+        updateSettings,
+        updateQuestionnaire,
+        addQuestionnaireAnswer
       }}
     >
       {children}
