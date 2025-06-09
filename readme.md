@@ -71,7 +71,7 @@ ollama serve & ollama run llama3.2:3b
 
 # 📀 Install *Services*
 ### ⚠️ **nécessaire au bon fonctionnement de l'application
-Guide d'installation et de lancement des service.
+Guide d'installation et de lancement des services.
 
 ### Move
 Déplacez-vous dans le dossier des services.
