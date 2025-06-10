@@ -28,7 +28,13 @@ const Parametrage = () => {
   }, []);
 
   const validateName = (value) => {
-    const regex = /^.{3,}$/;
+    const regex = /^.{3,12}$/;
+
+    if (value.length < 3) {
+      setError("Longueur minimum de 3 caractères.");
+    } else if (value.length > 12) {
+      setError("Longueur maximum de 12 caractères.");
+    }
     return regex.test(value);
   };
 
@@ -40,7 +46,6 @@ const Parametrage = () => {
       setError('');
       setIsNameValid(true);
     } else {
-      setError("Longueur minimum de 3 caractères.");
       setIsNameValid(false);
     }
   };

@@ -111,8 +111,8 @@ const Reglages = () => {
 
       <DeleteModale
         icon="Unplug"
-        title="Quitter"
-        subtitle="Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible."
+        title="Éteindre"
+        text="Êtes-vous sûr de vouloir quitter l'application ?"
         onDelete={() => {
           localStorage.clear();
           router.replace('/demarrage');

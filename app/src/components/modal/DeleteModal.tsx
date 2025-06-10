@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import ActionButton from "../button/ActionButton";
 
-const LinkModal = ({ icon, title, onDelete }) => {
+const LinkModal = ({ icon, title, text, onDelete }) => {
 
   const [isDelete, setIsDelete] = useState(false);
 
@@ -42,7 +42,7 @@ const LinkModal = ({ icon, title, onDelete }) => {
         <div className="modal-container">
 
           <span className="md-text">
-            Êtes-vous sûr de vouloir vous déconnecter ?
+            { text }
           </span>
 
           <div className="modal-item">

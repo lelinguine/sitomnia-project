@@ -37,7 +37,8 @@ import {
     RotateCcw,
     CircleHelp,
     Bug,
-    BellPlus
+    BellPlus,
+    Clock
 } from "lucide-react";
 
 const icons = {
@@ -77,7 +78,8 @@ const icons = {
     RotateCcw,
     CircleHelp,
     Bug,
-    BellPlus
+    BellPlus,
+    Clock
 };
 
 const Icon = ({ icon, size }) => {

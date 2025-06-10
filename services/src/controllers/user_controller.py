@@ -17,7 +17,7 @@ users_db: List[User] = [
         notes=[],
         agenda=[{"id":"6d3e8241-6bc2-42f9-b7df-c619ef3c408d","title":"Rendez-vous médical"}],
         preventions=[],
-        questionnaire=[]
+        questionnaire=[""]
     ),
 ]
 
