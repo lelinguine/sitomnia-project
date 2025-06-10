@@ -71,7 +71,7 @@ const Connexion = () => {
 
   return (
     <>
-      <Bar icon="User" title="Compte" color="#F9F7F7" noBack />
+      <Bar icon="User" title="Compte" color="#F9F7F7" />
 
       <div className="view">
         <div className="thread">

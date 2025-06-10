@@ -81,9 +81,16 @@ cd services
 
 ### Environnement
 Créez un environnement virtuel.
+
+**Windows**
 ```
 python -m venv env
 ```
+or **Linux / MacOS**
+```
+python3 -m venv env
+```
+
 Lancez l'environnement virtuel créer précédemment.<br><br>
 **Windows (Shell)**
 ```
@@ -114,6 +121,18 @@ pip install -r requirements.txt
 Lancer les services.
 ```
 uvicorn main:app --reload
+```
+
+
+# 🐋 - Docker
+### Download
+Télécharger Docker sur [le site](https://www.docker.com/get-started/).
+
+### Run
+You can use Docker:
+```bash
+docker build -t sitomnia-image .
+docker run -d -p 8000:8000 --name sitomnia-project sitomnia-image
 ```
 
 # 📄 - Documentation

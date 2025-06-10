@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 
 import Bar from '@/components/Bar';
 import DeleteModale from '@/components/modal/DeleteModal';
+import TextField from '@/components/text/TextField';
 
 import { useAgenda } from '@/context/AgendaContext';
 
@@ -53,10 +54,24 @@ const Details = () => {
           </span>
 
           <div className="content">
+            TODO
 
             { event }
 
 
+            {/* <TextField
+              title="Adresse email"
+              subtitle="Votre email sert d'identifiant. Il est utilisé pour synchroniser vos données."
+              value="{email}"
+              placeholder="Tapez votre adresse mail"
+              type="email"
+              handleChange="{handleEmailChange}"
+              onKeyDown="{connectUser}"
+              inputRef="{inputRef}"
+            /> */}
+
+
+            {/* {error && <span className='sm-text error'>{error}</span>} */}
 
 
 

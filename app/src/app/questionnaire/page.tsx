@@ -107,6 +107,11 @@ const Questionnaire = () => {
             //set questionnaire
             addQuestionnaireAnswer(data);
 
+
+
+
+
+            
             //set risks
             addRisks(defaultRisks);
 
