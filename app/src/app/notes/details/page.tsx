@@ -10,6 +10,8 @@ import { useNote } from '@/context/NotesContext';
 import { Mirage } from 'ldrs/react';
 import 'ldrs/react/Mirage.css';
 
+import { v4 as uuidv4 } from 'uuid';
+
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
 const Details = () => {
@@ -34,7 +36,7 @@ const Details = () => {
 
   useEffect(() => {
     if (!noteId) {
-      const id = crypto.randomUUID();
+      const id = uuidv4();
       router.replace(`/notes/details?id=${id}`);
       return;
     }
