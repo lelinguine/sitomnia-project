@@ -81,9 +81,16 @@ cd services
 
 ### Environnement
 Créez un environnement virtuel.
+
+**Windows**
 ```
 python -m venv env
 ```
+or **Linux / MacOS**
+```
+python3 -m venv env
+```
+
 Lancez l'environnement virtuel créer précédemment.<br><br>
 **Windows (Shell)**
 ```
