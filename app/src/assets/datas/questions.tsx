@@ -100,7 +100,7 @@ const allQuestions = [
     ],
   },
   {
-    question: "Dans votre chambre principale ou d'amis, quels sont les équimpements présent ?",
+    question: "Dans votre chambre principale ou d'amis, quels sont les équipements présent ?",
     options : [
       "Lit",
       "Commode",

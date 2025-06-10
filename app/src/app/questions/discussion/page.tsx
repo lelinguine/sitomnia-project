@@ -101,7 +101,6 @@ const Discussion = () => {
   }, []);
 
   const sendPrompt = async () => {
-    console.log("Envoi du prompt :", currentPrompt);
     if (isLoading || !currentPrompt.trim() || !activeDiscussionId) return;
 
     const view = document.querySelector(".view") as HTMLElement;
@@ -137,6 +136,8 @@ const Discussion = () => {
       if (!res.ok || !res.body) {
         throw new Error("Fetch failed");
       }
+
+      console.log("Réponse du serveur reçue, début du streaming...", res);
 
       const reader = res.body.getReader();
       const decoder = new TextDecoder('utf-8');

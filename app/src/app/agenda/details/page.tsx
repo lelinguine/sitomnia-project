@@ -9,6 +9,8 @@ import TextField from '@/components/text/TextField';
 
 import { useAgenda } from '@/context/AgendaContext';
 
+import { v4 as uuidv4 } from 'uuid';
+
 const Details = () => {
   const searchParams = useSearchParams();
   const eventId = searchParams.get('id');
@@ -20,7 +22,7 @@ const Details = () => {
   
   useEffect(() => {
     if (!eventId) {
-      const id = crypto.randomUUID();
+      const id = uuidv4();
       router.replace(`/agenda/details?id=${id}`);
       return;
     }
