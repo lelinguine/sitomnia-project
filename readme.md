@@ -123,7 +123,6 @@ Lancer les services.
 uvicorn main:app --reload
 ```
 
-
 # 🐋 - Docker
 ### Download
 Télécharger Docker sur [le site](https://www.docker.com/get-started/).
