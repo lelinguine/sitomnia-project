@@ -89,7 +89,7 @@ const Reglages = () => {
 
           </div>
 
-          <div className='content'>
+          {/* <div className='content'>
             <span className="md-text mb-[-10px]">
               Rapport de bug
             </span>
@@ -104,7 +104,7 @@ const Reglages = () => {
               onClick={() => router.push('mailto:valentin.luginbuhl@etu.univ-grenoble-alpes.fr?subject=Rapport de bug - Sitomnia')}
             />
 
-          </div>
+          </div> */}
 
         </div>
       </div>
