@@ -5,7 +5,7 @@ import "./../components/button/button.css";
 import Auth from "@/components/Auth";
 
 export const metadata: Metadata = {
-  title: "Sitomnia",
+  title: "Sitomnia Organiser ma vie domestique",
 };
 
 import { DiscussionProvider } from '@/context/DiscussionContext';
