@@ -8,6 +8,7 @@ import DeleteModale from '@/components/modal/DeleteModal';
 import TextField from '@/components/text/TextField';
 
 import { useAgenda } from '@/context/AgendaContext';
+import Icon from '@/components/Icon';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -20,7 +21,18 @@ const Details = () => {
   const [title, setTitle] = useState('');
   const [date, setDate] = useState('');
   const [heure, setHeure] = useState('');
+  const [note, setNote] = useState('');
 
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+
+    const adjustHeight = () => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = 'auto';
+      textarea.style.height = textarea.scrollHeight + 'px';
+    }
+  };
   
   useEffect(() => {
     if (!eventId) {
@@ -34,6 +46,7 @@ const Details = () => {
       setTitle(existingEvent.title || '');
       setDate(existingEvent.date || '');
       setHeure(existingEvent.heure || '');
+      setNote(existingEvent.note || '');
     }
   }, [eventId, getAgenda, router]);
 
@@ -41,15 +54,16 @@ const Details = () => {
   const handleChangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(e.target.value);
     if (eventId) {
-      addOrUpdateAgenda(eventId, e.target.value, date, heure);
+      addOrUpdateAgenda(eventId, e.target.value, date, heure, note);
     }
   };
 
 
   const handleChangeDate = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDate(e.target.value);
+    //changer le format de la date en jj/mm/aaaa
     if (eventId) {
-      addOrUpdateAgenda(eventId, title, e.target.value, heure);
+      addOrUpdateAgenda(eventId, title, e.target.value, heure, note);
     }
   };
 
@@ -58,9 +72,17 @@ const Details = () => {
     console.log('Heure:', e.target.value);
     setHeure(e.target.value);
     if (eventId) {
-      addOrUpdateAgenda(eventId, title, date, e.target.value);
+      addOrUpdateAgenda(eventId, title, date, e.target.value, note);
     }
   };
+
+  const handleChangeNote = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNote(e.target.value);
+    if (eventId) {
+      addOrUpdateAgenda(eventId, title, date, heure, e.target.value);
+    }
+  };
+  
 
   return (
     <>
@@ -81,6 +103,13 @@ const Details = () => {
               type="text"
               handleChange={handleChangeTitle}
             />
+
+            <div className="flex gap-[10px]">
+              <div className='pt-1'><Icon icon="Info" size={20}/></div>
+              <span className="sm-text w-fit">
+                <i>Un titre vide supprime l'événement.</i>
+              </span>
+            </div>
           </div>
 
 
@@ -93,6 +122,13 @@ const Details = () => {
               type="date"
               handleChange={handleChangeDate}
             />
+
+            <div className="flex gap-[10px]">
+              <div className='pt-1'><Icon icon="Info" size={20}/></div>
+              <span className="sm-text w-fit">
+                <i>Ne pas sélectionner de date permet de créer un événement récurrent.</i>
+              </span>
+            </div>
           </div>
 
 
@@ -105,27 +141,30 @@ const Details = () => {
               type="time"
               handleChange={handleChangeHeure}
             />
+
+            <div className="flex gap-[10px]">
+              <div className='pt-1'><Icon icon="Info" size={20}/></div>
+              <span className="sm-text w-fit">
+                <i>Une heure vide supprime l'événement.</i>
+              </span>
+            </div>
           </div>
 
+          <div className="content">
+            <span className="md-text mb-[-10px]">Note de l'événement</span>
+            <span className="sm-text">Écrire une note à l'événement.</span>
+            <textarea
+              className="md-text auto-textarea"
+              ref={textareaRef}
+              value={note}
+              onChange={handleChangeNote}
+              onInput={adjustHeight}
+              placeholder={"Tapez votre note..."}
+              rows={1}
+              style={{ overflow: 'hidden', resize: 'none' }}
+            />
+          </div>
 
-
-          {/* <textarea
-            className="md-text auto-textarea"
-            autoFocus
-            ref={textareaRef}
-            value={content}
-            onChange={handleChange}
-            onInput={adjustHeight}
-            placeholder={listening ? "Dictez votre note..." : "Tapez votre note..."}
-            rows={1}
-            style={{ overflow: 'hidden', resize: 'none' }}
-            readOnly={listening}
-          />
- */}
-
-
-
-          {/* {error && <span className='sm-text error'>{error}</span>} */}
         </div>
       </div>
 
@@ -134,7 +173,7 @@ const Details = () => {
         title="Supprimer"
         text="Êtes-vous sûr de vouloir supprimer l'événement ? Cette action est irréversible."
         onDelete={() => {
-          addOrUpdateAgenda(eventId, '');
+          addOrUpdateAgenda(eventId, '', '', '');
           router.back();
         }}
       />

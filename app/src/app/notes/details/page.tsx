@@ -11,6 +11,7 @@ import { Mirage } from 'ldrs/react';
 import 'ldrs/react/Mirage.css';
 
 import { v4 as uuidv4 } from 'uuid';
+import Icon from '@/components/Icon';
 
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
@@ -134,6 +135,14 @@ const Details = () => {
             />
             {listening && <Mirage size="40" speed="4" color="black" />}
           </div>
+
+            <div className="flex gap-[10px]">
+              <div className='pt-1'><Icon icon="Info" size={20}/></div>
+              <span className="sm-text w-fit">
+                <i>Un contenu vide supprime la note.</i>
+              </span>
+            </div>
+          
         </div>
       </div>
 

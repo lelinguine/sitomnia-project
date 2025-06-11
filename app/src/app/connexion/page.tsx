@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect, use } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import Bar from '@/components/Bar';

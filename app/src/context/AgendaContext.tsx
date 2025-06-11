@@ -12,7 +12,7 @@ type Agenda = {
 type AgendaContextType = {
   agenda: Agenda[];
   getAgenda: (id: string) => Agenda | undefined;
-  addOrUpdateAgenda: (id: string, content: string) => void;
+  addOrUpdateAgenda: (id: string, title: string, date: string, heure: string, note: string) => void;
   updateAgenda: (newAgenda: Agenda[]) => void;
 };
 
@@ -26,13 +26,13 @@ export const AgendaProvider = ({ children }: { children: React.ReactNode }) => {
 
   const getAgenda = (id: string) => agenda.find(n => n.id === id);
 
-  const addOrUpdateAgenda = (id: string, title: string, date: string, heure: string) => {
+  const addOrUpdateAgenda = (id: string, title: string, date: string, heure: string, note: string) => {
     setAgenda(prev => {
       const existing = prev.find(n => n.id === id);
       if (existing) {
-        return prev.map(n => (n.id === id ? { ...n, title: title, date: date, heure: heure } : n));
+        return prev.map(n => (n.id === id ? { ...n, title: title, date: date, heure: heure, note: note } : n));
       }
-      return [...prev, { id, title: title, date: date, heure: heure }];
+      return [...prev, { id, title: title, date: date, heure: heure, note: note }];
     });
   };
 
@@ -68,7 +68,7 @@ export const AgendaProvider = ({ children }: { children: React.ReactNode }) => {
 
   const updateAgenda = (newAgenda: Agenda[]) => {
     skipNextSave.current = true;
-    const cleanedAgenda = newAgenda.filter(agenda => agenda.title.trim() !== "");
+    const cleanedAgenda = newAgenda.filter(agenda => agenda.title.trim() !== "" && agenda.heure.trim() !== "");
     setAgenda(cleanedAgenda);
   };
 

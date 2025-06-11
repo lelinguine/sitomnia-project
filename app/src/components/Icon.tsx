@@ -39,7 +39,10 @@ import {
     Bug,
     BellPlus,
     Clock,
-    Eraser
+    Eraser,
+    Calendar,
+    SquareChartGantt,
+    Calendar1
 } from "lucide-react";
 
 const icons = {
@@ -81,7 +84,10 @@ const icons = {
     Bug,
     BellPlus,
     Clock,
-    Eraser
+    Eraser,
+    Calendar,
+    SquareChartGantt,
+    Calendar1
 };
 
 const Icon = ({ icon, size }) => {
