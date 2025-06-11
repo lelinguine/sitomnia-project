@@ -18,6 +18,8 @@ const Details = () => {
 
   const { getAgenda, addOrUpdateAgenda } = useAgenda();
   const [title, setTitle] = useState('');
+  const [date, setDate] = useState('');
+  const [heure, setHeure] = useState('');
 
   
   useEffect(() => {
@@ -30,14 +32,33 @@ const Details = () => {
     const existingEvent = getAgenda(eventId);
     if (existingEvent) {
       setTitle(existingEvent.title || '');
+      setDate(existingEvent.date || '');
+      setHeure(existingEvent.heure || '');
     }
   }, [eventId, getAgenda, router]);
 
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(e.target.value);
     if (eventId) {
-      addOrUpdateAgenda(eventId, e.target.value);
+      addOrUpdateAgenda(eventId, e.target.value, date, heure);
+    }
+  };
+
+
+  const handleChangeDate = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDate(e.target.value);
+    if (eventId) {
+      addOrUpdateAgenda(eventId, title, e.target.value, heure);
+    }
+  };
+
+
+  const handleChangeHeure = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    console.log('Heure:', e.target.value);
+    setHeure(e.target.value);
+    if (eventId) {
+      addOrUpdateAgenda(eventId, title, date, e.target.value);
     }
   };
 
@@ -58,40 +79,33 @@ const Details = () => {
               value={ title }
               placeholder="Tapez le titre"
               type="text"
-              handleChange={handleChange}
+              handleChange={handleChangeTitle}
             />
           </div>
 
 
-{/* 
           <div className="content">
             <TextField
               title="Date de l’événement"
-              subtitle=""
-              value={ event }
-              placeholder="Tapez votre adresse mail"
-              type="email"
-              handleChange={null}
-              onKeyDown={null}
-              inputRef={null}
+              subtitle="Sélectionnez la date de l’événement."
+              value={ date }
+              placeholder="Sélectionnez la date"
+              type="date"
+              handleChange={handleChangeDate}
             />
           </div>
+
 
           <div className="content">
             <TextField
               title="Heure de l’événement"
-              subtitle=""
-              value={ event }
-              placeholder="Tapez votre adresse mail"
-              type="email"
-              handleChange={null}
-              onKeyDown={null}
-              inputRef={null}
+              subtitle="Sélectionnez l'heure de l’événement."
+              value={ heure }
+              placeholder="Sélectionnez l'heure"
+              type="time"
+              handleChange={handleChangeHeure}
             />
           </div>
-
-
- */}
 
 
 
