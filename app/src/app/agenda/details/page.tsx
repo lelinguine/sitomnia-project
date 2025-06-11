@@ -17,7 +17,7 @@ const Details = () => {
   const router = useRouter();
 
   const { getAgenda, addOrUpdateAgenda } = useAgenda();
-  const [event, setEvent] = useState('');
+  const [title, setTitle] = useState('');
 
   
   useEffect(() => {
@@ -29,21 +29,17 @@ const Details = () => {
 
     const existingEvent = getAgenda(eventId);
     if (existingEvent) {
-      setEvent(existingEvent.title);
+      setTitle(existingEvent.title || '');
     }
   }, [eventId, getAgenda, router]);
 
 
-
-
-
-
-//   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-//     setContent(e.target.value);
-//     if (noteId) {
-//       addOrUpdateNote(noteId, e.target.value);
-//     }
-//   };
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setTitle(e.target.value);
+    if (eventId) {
+      addOrUpdateAgenda(eventId, e.target.value);
+    }
+  };
 
   return (
     <>
@@ -56,41 +52,78 @@ const Details = () => {
           </span>
 
           <div className="content">
-            TODO
+            <TextField
+              title="Titre de l’événement"
+              subtitle="Nom d’affichage de l’événement."
+              value={ title }
+              placeholder="Tapez le titre"
+              type="text"
+              handleChange={handleChange}
+            />
+          </div>
 
-            { event }
 
-
-            {/* <TextField
-              title="Adresse email"
-              subtitle="Votre email sert d'identifiant. Il est utilisé pour synchroniser vos données."
-              value="{email}"
+{/* 
+          <div className="content">
+            <TextField
+              title="Date de l’événement"
+              subtitle=""
+              value={ event }
               placeholder="Tapez votre adresse mail"
               type="email"
-              handleChange="{handleEmailChange}"
-              onKeyDown="{connectUser}"
-              inputRef="{inputRef}"
-            /> */}
-
-
-            {/* {error && <span className='sm-text error'>{error}</span>} */}
-
-
-
-
+              handleChange={null}
+              onKeyDown={null}
+              inputRef={null}
+            />
           </div>
+
+          <div className="content">
+            <TextField
+              title="Heure de l’événement"
+              subtitle=""
+              value={ event }
+              placeholder="Tapez votre adresse mail"
+              type="email"
+              handleChange={null}
+              onKeyDown={null}
+              inputRef={null}
+            />
+          </div>
+
+
+ */}
+
+
+
+          {/* <textarea
+            className="md-text auto-textarea"
+            autoFocus
+            ref={textareaRef}
+            value={content}
+            onChange={handleChange}
+            onInput={adjustHeight}
+            placeholder={listening ? "Dictez votre note..." : "Tapez votre note..."}
+            rows={1}
+            style={{ overflow: 'hidden', resize: 'none' }}
+            readOnly={listening}
+          />
+ */}
+
+
+
+          {/* {error && <span className='sm-text error'>{error}</span>} */}
         </div>
       </div>
 
-      {/* <DeleteModale
-        icon="Unplug"
-        title="Quitter"
-        subtitle="Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible."
+      <DeleteModale
+        icon="Eraser"
+        title="Supprimer"
+        text="Êtes-vous sûr de vouloir supprimer l'événement ? Cette action est irréversible."
         onDelete={() => {
-          localStorage.clear();
-          router.replace('/demarrage');
+          addOrUpdateAgenda(eventId, '');
+          router.back();
         }}
-      /> */}
+      />
 
     </>
   );

@@ -29,12 +29,12 @@ const Agenda = () => {
             ) : (
               agenda.slice().reverse().map((agenda) => (
                 <Bubble isDescription
-                  icon="Search"
-                  title="Aperçu"
+                  icon=""
+                  title=""
                   onClick={() => router.push(`/agenda/details?id=${agenda.id}`)}
                   key={agenda.id}>
                   {agenda.title
-                    ? agenda.title.slice(0, 42) + (agenda.title.length > 42 ? '...' : '')
+                    ? agenda.title.slice(0, 47) + (agenda.title.length > 47 ? '...' : '')
                     : 'Aucun contenu'}
                 </Bubble>
               ))

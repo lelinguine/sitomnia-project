@@ -26,13 +26,13 @@ export const AgendaProvider = ({ children }: { children: React.ReactNode }) => {
 
   const getAgenda = (id: string) => agenda.find(n => n.id === id);
 
-  const addOrUpdateAgenda = (id: string, content: string) => {
+  const addOrUpdateAgenda = (id: string, title: string) => {
     setAgenda(prev => {
       const existing = prev.find(n => n.id === id);
       if (existing) {
-        return prev.map(n => (n.id === id ? { ...n, title: content } : n));
+        return prev.map(n => (n.id === id ? { ...n, title: title } : n));
       }
-      return [...prev, { id, title: content }];
+      return [...prev, { id, title: title }];
     });
   };
 
