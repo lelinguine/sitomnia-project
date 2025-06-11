@@ -27,15 +27,22 @@ const Parametrage = () => {
     }
   }, []);
 
-  const validateName = (value) => {
-    const regex = /^.{3,12}$/;
+  const validateName = (value: string) => {
+    const regex = /^[a-zA-ZÀ-ÿ0-9_-]{3,12}$/;
 
     if (value.length < 3) {
       setError("Longueur minimum de 3 caractères.");
+      return false;
     } else if (value.length > 12) {
       setError("Longueur maximum de 12 caractères.");
+      return false;
+    } else if (!regex.test(value)) {
+      setError("Le prénom ne peut pas contenir de caractères spécials.");
+      return false;
     }
-    return regex.test(value);
+
+    setError("");
+    return true;
   };
 
   const handleNameChange = (e) => {
@@ -43,7 +50,6 @@ const Parametrage = () => {
     setName(value);
 
     if (validateName(value)) {
-      setError('');
       setIsNameValid(true);
     } else {
       setIsNameValid(false);
@@ -51,13 +57,17 @@ const Parametrage = () => {
   };
 
   const setUser = async () => {
-    localStorage.setItem('name', name);
     if (!isNameValid) return;
 
+    const capitalizeFirstLetter = (str: string) => {
+      if (!str) return "";
+      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    };
+
     const data = {
-      name: name,
+      name: capitalizeFirstLetter(name),
       email: localStorage.getItem('email'),
-    }
+    };
 
     const res = await createUserData(data);
 

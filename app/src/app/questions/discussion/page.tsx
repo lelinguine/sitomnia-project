@@ -187,53 +187,54 @@ const Discussion = () => {
           <span className="sm-text">
             Poser des questions à l’intelligence artificielle.
           </span>
-          <div className='content'>
-            {messages
-            .filter(msg => msg.role !== 'system')
-            .map((msg, i) => (
-              <React.Fragment key={i}>
+
+          {messages
+          .filter(msg => msg.role !== 'system')
+          .map((msg, i) => (
+            <React.Fragment key={i}>
+              <div className='content'>
                 {msg.role === 'user' && <Bubble icon="MessageCircleQuestion" title="Vous">{msg.content}</Bubble>}
                 {msg.role === 'assistant' && <span className="md-text">{msg.content}</span>}
-              </React.Fragment>
-            ))}
-
-            {isLoading && (
-                <Mirage size="40" speed="4" color="black" />
-            )}
-
-            
-
-            {/* {!isLoading && (
-              <div className='w-full flex flex-col items-end gap-[10px]'>
-
-                <ActionButton
-                  isSecondary
-                  isExample
-                  text="Quels sont les risques liés à mon domicile ?"
-                  onClick={() => {
-                    setCurrentPrompt("Quels sont les risques liés à mon domicile ? En fonction du questionnaire que j'ai rempli sur mon domicile.");
-                    sendPrompt();
-                  }}
-                />
-
-                <ActionButton
-                  isSecondary
-                  isExample
-                  text="Quel temps fait-il aujourd'hui ?"
-                  onClick={() => {
-                    setCurrentPrompt("Quel temps fait-il aujourd'hui ?");
-                    sendPrompt();
-                  }}
-                />
-
               </div>
-            )} */}
+            </React.Fragment>
+          ))}
 
-            
+          {isLoading && (
+              <Mirage size="40" speed="4" color="black" />
+          )}
+
+          
+
+          {/* {!isLoading && (
+            <div className='w-full flex flex-col items-end gap-[10px]'>
+
+              <ActionButton
+                isSecondary
+                isExample
+                text="Quels sont les risques liés à mon domicile ?"
+                onClick={() => {
+                  setCurrentPrompt("Quels sont les risques liés à mon domicile ? En fonction du questionnaire que j'ai rempli sur mon domicile.");
+                  sendPrompt();
+                }}
+              />
+
+              <ActionButton
+                isSecondary
+                isExample
+                text="Quel temps fait-il aujourd'hui ?"
+                onClick={() => {
+                  setCurrentPrompt("Quel temps fait-il aujourd'hui ?");
+                  sendPrompt();
+                }}
+              />
+
+            </div>
+          )} */}
+
+          
 
 
 
-          </div>
         </div>
       </div>
 

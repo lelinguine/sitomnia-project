@@ -114,8 +114,8 @@ const Reglages = () => {
         title="Éteindre"
         text="Êtes-vous sûr de vouloir quitter l'application ?"
         onDelete={() => {
-          localStorage.clear();
-          router.replace('/demarrage');
+          localStorage.removeItem('token');
+          router.replace('/connexion');
         }}
       />
 

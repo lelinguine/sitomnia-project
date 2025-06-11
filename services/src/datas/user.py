@@ -27,7 +27,46 @@ users_db: List[User] = [
             },
         ],
         agenda=[
-            {"id": "6d3e8241-6bc2-42f9-b7df-c619ef3c408d", "title": "Rendez-vous médical"}
+            {
+                "id": "6d3e8241-6bc2-42f9-b7df-c619ef3c408d",
+                "title": ""
+            },
+            {
+                "id": "12d709f4-523b-4434-b78c-67d605747383",
+                "title": "Rendez-vous chez le médecin",
+                "date": "2025-06-12",
+                "heure": "10:20"
+            },
+            {
+                "id": "7902c555-d8fd-4c1c-b84b-6c8caaceb103",
+                "title": "Jardinage",
+                "date": "",
+                "heure": "10:00"
+            },
+            {
+                "id": "3763e5d8-c0ac-4fc0-9d25-480b9ae34384",
+                "title": "Prise de médicaments",
+                "date": "",
+                "heure": "12:00"
+            },
+            {
+                "id": "0ee11cb1-56fe-41c2-96e0-063213204146",
+                "title": "Repas de famille",
+                "date": "2025-06-11",
+                "heure": "19:00"
+            },
+            {
+                "id": "0c076df1-68bf-483c-8894-f9fa0570b73a",
+                "title": "Rendez-vous à l'hôpital",
+                "date": "2025-06-14",
+                "heure": "13:00"
+            },
+            {
+                "id": "4644602a-1951-4983-8ea4-40fec6f6cdad",
+                "title": "Faire les courses",
+                "date": "",
+                "heure": ""
+            }
         ],
         preventions=[
                         {
