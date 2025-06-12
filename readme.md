@@ -1,20 +1,3 @@
-# Projet-TER
-
-Ce projet est développé en méthode de co-design avec les utilisateurs finaux. L'objectif est de mettre en relation des séniors et des étudiants en informatique afin de concevoir ensemble une solution permettant de prévenir les risques domestiques liés à l'âge.
-
-## Responsables
-Damien Pellier : damien.pellier@imag.fr<br>
-Emmanuel MONFORT : emmanuel.monfort@univ-grenoble-alpes.fr<br>
-Sidonie SALOME : sidonie.salome@univ-grenoble-alpes.fr<br>
-
-## Utilisateurs
-Anonymes
-
-## Développeurs
-Jinyang ZHANG : jinyang.zhang@etu.univ-grenoble-alpes.fr<br>
-Adrien ZOFFRANIERI : adrien.zoffranieri@etu.univ-grenoble-alpes.fr<br>
-Valentin LUGINBUHL : valentin.luginbuhl@etu.univ-grenoble-alpes.fr<br>
-
 # 💿 - Install *Application***
 Guide d'installation et de lancement de l'application web.
 
