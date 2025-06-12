@@ -1,6 +1,7 @@
 .bar {
   width: 100%;
   padding: 30px;
+  min-height: 120px;
   display: flex;
   justify-content: space-between;
   border-bottom: solid 4px var(--foreground);

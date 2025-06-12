@@ -13,6 +13,8 @@ import ActionButton from '@/components/button/ActionButton';
 
 import { useDiscussion } from '@/context/DiscussionContext';
 import { useUser } from '@/context/UserContext';
+import { useNote  } from '@/context/NotesContext';
+import { useAgenda } from '@/context/AgendaContext';
 
 type Message = {
   role: 'user' | 'assistant' | 'system';
@@ -39,15 +41,35 @@ const Discussion = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { settings, user, questionnaire } = useUser();
+  const { notes } = useNote();
+  const { agenda } = useAgenda();
 
   const systemPrompt: Message = {
     role: 'system',
-    content: "Ne te présente pas. Ne parle pas de toi. Réponds à la question de manière synthétique, en évitant les détails superflus. Ne fais pas d'introduction, parle directement du sujet de la question. Ne fais pas de liste. Un maximum de 100 mots pour répondre. Si tu ne sais pas répondre à la question, dis que tu ne sais pas. Réponds en français."
+    content: "Réponds en français. Ne te présente pas. Réponds à la question de manière synthétique, en évitant les détails superflus. Ne fais pas d'introduction, parle directement du sujet de la question. Un maximum de 150 mots pour répondre."
   };
 
+  const now = new Date();
+  const dateHeure = now.toLocaleString('fr-FR', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+
+  systemPrompt.content += `\n- Date et heure actuelles (Aujourd'hui) : ${dateHeure}`;
+
   if (settings.sharePersonalData) {
-    systemPrompt.content += `\n\nVoici quelques information me concernant :\n- Nom : ${user.name}\n- Questionnaire : ${questionnaire}\n Utilises ces informations pour personnaliser tes réponses; Appelles moi par mon nom, utilises les réponses du questionnaire pour orienter tes réponses auw questions.`;
+    systemPrompt.content += `\n\nVoici quelques informations me concernant :\n- Nom : ${user.name}`;
+    systemPrompt.content += `\n- Questionnaire : ${JSON.stringify(questionnaire, null, 2)}`;
+    systemPrompt.content += `\n- Notes : ${JSON.stringify(notes, null, 2)}`;
+    systemPrompt.content += `\n- Agenda : ${JSON.stringify(agenda, null, 2)}\n Les événements sans date mais avec un horaire sont considérés comme des événements récurrents qui reviennet chaque jour.`;
+    systemPrompt.content += `\n- Utilise ces informations pour personnaliser tes réponses : appelle-moi par mon nom, utilise les informations de mon questionnaire, et adapte tes réponses en fonction de mes notes et agenda.`;
   }
+
+  console.log("System Prompt:", systemPrompt.content);
 
   const currentController = useRef<AbortController | null>(null);
 
@@ -100,14 +122,15 @@ const Discussion = () => {
     };
   }, []);
 
-  const sendPrompt = async () => {
-    if (isLoading || !currentPrompt.trim() || !activeDiscussionId) return;
+  const sendPrompt = async (prompt?: string) => {
+    const promptToSend = prompt ?? currentPrompt;
+    if (isLoading || !promptToSend.trim() || !activeDiscussionId) return;
 
     const view = document.querySelector(".view") as HTMLElement;
     view.style.opacity = "1";
 
     setIsLoading(true);
-    const newPrompt = currentPrompt;
+    const newPrompt = promptToSend;
     setCurrentPrompt('');
 
     const element = document.querySelector('.view');
@@ -136,8 +159,6 @@ const Discussion = () => {
       if (!res.ok || !res.body) {
         throw new Error("Fetch failed");
       }
-
-      console.log("Réponse du serveur reçue, début du streaming...", res);
 
       const reader = res.body.getReader();
       const decoder = new TextDecoder('utf-8');
@@ -177,7 +198,6 @@ const Discussion = () => {
     }
   };
 
-
   return (
     <>
       <Bar icon="MessageCircleQuestion" title="Questions" color="#BBDED6" />
@@ -199,40 +219,95 @@ const Discussion = () => {
             </React.Fragment>
           ))}
 
-          {isLoading && (
-              <Mirage size="40" speed="4" color="black" />
-          )}
 
           
-
-          {/* {!isLoading && (
+          {!isLoading && (
             <div className='w-full flex flex-col items-end gap-[10px]'>
 
-              <ActionButton
-                isSecondary
-                isExample
-                text="Quels sont les risques liés à mon domicile ?"
-                onClick={() => {
-                  setCurrentPrompt("Quels sont les risques liés à mon domicile ? En fonction du questionnaire que j'ai rempli sur mon domicile.");
-                  sendPrompt();
-                }}
-              />
+              <span className="sm-text">
+                Quelques idées de sujets de discussion
+              </span>
 
-              <ActionButton
-                isSecondary
-                isExample
-                text="Quel temps fait-il aujourd'hui ?"
-                onClick={() => {
-                  setCurrentPrompt("Quel temps fait-il aujourd'hui ?");
-                  sendPrompt();
-                }}
-              />
+              {settings.sharePersonalData ? (
+                <>
+                  <ActionButton
+                    isSecondary
+                    isExample
+                    text="Résumé des événements du jour"
+                    onClick={() => {
+                      sendPrompt("Quels-sont les événements programmés pour aujourd'hui ?");
+                    }}
+                  />
 
+                  <ActionButton
+                    isSecondary
+                    isExample
+                    text="La prévention dans mon domicile"
+                    onClick={() => {
+                      sendPrompt("Quels-sont les éléments de prévention importants à considérer dans les pièces de mon domicile ?");
+                    }}
+                  />
+
+                  <ActionButton
+                    isSecondary
+                    isExample
+                    text="Idées d’activités pour rester actif"
+                    onClick={() => {
+                      sendPrompt(	"Quelles activités peuvent m'aider à rester actif au quotidien ?");
+                    }}
+                  />
+
+                  <ActionButton
+                    isSecondary
+                    isExample
+                    text="Créer une routine du matin"
+                    onClick={() => {
+                      sendPrompt("Peux-tu me proposer une routine du matin adaptée aux seniors ?");
+                    }}
+                  />
+
+                  <ActionButton
+                    isSecondary
+                    isExample
+                    text="Prévenir les chutes à la maison"
+                    onClick={() => {
+                      sendPrompt("Quels conseils pour éviter les chutes à la maison ?");
+                    }}
+                  />
+
+                </>
+              ) : (
+                <>
+                  <ActionButton
+                    isSecondary
+                    isExample
+                    text="Idées d’activités pour rester actif"
+                    onClick={() => {
+                      sendPrompt(	"Quelles activités peuvent m'aider à rester actif au quotidien ?");
+                    }}
+                  />
+
+                  <ActionButton
+                    isSecondary
+                    isExample
+                    text="Créer une routine du matin"
+                    onClick={() => {
+                      sendPrompt("Peux-tu me proposer une routine du matin adaptée aux seniors ?");
+                    }}
+                  />
+
+                  <ActionButton
+                    isSecondary
+                    isExample
+                    text="Prévenir les chutes à la maison"
+                    onClick={() => {
+                      sendPrompt("Quels conseils pour éviter les chutes à la maison ?");
+                    }}
+                  />
+                </>
+              )}
             </div>
-          )} */}
-
-          
-
+          )}
 
 
         </div>

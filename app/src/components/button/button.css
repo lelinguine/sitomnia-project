@@ -27,7 +27,8 @@
     gap: 10px;
     background-color: var(--foreground);
     color: var(--background);
-    width: 160px
+    width: 160px;
+    padding: 20px;
 }
 
 .secondary-button {
@@ -50,5 +51,4 @@
 
 .example-button {
     width: fit-content;
-    padding: 0 10px;
 }

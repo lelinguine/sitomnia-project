@@ -8,6 +8,7 @@ import ToggleButton from '@/components/button/ToggleButton';
 import TextField from '@/components/text/TextField';
 import ActionButton from '@/components/button/ActionButton';
 import DeleteModale from '@/components/modal/DeleteModal';
+import Icon from '@/components/Icon';
 
 import { useUser } from '@/context/UserContext';
 
@@ -86,6 +87,13 @@ const Reglages = () => {
               text="Relancer"
               onClick={() => router.push('/questionnaire/resultats')}
             />
+
+            <div className="flex gap-[10px]">
+              <div className='pt-1'><Icon icon="Info" size={20}/></div>
+              <span className="sm-text w-fit">
+                <i>Relancer le questionnaire réinitialise les réponses précédentes.</i>
+              </span>
+            </div>
 
           </div>
 
