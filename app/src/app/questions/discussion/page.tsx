@@ -225,7 +225,7 @@ const Discussion = () => {
             <div className='w-full flex flex-col items-end gap-[10px]'>
 
               <span className="sm-text">
-                Quelques sujets de discussion
+                Quelques idées de sujets de discussion
               </span>
 
               {settings.sharePersonalData ? (
@@ -274,7 +274,7 @@ const Discussion = () => {
                       sendPrompt("Quels conseils pour éviter les chutes à la maison ?");
                     }}
                   />
-                  
+
                 </>
               ) : (
                 <>
