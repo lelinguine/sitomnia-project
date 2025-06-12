@@ -165,7 +165,7 @@ const Questionnaire = () => {
             <div className="view">
                 <div className="thread">
                     <span className="sm-text">
-                        Réponder aux questions pour personnaliser votre expérience dans l'application.
+                        Répondre aux questions pour personnaliser votre expérience dans l'application.
                     </span>
 
                     <div className='content'>

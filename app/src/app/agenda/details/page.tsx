@@ -25,7 +25,6 @@ const Details = () => {
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-
     const adjustHeight = () => {
     const textarea = textareaRef.current;
     if (textarea) {
@@ -50,14 +49,12 @@ const Details = () => {
     }
   }, [eventId, getAgenda, router]);
 
-
   const handleChangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(e.target.value);
     if (eventId) {
       addOrUpdateAgenda(eventId, e.target.value, date, heure, note);
     }
   };
-
 
   const handleChangeDate = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDate(e.target.value);
@@ -66,7 +63,6 @@ const Details = () => {
       addOrUpdateAgenda(eventId, title, e.target.value, heure, note);
     }
   };
-
 
   const handleChangeHeure = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     console.log('Heure:', e.target.value);
@@ -82,7 +78,6 @@ const Details = () => {
       addOrUpdateAgenda(eventId, title, date, heure, e.target.value);
     }
   };
-  
 
   return (
     <>
@@ -112,7 +107,6 @@ const Details = () => {
             </div>
           </div>
 
-
           <div className="content">
             <TextField
               title="Date de l’événement"
@@ -130,7 +124,6 @@ const Details = () => {
               </span>
             </div>
           </div>
-
 
           <div className="content">
             <TextField
@@ -170,10 +163,10 @@ const Details = () => {
 
       <DeleteModale
         icon="Eraser"
-        title="Supprimer"
+        title="Retirer"
         text="Êtes-vous sûr de vouloir supprimer l'événement ? Cette action est irréversible."
         onDelete={() => {
-          addOrUpdateAgenda(eventId, '', '', '');
+          addOrUpdateAgenda(eventId, '', '', '', '');
           router.back();
         }}
       />

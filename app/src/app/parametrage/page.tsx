@@ -69,9 +69,10 @@ const Parametrage = () => {
       email: localStorage.getItem('email'),
     };
 
-    const res = await createUserData(data);
-
-    if (!res) {
+    let res;
+    try {
+      res = await createUserData(data);
+    } catch (error) {
       setError("Erreur de connexion aux services.");
       return;
     }
