@@ -46,7 +46,7 @@ const Discussion = () => {
 
   const systemPrompt: Message = {
     role: 'system',
-    content: "Réponds en français. Ne te présente pas. Réponds à la question de manière synthétique, en évitant les détails superflus. Ne fais pas d'introduction, parle directement du sujet de la question. Un maximum de 150 mots pour répondre."
+    content: "Réponds en français. Ne te présente pas. Ne dis pas bonjour. Réponds à la question de manière synthétique, en évitant les détails superflus. Ne fais pas d'introduction, parle directement du sujet de la question. Un maximum de 150 mots pour répondre."
   };
 
   const now = new Date();
@@ -219,7 +219,9 @@ const Discussion = () => {
             </React.Fragment>
           ))}
 
-
+          {isLoading && (
+            <Mirage size="40" speed="4" color="black" />
+          )}
           
           {!isLoading && (
             <div className='w-full flex flex-col items-end gap-[10px]'>
@@ -242,43 +244,28 @@ const Discussion = () => {
                   <ActionButton
                     isSecondary
                     isExample
+                    text="À propos de ma routine quotidienne"
+                    onClick={() => {
+                      sendPrompt("Peux-tu me donner un aperçu de mes événements récurrents ?");
+                    }}
+                  />
+
+                  <ActionButton
+                    isSecondary
+                    isExample
                     text="La prévention dans mon domicile"
                     onClick={() => {
                       sendPrompt("Quels-sont les éléments de prévention importants à considérer dans les pièces de mon domicile ?");
                     }}
                   />
-
-                  <ActionButton
-                    isSecondary
-                    isExample
-                    text="Idées d’activités pour rester actif"
-                    onClick={() => {
-                      sendPrompt(	"Quelles activités peuvent m'aider à rester actif au quotidien ?");
-                    }}
-                  />
-
-                  <ActionButton
-                    isSecondary
-                    isExample
-                    text="Créer une routine du matin"
-                    onClick={() => {
-                      sendPrompt("Peux-tu me proposer une routine du matin adaptée aux seniors ?");
-                    }}
-                  />
-
-                  <ActionButton
-                    isSecondary
-                    isExample
-                    text="Prévenir les chutes à la maison"
-                    onClick={() => {
-                      sendPrompt("Quels conseils pour éviter les chutes à la maison ?");
-                    }}
-                  />
-
+                  
                 </>
               ) : (
                 <>
-                  <ActionButton
+                </>
+              )}
+              
+              <ActionButton
                     isSecondary
                     isExample
                     text="Idées d’activités pour rester actif"
@@ -304,8 +291,7 @@ const Discussion = () => {
                       sendPrompt("Quels conseils pour éviter les chutes à la maison ?");
                     }}
                   />
-                </>
-              )}
+
             </div>
           )}
 
