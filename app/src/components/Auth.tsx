@@ -27,7 +27,7 @@ export default function Auth({ children }: { children: React.ReactNode }) {
       const token = localStorage.getItem("token");
       if (!token) {
         if (pathname !== "/parametrage" && pathname !== "/connexion" && pathname !== "/demarrage") {
-          localStorage.clear();
+          localStorage.removeItem("token");
           router.replace("/demarrage");
         }
         return;
@@ -35,7 +35,7 @@ export default function Auth({ children }: { children: React.ReactNode }) {
 
       const res = await verifyUser(token);
       if (!res || res.status !== "success") {
-        localStorage.clear();
+        localStorage.removeItem("token");
         router.replace("/demarrage");
         return;
       } else {

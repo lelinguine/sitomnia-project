@@ -84,8 +84,8 @@ const Agenda = () => {
           <div className="content">
 
             {/* Historique */}
-            <button className="button default-button" onClick={() => router.push('/agenda/historique')} style={{ width: '100%', justifyContent: 'space-between', padding: '0 20px' }}>
-              <span className="sm-text">Historique</span>
+            <button className="button default-button" onClick={() => router.push('/agenda/historique')} style={{ width: '100%', justifyContent: 'space-between', padding: '20px' }}>
+              <span className="sm-text">Historique des événéments</span>
               <Icon icon="ChevronRight" size={20} />
             </button>
 
