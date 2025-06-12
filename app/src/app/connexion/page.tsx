@@ -49,9 +49,10 @@ const Connexion = () => {
 
     if (!isEmailValid) return;
 
-    const res = await loginUser(email);
-
-    if (!res) {
+    let res;
+    try {
+      res = await loginUser(email);
+    } catch (err) {
       setError("Erreur de connexion aux services.");
       return;
     }
