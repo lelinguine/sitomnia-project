@@ -25,7 +25,11 @@
     - `token` : Token JWT d'accès.
     - `user` : Données utilisateur (hors id).
 
-- **POST** `/users` : Création d'un nouvel utilisateur.
+- **GET** `/verify` : Vérification du token et récupération des informations utilisateur (token requis).
+  - **Sorties** :
+    - `user` : Données utilisateur.
+
+- **POST** `/user` : Création d'un nouvel utilisateur.
   - **Entrées** :
     - `email` (string, requis)
     - `name` (string, requis)
@@ -34,11 +38,7 @@
     - `token` : Token JWT d'accès.
     - `user` : Données utilisateur.
 
-- **GET** `/users/me` : Récupérer les informations de l'utilisateur courant (token requis).
-  - **Sorties** :
-    - `user` : Données utilisateur.
-
-- **PUT** `/users/me` : Mettre à jour les informations de l'utilisateur courant (token requis).
+- **PATCH** `/user` : Mettre à jour les informations de l'utilisateur courant (token requis).
   - **Entrées** :
     - Champs utilisateur à modifier.
   - **Sorties** :
