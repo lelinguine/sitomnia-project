@@ -42,7 +42,8 @@ import {
     Eraser,
     Calendar,
     SquareChartGantt,
-    Calendar1
+    Calendar1,
+    ChevronRight
 } from "lucide-react";
 
 const icons = {
@@ -87,7 +88,8 @@ const icons = {
     Eraser,
     Calendar,
     SquareChartGantt,
-    Calendar1
+    Calendar1,
+    ChevronRight
 };
 
 const Icon = ({ icon, size }) => {

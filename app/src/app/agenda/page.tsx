@@ -8,6 +8,7 @@ import LinkModal from '@/components/modal/LinkModal';
 import Bubble from '@/components/text/Bubble';
 
 import { useAgenda } from '@/context/AgendaContext';
+import Icon from '@/components/Icon';
 
 const Agenda = () => {
   const router = useRouter();
@@ -37,7 +38,6 @@ const Agenda = () => {
 
   // Catégorisation
   const noDate = agenda.filter(a => !a.date);
-  // const noDateNoHeure = noDate.filter(a => !a.heure);
   const noDateWithHeure = noDate.filter(a => a.heure);
 
   const noDateWithHeureSorted = [...noDateWithHeure].sort((a, b) =>
@@ -48,7 +48,8 @@ const Agenda = () => {
     .filter(a => a.date)
     .filter(a => {
       const date = new Date(`${a.date}T${a.heure || '00:00'}`);
-      return date >= now;
+      const agendaDateStr = date.toISOString().split('T')[0];
+      return agendaDateStr >= todayStr; // inclure aujourd’hui même si l’heure est passée
     });
 
   const groupedByDate: { [date: string]: { noHeure: typeof dated; withHeure: typeof dated } } = {};
@@ -82,25 +83,18 @@ const Agenda = () => {
 
           <div className="content">
 
-            {/* Événements sans date ni heure */}
-            {/* {noDateNoHeure.length > 0 && (
-              <>
-                <span className="md-text" style={{ marginTop: '1rem' }}>
-                  Événements sans date ni heure
-                </span>
-                {noDateNoHeure.map(a => (
-                  <Bubble
-                    isDescription
-                    key={a.id}
-                    onClick={() => router.push(`/agenda/details?id=${a.id}`)}
-                  >
-                    {a.title
-                      ? a.title.slice(0, 47) + (a.title.length > 47 ? '...' : '')
-                      : 'Aucun contenu'}
-                  </Bubble>
-                ))}
-              </>
-            )} */}
+            {/* Historique */}
+            <button className="button default-button" onClick={() => router.push('/agenda/historique')} style={{ width: '100%', justifyContent: 'space-between', padding: '0 20px' }}>
+              <span className="sm-text">Historique</span>
+              <Icon icon="ChevronRight" size={20} />
+            </button>
+
+            <div className="flex gap-[10px]">
+              <div className='pt-1'><Icon icon="Info" size={20}/></div>
+              <span className="sm-text w-fit">
+                <i>Accéder aux événements passés.</i>
+              </span>
+            </div>
 
             {/* Événements récurrents (heure sans date) */}
             {noDateWithHeureSorted.length > 0 && (
