@@ -59,7 +59,6 @@ export const RiskProvider = ({ children }: { children: React.ReactNode }) => {
       try {
         const preventions = risks;
         const res = await updateUserData({ preventions }, token);
-        console.log("Risks updated successfully:", res);
       } catch (error) {
         console.error("Error updating discussions:", error);
       }
