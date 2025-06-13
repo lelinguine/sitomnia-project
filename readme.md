@@ -113,7 +113,17 @@ Télécharger Docker sur [le site](https://www.docker.com/get-started/).
 
 ### Run
 You can use Docker:
+
+**/app**
 ```bash
-docker build -t sitomnia-image .
-docker run -d -p 8000:8000 --name sitomnia-project sitomnia-image
+cd app
+docker build -t sitomnia-project .
+docker run -d -p 3000:3000 --name sitomnia-project sitomnia-project
+```
+and **/services**
+You can use Docker:
+```bash
+cd services
+docker build -t sitomnia-services .
+docker run -d -p 8000:8000 --name sitomnia-services sitomnia-services
 ```
