@@ -39,6 +39,7 @@ const Discussion = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [currentPrompt, setCurrentPrompt] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const { settings, user, questionnaire } = useUser();
   const { notes } = useNote();
@@ -68,8 +69,6 @@ const Discussion = () => {
     systemPrompt.content += `\n- Agenda : ${JSON.stringify(agenda, null, 2)}\n Les événements sans date mais avec un horaire sont considérés comme des événements récurrents qui reviennet chaque jour.`;
     systemPrompt.content += `\n- Utilise ces informations pour personnaliser tes réponses : appelle-moi par mon nom, utilise les informations de mon questionnaire, et adapte tes réponses en fonction de mes notes et agenda.`;
   }
-
-  console.log("System Prompt:", systemPrompt.content);
 
   const currentController = useRef<AbortController | null>(null);
 
@@ -133,6 +132,8 @@ const Discussion = () => {
     const newPrompt = promptToSend;
     setCurrentPrompt('');
 
+    setError('');
+
     const element = document.querySelector('.view');
     if (element) element.scrollTop = element.scrollHeight;
 
@@ -149,7 +150,7 @@ const Discussion = () => {
     currentController.current = controller;
 
     try {
-      const res = await fetch('http://localhost:8000/ask', {
+      let res = await fetch('http://localhost:8000/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: fullMessages }),
@@ -157,7 +158,9 @@ const Discussion = () => {
       });
 
       if (!res.ok || !res.body) {
-        throw new Error("Fetch failed");
+        setError("Erreur lors de la récupération de la réponse.");
+        setIsLoading(false);
+        return;
       }
 
       const reader = res.body.getReader();
@@ -189,9 +192,7 @@ const Discussion = () => {
       }
 
     } catch (error) {
-      if (error.name !== 'AbortError') {
-        console.error("Erreur dans le stream :", error);
-      }
+      setError("Erreur lors de la récupération de la réponse.");
     } finally {
       setIsLoading(false);
       currentController.current = null;
@@ -222,6 +223,8 @@ const Discussion = () => {
           {isLoading && (
             <Mirage size="40" speed="4" color="black" />
           )}
+
+          {error && <span className='sm-text error'>{error}</span>}
           
           {!isLoading && (
             <div className='w-full flex flex-col items-end gap-[10px]'>

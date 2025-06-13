@@ -65,7 +65,6 @@ const Details = () => {
   };
 
   const handleChangeHeure = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    console.log('Heure:', e.target.value);
     setHeure(e.target.value);
     if (eventId) {
       addOrUpdateAgenda(eventId, title, date, e.target.value, note);

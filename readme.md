@@ -44,6 +44,7 @@ pkill -f ollama
 or **Windows (PowerShell)**
 ```bash
 Get-Process | Where-Object { $_.Path -like "*ollama*" }
+Get-Process | Where-Object { $_.Path -like "*ollama*" } | Stop-Process
 ```
 
 ### Run

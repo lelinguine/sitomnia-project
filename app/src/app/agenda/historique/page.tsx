@@ -4,7 +4,6 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 
 import Bar from '@/components/Bar';
-import LinkModal from '@/components/modal/LinkModal';
 import Bubble from '@/components/text/Bubble';
 
 import { useAgenda } from '@/context/AgendaContext';
@@ -104,8 +103,6 @@ const History = () => {
           </div>
         </div>
       </div>
-
-      <LinkModal icon="CalendarSearch" title="Explorer" link="/agenda/details" />
     </>
   );
 };
