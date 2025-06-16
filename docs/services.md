@@ -14,8 +14,6 @@ Les sercices de l'application Sitomnia sont une application Python (FastAPI) des
 - `src/auth/` : Gestion de l'authentification (JWT, dépendances de sécurité).
 - `docs/` : Documentation technique et endpoints.
 
-## Endpoints des services
-
 ## Base
 - **GET** `/` : Informations des services.
   - **Sorties** : 
