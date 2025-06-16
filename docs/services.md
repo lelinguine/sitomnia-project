@@ -1,5 +1,18 @@
-[Retour](../readme.md)
-# Projet-TER/Endpoints
+# Documentation des services de l'application Sitomnia
+
+## Présentation
+
+Les sercices de l'application Sitomnia sont une application Python (FastAPI) destinée à accompagner les personnes âgées dans leur quotidien. Elle propose un assistant personnel, un agenda, un carnet de notes, un questionnaire de personnalisation, ainsi que des informations de prévention.
+
+## Explication de l'architecture des fichiers/dossiers
+
+- `main.py` : Point d'entrée principal de l'application FastAPI.
+- `src/router.py` : Définition des routes principales de l'API.
+- `src/controllers/` : Logique métier pour chaque ressource (ex : user_controller.py pour les utilisateurs).
+- `src/models/` : Schémas de données (Pydantic) pour la validation et la sérialisation.
+- `src/datas/` : Données simulées ou statiques (ex : users_db).
+- `src/auth/` : Gestion de l'authentification (JWT, dépendances de sécurité).
+- `docs/` : Documentation technique et endpoints.
 
 ## Base
 - **GET** `/` : Informations des services.
@@ -44,16 +57,6 @@
   - **Sorties** :
     - `user` : Données utilisateur mises à jour.
 
-## Explication de l'architecture des fichiers/dossiers
-
-- `main.py` : Point d'entrée principal de l'application FastAPI.
-- `src/router.py` : Définition des routes principales de l'API.
-- `src/controllers/` : Logique métier pour chaque ressource (ex : user_controller.py pour les utilisateurs).
-- `src/models/` : Schémas de données (Pydantic) pour la validation et la sérialisation.
-- `src/datas/` : Données simulées ou statiques (ex : users_db).
-- `src/auth/` : Gestion de l'authentification (JWT, dépendances de sécurité).
-- `docs/` : Documentation technique et endpoints.
-
 ## Explication du système de token (JWT)
 
 L'API utilise des tokens JWT (JSON Web Token) pour sécuriser les routes nécessitant une authentification. Lors de la connexion ou de la création d'un utilisateur, un token est généré et renvoyé au client. Ce token doit être envoyé dans l'en-tête `Authorization` (Bearer) pour accéder aux routes protégées (`/users/me`, etc.).
@@ -61,12 +64,3 @@ L'API utilise des tokens JWT (JSON Web Token) pour sécuriser les routes nécess
 - Le token contient l'email de l'utilisateur dans le champ `sub`.
 - La vérification du token est faite à chaque requête protégée via une dépendance FastAPI.
 - Si le token est invalide ou expiré, l'accès est refusé (erreur 401).
-
-```mermaid
-graph TD
-    Client-->|POST /login|API
-    API-->|Génère JWT|Client
-    Client-->|GET /users/me (avec JWT)|API
-    API-->|Vérifie JWT|API
-    API-->|Renvoie données utilisateur|Client
-```
