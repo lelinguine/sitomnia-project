@@ -61,4 +61,3 @@ L'API utilise des tokens JWT (JSON Web Token) pour sécuriser les routes nécess
 - Le token contient l'email de l'utilisateur dans le champ `sub`.
 - La vérification du token est faite à chaque requête protégée via une dépendance FastAPI.
 - Si le token est invalide ou expiré, l'accès est refusé (erreur 401).
-```
