@@ -1,56 +1,75 @@
-
 from fastapi import HTTPException
-from ..models.user import UserRequest
+from ..models.user import User, UserRequest
 from ..auth.jwt_handler import create_access_token
-from ..database.database import user_collection  
-from bson import ObjectId
+from typing import List
 
-# Connexion / Login
-async def login_user(request: UserRequest):
-    user = await user_collection.find_one({"email": request.email})
-    if user:
-        token = create_access_token({"sub": user["email"]})
-        user["_id"] = str(user["_id"])  
-        return {"status": "success", "token": token, "user": user}
+from ..datas.user import users_db
+
+# Fonction pour gérer la connexion d'un utilisateur
+def login_user(request: UserRequest):
+    for user in users_db:
+        if user.email == request.email:
+            token = create_access_token({"sub": user.email})
+            return {
+                "status": "success",
+                "token": token,
+                "user": user.model_dump(exclude={"id"})
+            }
     raise HTTPException(status_code=404, detail="Email not found")
 
-# Créer un nouvel utilisateur
-async def create_user_info(request: UserRequest):
-    existing = await user_collection.find_one({"email": request.email})
-    if existing:
-        raise HTTPException(status_code=400, detail="Email already exists")
-
-    new_user = {
-        "email": request.email,
-        "name": request.name,
-        "discussions": request.discussions or [],
-        "notes": request.notes or [],
-        "agenda": request.agenda or [],
-        "preventions": request.preventions or [],
-        "reglages": request.reglages or [{"textToSpeechEnabled": True, "sharePersonalData": True}],
-        "questionnaire": request.questionnaire or [],
-    }
-
-    result = await user_collection.insert_one(new_user)
-    token = create_access_token({"sub": new_user["email"]})
-    new_user["_id"] = str(result.inserted_id)
-    return {"status": "success", "token": token, "user": new_user}
-
-# Récupérer les infos utilisateur
-async def get_user_info(email: str):
-    user = await user_collection.find_one({"email": email})
-    if user:
-        user["_id"] = str(user["_id"])
-        return {"status": "success", "user": user}
+# Fonction pour obtenir les informations d'un utilisateur
+def get_user_info(email: str):
+    for user in users_db:
+        if user.email == email:
+            return {
+                "status": "success",
+                "user": user.model_dump(exclude={"id"})
+            }
     raise HTTPException(status_code=404, detail="User not found")
 
-# Mise à jour des infos utilisateur
-async def update_user_info(request: UserRequest, email: str):
-    update_data = {
-        k: v for k, v in request.dict(exclude_unset=True).items()
-        if v is not None and k != "email"
+# Fonction pour créer un nouvel utilisateur
+def create_user_info(request: UserRequest):
+    for user in users_db:
+        if user.email == request.email:
+            raise HTTPException(status_code=400, detail="Email already exists")
+        
+        if not request.email or not request.name:
+            raise HTTPException(status_code=400, detail="Email and name are required")
+
+    new_id = str(len(users_db) + 1)
+
+    new_user = User(
+        email=request.email,
+        name=request.name,
+        id=new_id,
+        discussions=request.discussions or [],
+        notes=request.notes or [],
+        agenda=request.agenda or [],
+        preventions=request.preventions or [],
+        reglages=request.reglages or [{"textToSpeechEnabled": True, "sharePersonalData": True}],
+        questionnaire=request.questionnaire or []
+    )
+
+    users_db.append(new_user)
+    token = create_access_token({"sub": new_user.email})
+
+    return {
+        "status": "success",
+        "token": token,
+        "user": new_user
     }
-    result = await user_collection.update_one({"email": email}, {"$set": update_data})
-    if result.modified_count:
-        return await get_user_info(email)
-    raise HTTPException(status_code=404, detail="User not found or no changes made")
+
+# Fonction pour mettre à jour les informations d'un utilisateur
+def update_user_info(request: UserRequest, email: str):
+    for idx, user in enumerate(users_db):
+        if user.email == email:
+            original = user.model_copy()
+            update_data = request.model_dump(exclude_unset=True, exclude={"email"})
+            for field, value in update_data.items():
+                setattr(user, field, value)
+            users_db[idx] = user
+            return {
+                "status": "success",
+                "user": user
+            }
+    raise HTTPException(status_code=404, detail="Email not found")
