@@ -28,7 +28,7 @@
     background-color: var(--foreground);
     color: var(--background);
     width: 160px;
-    padding: 20px;
+    padding: 20px 0;
 }
 
 .secondary-button {
