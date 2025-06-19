@@ -127,3 +127,16 @@ cd services
 docker build -t sitomnia-services .
 docker run -d -p 8000:8000 --name sitomnia-services sitomnia-services
 ```
+
+# 🔧 CHANGELOG
+Vous pouvez voir les numéros de version ainsi que les fonctionnalités implémentées
+
+### App
+```bash
+https://github.com/yilingwaku/Projet-TER/blob/main/app/CHANGELOG.md
+```
+
+### Services
+```bash
+https://github.com/yilingwaku/Projet-TER/blob/main/services/CHANGELOG.md
+```
