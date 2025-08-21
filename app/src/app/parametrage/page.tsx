@@ -80,7 +80,8 @@ const Parametrage = () => {
     if (res.status === "success") {
       localStorage.setItem('token', res.token);
 
-      router.push('/questionnaire');
+      // router.push('/questionnaire');
+      router.push('/acceuil');
     } else {
       setError("Le compte existe déjà, veuillez vous connecter.");
     }

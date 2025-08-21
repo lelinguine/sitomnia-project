@@ -12,19 +12,19 @@ import { loginUser } from "@controller/UserController";
 const Connexion = () => {
   const router = useRouter();
 
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('alice@example.com');
   const [error, setError] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(false);
 
   const inputRef = useRef(null);
 
   useEffect(() => {
-    inputRef.current?.focus();
     const savedEmail = localStorage.getItem('email');
     if (savedEmail) {
       setEmail(savedEmail);
-      setIsEmailValid(validateEmail(savedEmail));
     }
+    setIsEmailValid(validateEmail(email));
+    inputRef.current?.focus();
   }, []);
 
   const validateEmail = (value) => {

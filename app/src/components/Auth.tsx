@@ -41,13 +41,13 @@ export default function Auth({ children }: { children: React.ReactNode }) {
       } else {
         updateUser({ email: res.user.email, name: res.user.name });
 
-        updateQuestionnaire(res.user.questionnaire);
-        if (res.user.questionnaire.length === 0) {
-          if (pathname !== "/questionnaire" && pathname !== "/connexion" && pathname !== "/demarrage"
-            && pathname !== "/parametrage") {
-              router.replace("/questionnaire");
-          }
-        } 
+        // updateQuestionnaire(res.user.questionnaire);
+        // if (res.user.questionnaire.length === 0) {
+        //   if (pathname !== "/questionnaire" && pathname !== "/connexion" && pathname !== "/demarrage"
+        //     && pathname !== "/parametrage") {
+        //       router.replace("/questionnaire");
+        //   }
+        // } 
 
         updateSettings({
           textToSpeechEnabled: res.user.reglages[0].textToSpeechEnabled,

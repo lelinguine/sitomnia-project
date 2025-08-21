@@ -72,7 +72,7 @@ const Reglages = () => {
               type="name"
             />
           </div> */}
-
+{/* 
           <div className='content'>
             <span className="md-text mb-[-10px]">
               Questionnaire
@@ -95,7 +95,7 @@ const Reglages = () => {
               </span>
             </div>
 
-          </div>
+          </div> */}
 
           {/* <div className='content'>
             <span className="md-text mb-[-10px]">
