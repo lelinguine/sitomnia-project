@@ -4,6 +4,8 @@ import "./../components/button/button.css";
 
 import Auth from "@/components/Auth";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: "Sitomnia",
 };

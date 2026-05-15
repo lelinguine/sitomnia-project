@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import Bar from '@/components/Bar';
 import LinkModal from '@/components/modal/LinkModal';
 
