@@ -1,4 +1,4 @@
-const API_URL = "https://sitomnia-service.valentinluginbuhl.fr:8000";
+const API_URL = "https://sitomnia-service.valentinluginbuhl.fr";
 
 export async function loginUser(email: string) {
   const res = await fetch(`${API_URL}/login`, {

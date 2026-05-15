@@ -7,7 +7,6 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:3000",
         "https://sitomnia.valentinluginbuhl.fr",
         "https://sitomnia-service.valentinluginbuhl.fr"
     ],
