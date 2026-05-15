@@ -1,10 +1,16 @@
 import httpx
 import json
+import os
 from fastapi import HTTPException
+from dotenv import load_dotenv
 from ..models.ollama import PromptRequest
 
-OLLAMA_URL = "http://192.168.1.24:11434/api/chat"
-MODEL_NAME = "llama3.2:1b"
+load_dotenv()
+
+OLLAMA_HOST = os.getenv("OLLAMA_HOST", "192.168.1.24")
+OLLAMA_PORT = os.getenv("OLLAMA_PORT", "11434")
+MODEL_NAME = os.getenv("OLLAMA_MODEL", "llama3.2:1b")
+OLLAMA_URL = f"http://{OLLAMA_HOST}:{OLLAMA_PORT}/api/chat"
 
 async def stream_ollama_response(request: PromptRequest):
     payload = {
