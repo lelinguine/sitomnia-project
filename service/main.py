@@ -6,7 +6,11 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://sitomnia.valentinluginbuhl.fr"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://sitomnia.valentinluginbuhl.fr",
+        "https://sitomnia-service.valentinluginbuhl.fr"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
