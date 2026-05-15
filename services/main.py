@@ -21,5 +21,5 @@ async def root():
         "status": "success",
         "api_version": "0.3-a",
         "fastapi_version": "0.110.0",
-        "model": "llama3.2:3b"
+        "model": "llama3.2:1b"
     }

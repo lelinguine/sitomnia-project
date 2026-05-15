@@ -3,8 +3,8 @@ import json
 from fastapi import HTTPException
 from ..models.ollama import PromptRequest
 
-OLLAMA_URL = "http://localhost:11434/api/chat"
-MODEL_NAME = "llama3.2:3b"
+OLLAMA_URL = "http://192.168.1.24:11434/api/chat"
+MODEL_NAME = "llama3.2:1b"
 
 async def stream_ollama_response(request: PromptRequest):
     payload = {

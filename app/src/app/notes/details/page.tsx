@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
 import Bar from '@/components/Bar';
@@ -17,7 +17,7 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 
 import { formatDateFr } from '@/utils/date';
 
-const Details = () => {
+const DetailsContent = () => {
   const searchParams = useSearchParams();
   const noteId = searchParams.get('id');
   const router = useRouter();
@@ -156,4 +156,10 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default function Details() {
+  return (
+    <Suspense fallback={<div></div>}>
+      <DetailsContent />
+    </Suspense>
+  );
+}

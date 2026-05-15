@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
 import { Mirage } from 'ldrs/react'
@@ -29,7 +29,7 @@ const speak = (text: string) => {
   }
 };
 
-const Discussion = () => {
+const DiscussionContent = () => {
   const searchParams = useSearchParams();
   const discussionId = searchParams.get('id');
 
@@ -312,4 +312,10 @@ const Discussion = () => {
   );
 };
 
-export default Discussion;
+export default function Discussion() {
+  return (
+    <Suspense fallback={<div></div>}>
+      <DiscussionContent />
+    </Suspense>
+  );
+}

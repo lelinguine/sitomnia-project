@@ -90,7 +90,7 @@ const History = () => {
                     title2={a.heure || undefined}
                   >
                     {a.title
-                      ? a.title.slice(0, 47) + (a.title.length > 47 ? '...' : '')
+                      ? a.title.slice(0, 33) + (a.title.length > 33 ? '...' : '')
                       : 'Aucun contenu'}
                   </Bubble>
                 ))}

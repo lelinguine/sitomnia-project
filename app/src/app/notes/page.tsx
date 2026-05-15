@@ -33,7 +33,7 @@ const Notes = () => {
                   onClick={() => router.push(`/notes/details?id=${note.id}`)}
                   key={note.id}>
                   {note.content
-                    ? note.content.slice(0, 47) + (note.content.length > 47 ? '...' : '')
+                    ? note.content.slice(0, 70) + (note.content.length > 70 ? '...' : '')
                     : 'Aucun contenu'}
                 </Bubble>
               ))

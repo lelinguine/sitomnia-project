@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useRouter, notFound, useSearchParams } from 'next/navigation';
 
 import Bar from '@/components/Bar';
@@ -8,7 +8,7 @@ import Check from '@/components/text/Check';
 
 import { useRisk } from '@/context/RiskContext';
 
-export default function PreventionList() {
+function PreventionListContent() {
 
   const searchParams = useSearchParams();
   const slug = searchParams.get('slug');
@@ -53,5 +53,13 @@ export default function PreventionList() {
         </div>
       </div>
     </>
+  );
+}
+
+export default function PreventionList() {
+  return (
+    <Suspense fallback={<div></div>}>
+      <PreventionListContent />
+    </Suspense>
   );
 }

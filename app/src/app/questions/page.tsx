@@ -36,7 +36,7 @@ const Questions = () => {
                     onClick={() => router.push(`/questions/discussion?id=${discussion.id}`)}
                     key={discussion.id}>
                     {preview
-                    ? preview.slice(0, 47) + (preview.length > 47 ? '...' : '')
+                    ? preview.slice(0, 70) + (preview.length > 70 ? '...' : '')
                     : 'Aucun contenu'}
                   </Bubble>
                 );

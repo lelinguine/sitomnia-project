@@ -22,17 +22,21 @@ const Prevention = () => {
           </span>
 
           <div className='content'>
-            {risks.map((risk) => (
-              <Bubble
-                key={risk.slug}
-                isDescription
-                icon={risk.icon}
-                title={risk.title}
-                onClick={() => router.push(`/prevention/list?slug=${risk.slug}`)}
-              >
-                {risk.resume}
-              </Bubble>
-            ))}
+            {risks.length === 0 ? (
+              <span className="md-text">Aucun risque n'est disponible.</span>
+            ) : (
+              risks.map((risk) => (
+                <Bubble
+                  key={risk.slug}
+                  isDescription
+                  icon={risk.icon}
+                  title={risk.title}
+                  onClick={() => router.push(`/prevention/list?slug=${risk.slug}`)}
+                >
+                  {risk.resume}
+                </Bubble>
+              ))
+            )}
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
 import Bar from '@/components/Bar';
@@ -12,7 +12,7 @@ import Icon from '@/components/Icon';
 
 import { v4 as uuidv4 } from 'uuid';
 
-const Details = () => {
+const DetailsContent = () => {
   const searchParams = useSearchParams();
   const eventId = searchParams.get('id');
   const router = useRouter();
@@ -174,4 +174,10 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default function Details() {
+  return (
+    <Suspense fallback={<div></div>}>
+      <DetailsContent />
+    </Suspense>
+  );
+}
