@@ -53,14 +53,14 @@ Lancer le serveur Ollama avec le modèle d'intelligence artificielle.
 ollama serve & ollama run llama3.2:3b
 ```
 
-# 📀 Install *Services*
+# 📀 Install *Service*
 ### ⚠️ **nécessaire au bon fonctionnement de l'application
 Guide d'installation et de lancement des services.
 
 ### Move
 Déplacez-vous dans le dossier des services.
 ```
-cd services
+cd service
 ```
 
 ### Environnement
@@ -120,12 +120,12 @@ cd app
 docker build -t sitomnia-project .
 docker run -d -p 3000:3000 --name sitomnia-project sitomnia-project
 ```
-and **/services**
+and **/service**
 You can use Docker:
 ```bash
-cd services
-docker build -t sitomnia-services .
-docker run -d -p 8000:8000 --name sitomnia-services sitomnia-services
+cd service
+docker build -t sitomnia-service .
+docker run -d -p 8000:8000 --name sitomnia-service sitomnia-service
 ```
 
 # 🔧 CHANGELOG
@@ -136,7 +136,7 @@ Vous pouvez voir les numéros de version ainsi que les fonctionnalités impléme
 https://github.com/yilingwaku/Projet-TER/blob/main/app/CHANGELOG.md
 ```
 
-### Services
+### Service
 ```bash
-https://github.com/yilingwaku/Projet-TER/blob/main/services/CHANGELOG.md
+https://github.com/yilingwaku/Projet-TER/blob/main/service/CHANGELOG.md
 ```

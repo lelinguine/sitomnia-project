@@ -152,7 +152,7 @@ const DiscussionContent = () => {
     currentController.current = controller;
 
     try {
-      let res = await fetch('http://localhost:8000/ask', {
+      let res = await fetch('https://sitomnia-service.valentinluginbuhl.fr:8000/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: fullMessages }),

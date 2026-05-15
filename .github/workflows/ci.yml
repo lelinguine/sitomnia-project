@@ -1,4 +1,4 @@
-name: build-and-push
+name: build-and-push service
 
 on:
   push:
@@ -30,8 +30,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: ./services
-          file: ./services/dockerfile
+          context: ./service
+          file: ./service/dockerfile
           push: true
           tags: |
             ghcr.io/${{ github.repository }}:latest
