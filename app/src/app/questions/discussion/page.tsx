@@ -245,40 +245,11 @@ const DiscussionContent = () => {
                       sendPrompt("Quels-sont les événements programmés pour aujourd'hui ?");
                     }}
                   />
-
-                  <ActionButton
-                    isSecondary
-                    isExample
-                    text="À propos de ma routine quotidienne"
-                    onClick={() => {
-                      sendPrompt("Peux-tu me donner un aperçu de mes événements récurrents ?");
-                    }}
-                  />
-
-                  <ActionButton
-                    isSecondary
-                    isExample
-                    text="La prévention dans mon domicile"
-                    onClick={() => {
-                      sendPrompt("Quels-sont les éléments de prévention importants à considérer dans les pièces de mon domicile ?");
-                    }}
-                  />
-                  
                 </>
               ) : (
                 <>
                 </>
               )}
-              
-              <ActionButton
-                    isSecondary
-                    isExample
-                    text="Idées d’activités pour rester actif"
-                    onClick={() => {
-                      sendPrompt(	"Quelles activités peuvent m'aider à rester actif au quotidien ?");
-                    }}
-                  />
-
                   <ActionButton
                     isSecondary
                     isExample
