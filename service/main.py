@@ -8,13 +8,12 @@ load_dotenv()
 
 MODEL_NAME = os.getenv("OLLAMA_MODEL", "llama3.2:1b")
 
-app = FastAPI()
+app = FastAPI(root_path="/service")
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://sitomnia.valentinluginbuhl.fr",
-        "https://sitomnia-service.valentinluginbuhl.fr"
     ],
     allow_credentials=True,
     allow_methods=["*"],
