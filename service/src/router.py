@@ -4,5 +4,9 @@ from .routers.ollama_router import router as ollama_router
 
 router = APIRouter()
 
+@router.get("/health")
+async def health():
+    return {"status": "ok"}
+
 router.include_router(user_router, prefix="")
 router.include_router(ollama_router, prefix="")
