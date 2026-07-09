@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body className="antialiased" cz-shortcut-listen="true">
         <main>
           <NoteProvider>
             <DiscussionProvider>

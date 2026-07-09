@@ -3,7 +3,7 @@
 export const dynamic = 'force-dynamic';
 
 import React, { Suspense } from 'react';
-import { useRouter, notFound, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import Bar from '@/components/Bar';
 import Check from '@/components/text/Check';
@@ -25,9 +25,17 @@ function PreventionListContent() {
 
   const risk = risks.find((r) => r.slug === slug);
 
-  // Si risque non trouvé, on affiche 404
   if (!risk) {
-    notFound();
+    return (
+      <>
+        <Bar icon="Megaphone" title="Prévention" color="#e5c39a" />
+        <div className="view">
+          <div className="thread">
+            <span className="sm-text">Prévention introuvable.</span>
+          </div>
+        </div>
+      </>
+    );
   }
 
   return (

@@ -3,7 +3,7 @@
 export const dynamic = 'force-dynamic';
 
 import React, { Suspense } from 'react';
-import { useRouter, notFound, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import Bar from '@/components/Bar';
 import Icon from '@/components/Icon';
@@ -28,7 +28,16 @@ function PreventionDetailsContent() {
   const item = matchingRisk?.items.find((item) => item.slug === slug);
 
   if (!item || !matchingRisk) {
-    notFound();
+    return (
+      <>
+        <Bar icon="Megaphone" title="Prévention" color="#e5c39a" />
+        <div className="view">
+          <div className="thread">
+            <span className="sm-text">Élément de prévention introuvable.</span>
+          </div>
+        </div>
+      </>
+    );
   }
 
   const formatText = (text: string) =>

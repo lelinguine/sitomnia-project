@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  basePath: '/app',
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -9,3 +8,5 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
 };
+
+export default nextConfig;
