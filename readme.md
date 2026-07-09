@@ -107,27 +107,6 @@ Lancer les services.
 uvicorn main:app --reload
 ```
 
-# 🐋 - Docker
-### Download
-Télécharger Docker sur [le site](https://www.docker.com/get-started/).
-
-### Run
-You can use Docker:
-
-**/app**
-```bash
-cd app
-docker build -t sitomnia-project .
-docker run -d -p 3000:3000 --name sitomnia-project sitomnia-project
-```
-and **/service**
-You can use Docker:
-```bash
-cd service
-docker build -t sitomnia-service .
-docker run -d -p 8000:8000 --name sitomnia-service sitomnia-service
-```
-
 # 🔧 CHANGELOG
 Vous pouvez voir les numéros de version ainsi que les fonctionnalités implémentées
 
