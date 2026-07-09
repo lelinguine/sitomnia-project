@@ -5,7 +5,17 @@ import { useRouter } from "next/navigation";
 
 import ActionButton from "../button/ActionButton";
 
-const LinkModal = ({ icon, title, link, isDouble, doubleIcon, doubleTitle, doubleLink }) => {
+type LinkModalProps = {
+  icon: string;
+  title: string;
+  link: string;
+  isDouble?: boolean;
+  doubleIcon?: string;
+  doubleTitle?: string;
+  doubleLink?: string;
+};
+
+const LinkModal = ({ icon, title, link, isDouble = false, doubleIcon, doubleTitle, doubleLink }: LinkModalProps) => {
   const navigate = useRouter();
 
   const goToLink = () => {
@@ -23,7 +33,7 @@ const LinkModal = ({ icon, title, link, isDouble, doubleIcon, doubleTitle, doubl
       <div className="modal-container">
           <div className="modal-item">
 
-        {isDouble && (
+        {isDouble && doubleIcon && doubleTitle && (
           <ActionButton isSecondary icon={doubleIcon} text={doubleTitle} onClick={goToDoubleLink} />
         )}
 

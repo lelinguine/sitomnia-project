@@ -16,7 +16,7 @@ const SpeechInput = ({
 }: {
   value: string,
   onChange: (v: string) => void,
-  handleKeyDown?: () => void
+  handleKeyDown?: React.KeyboardEventHandler<HTMLTextAreaElement>
 }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 

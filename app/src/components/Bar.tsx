@@ -4,7 +4,7 @@ import BackButton from "./button/BackButton";
 import Icon from "./Icon";
 import "./bar.css";
 
-const Bar = ({ icon, title, color, noBack }) => {
+const Bar = ({ icon, title, color, noBack = false }: { icon: string; title: string; color: string; noBack?: boolean }) => {
 
   return (
     <>

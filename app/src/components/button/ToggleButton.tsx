@@ -1,11 +1,17 @@
 "use client";
 
+import React from 'react';
 import Image from 'next/image';
 import Checked from '@assets/settings-checked.svg';
 import Unchecked from '@assets/settings-unchecked.svg';
 import "./button.css";
 
-const ToggleButton = ({ isChecked, onClick }) => {
+type ToggleButtonProps = {
+  isChecked: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+};
+
+const ToggleButton = ({ isChecked, onClick }: ToggleButtonProps) => {
 
   return (
     <button onClick={onClick}>

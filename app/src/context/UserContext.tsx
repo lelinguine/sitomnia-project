@@ -21,13 +21,13 @@ type QuestionnaireAnswer = {
 type UserContextType = {
   settings: UserSettings;
   user: UserInfo;
-  questionnaire: QuestionnaireAnswer;
+  questionnaire: QuestionnaireAnswer[];
   toggleTextToSpeech: () => void;
   toggleSharePersonalData: () => void;
   updateUser: (newUser: Partial<UserInfo>) => void;
   updateSettings: (newSettings: Partial<UserSettings>) => void;
-  updateQuestionnaire: (newQuestionnaire: QuestionnaireAnswer) => void;
-  addQuestionnaireAnswer: (newQuestionnaire: QuestionnaireAnswer) => void;
+  updateQuestionnaire: (newQuestionnaire: QuestionnaireAnswer[]) => void;
+  addQuestionnaireAnswer: (newQuestionnaire: QuestionnaireAnswer[]) => void;
 };
 
 const defaultSettings: UserSettings = {
@@ -40,17 +40,14 @@ const defaultUser: UserInfo = {
   email: '',
 };
 
-const defaultQuestionnaire: QuestionnaireAnswer = {
-  question: '',
-  reponses: [],
-};
+const defaultQuestionnaire: QuestionnaireAnswer[] = [];
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [settings, setSettings] = useState<UserSettings>(defaultSettings);
   const [user, setUser] = useState<UserInfo>(defaultUser);
-  const [questionnaire, setQuestionnaire] = useState<QuestionnaireAnswer>(defaultQuestionnaire);
+  const [questionnaire, setQuestionnaire] = useState<QuestionnaireAnswer[]>(defaultQuestionnaire);
 
   const isInitialMount = useRef(true);
   const skipNextSettingsSave = useRef(false);
@@ -151,7 +148,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     setQuestionnaire(newQuestionnaire);
   };
 
-  const addQuestionnaireAnswer = (newQuestionnaire: QuestionnaireAnswer) => {
+  const addQuestionnaireAnswer = (newQuestionnaire: QuestionnaireAnswer[]) => {
     setQuestionnaire(newQuestionnaire);
   };
 

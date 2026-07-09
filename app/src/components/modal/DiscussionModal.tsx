@@ -9,7 +9,8 @@ import SpeechInput from "../text/SpeechInput";
 const DiscussionModal = ({ prompt, setPrompt, onSend, isLoading }: {
   prompt: string,
   setPrompt: (value: string) => void,
-  onSend: () => void
+  onSend: (prompt?: string) => void | Promise<void>,
+  isLoading?: boolean
 }) => {
 
   const [isWriting, setIsWriting] = useState(false);
@@ -73,7 +74,7 @@ const DiscussionModal = ({ prompt, setPrompt, onSend, isLoading }: {
 
             <div className="modal-item">
               <ActionButton isSecondary icon="X" text="Annuler" onClick={() => { setPrompt(""); setIsWriting(false); textInputEnable()}}/>
-              <ActionButton isDisable={prompt.trim() === ""} icon="CornerUpRight" text="Demander" onClick={() => { onSend(); setPrompt(""); setIsWriting(false); textInputEnable()}}/>
+              <ActionButton isDisable={prompt.trim() === ""} icon="CornerUpRight" text="Demander" onClick={() => { onSend(prompt); setPrompt(""); setIsWriting(false); textInputEnable()}}/>
             </div>
           </div>
         )}
@@ -84,7 +85,7 @@ const DiscussionModal = ({ prompt, setPrompt, onSend, isLoading }: {
 
             <div className="modal-item">
               <ActionButton isSecondary icon="X" text="Annuler" onClick={() => { setPrompt(""); setIsDictating(false); textInputEnable()}}/>
-              <ActionButton isDisable={prompt.trim() === ""} icon="CornerUpRight" text="Demander" onClick={() => { onSend(); setPrompt(""); setIsDictating(false); textInputEnable()}}/>
+              <ActionButton isDisable={prompt.trim() === ""} icon="CornerUpRight" text="Demander" onClick={() => { onSend(prompt); setPrompt(""); setIsDictating(false); textInputEnable()}}/>
             </div>
           </div>
         )}

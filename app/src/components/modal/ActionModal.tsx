@@ -4,7 +4,14 @@ import React from "react";
 
 import ActionButton from "../button/ActionButton";
 
-const ActionModal = ({ icon, title, onClick, isDisable }) => {
+type ActionModalProps = {
+  icon: string;
+  title: string;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  isDisable?: boolean;
+};
+
+const ActionModal = ({ icon, title, onClick, isDisable }: ActionModalProps) => {
 
   return (
     <div className="modal">

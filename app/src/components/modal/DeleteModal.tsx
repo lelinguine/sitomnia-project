@@ -4,7 +4,14 @@ import React, { useState } from "react";
 
 import ActionButton from "../button/ActionButton";
 
-const LinkModal = ({ icon, title, text, onDelete }) => {
+type DeleteModalProps = {
+  icon: string;
+  title: string;
+  text: string;
+  onDelete?: () => void;
+};
+
+const LinkModal = ({ icon, title, text, onDelete }: DeleteModalProps) => {
 
   const [isDelete, setIsDelete] = useState(false);
 

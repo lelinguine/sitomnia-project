@@ -7,17 +7,14 @@ import { useRouter } from 'next/navigation';
 
 import Bar from '@/components/Bar';
 import ToggleButton from '@/components/button/ToggleButton';
-import TextField from '@/components/text/TextField';
-import ActionButton from '@/components/button/ActionButton';
 import DeleteModale from '@/components/modal/DeleteModal';
-import Icon from '@/components/Icon';
 
 import { useUser } from '@/context/UserContext';
 
 const Reglages = () => {
   const router = useRouter();
 
-  const { settings, user, toggleTextToSpeech, toggleSharePersonalData } = useUser();
+  const { settings, toggleTextToSpeech, toggleSharePersonalData } = useUser();
 
   return (
     <>

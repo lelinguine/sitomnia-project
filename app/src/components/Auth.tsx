@@ -15,7 +15,7 @@ export default function Auth({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const { updateUser, updateSettings, updateQuestionnaire } = useUser();
+  const { updateUser, updateSettings } = useUser();
   const { updateDiscussions } = useDiscussion();
   const { updateNotes } = useNote();
   const { updateRiks } = useRisk();

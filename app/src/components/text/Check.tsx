@@ -3,7 +3,13 @@ import React from "react";
 import Icon from "../Icon";
 import "./text.css";
 
-const Check = ({ children, isChecked, onClick } : { children : React.ReactNode }) => {
+type CheckProps = {
+    children: React.ReactNode;
+    isChecked?: boolean;
+    onClick?: React.MouseEventHandler<HTMLDivElement>;
+};
+
+const Check = ({ children, isChecked, onClick }: CheckProps) => {
       const classNameIsChecked = isChecked ? "checked-todo" : "";
       const iconName = isChecked ? "CircleCheck" : "Circle";
 

@@ -7,6 +7,9 @@ import { updateUserData } from "@controller/UserController";
 type Agenda = {
   id: string;
   title: string;
+  date: string;
+  heure: string;
+  note: string;
 };
 
 type AgendaContextType = {

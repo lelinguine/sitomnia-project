@@ -1,5 +1,7 @@
 const API_URL = "https://sitomnia.valentinluginbuhl.fr/service";
 
+type UserPayload = Record<string, unknown>;
+
 export async function loginUser(email: string) {
   const res = await fetch(`${API_URL}/login`, {
     method: "POST",
@@ -21,7 +23,7 @@ export async function verifyUser(token: string) {
   return res.json();
 }
 
-export async function createUserData(data: any) {
+export async function createUserData(data: UserPayload) {
   const res = await fetch(`${API_URL}/user`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -31,7 +33,7 @@ export async function createUserData(data: any) {
   return res.json();
 }
 
-export async function updateUserData(data: any, token: string) {
+export async function updateUserData(data: UserPayload, token: string) {
   const res = await fetch(`${API_URL}/user`, {
     method: "PATCH",
     headers: {

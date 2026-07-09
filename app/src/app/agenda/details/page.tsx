@@ -51,14 +51,14 @@ const DetailsContent = () => {
     }
   }, [eventId, getAgenda, router]);
 
-  const handleChangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
     if (eventId) {
       addOrUpdateAgenda(eventId, e.target.value, date, heure, note);
     }
   };
 
-  const handleChangeDate = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDate(e.target.value);
     //changer le format de la date en jj/mm/aaaa
     if (eventId) {
@@ -66,7 +66,7 @@ const DetailsContent = () => {
     }
   };
 
-  const handleChangeHeure = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChangeHeure = (e: React.ChangeEvent<HTMLInputElement>) => {
     setHeure(e.target.value);
     if (eventId) {
       addOrUpdateAgenda(eventId, title, date, e.target.value, note);
@@ -167,7 +167,9 @@ const DetailsContent = () => {
         title="Retirer"
         text="Êtes-vous sûr de vouloir supprimer l'événement ? Cette action est irréversible."
         onDelete={() => {
-          addOrUpdateAgenda(eventId, '', '', '', '');
+          if (eventId) {
+            addOrUpdateAgenda(eventId, '', '', '', '');
+          }
           router.back();
         }}
       />

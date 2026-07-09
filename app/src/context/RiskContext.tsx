@@ -58,7 +58,7 @@ export const RiskProvider = ({ children }: { children: React.ReactNode }) => {
     const saveRisks = async () => {
       try {
         const preventions = risks;
-        const res = await updateUserData({ preventions }, token);
+        await updateUserData({ preventions }, token);
       } catch (error) {
         console.error("Error updating discussions:", error);
       }

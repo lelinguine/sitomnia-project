@@ -18,23 +18,24 @@ const Connexion = () => {
   const [error, setError] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(false);
 
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const savedEmail = localStorage.getItem('email');
+    const initialEmail = savedEmail || email;
     if (savedEmail) {
       setEmail(savedEmail);
     }
-    setIsEmailValid(validateEmail(email));
+    setIsEmailValid(validateEmail(initialEmail));
     inputRef.current?.focus();
   }, []);
 
-  const validateEmail = (value) => {
+  const validateEmail = (value: string) => {
     const regex = /^[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)*@[a-zA-Z0-9]+\.[a-zA-Z0-9]{2,}$/;
     return regex.test(value);
   };
 
-  const handleEmailChange = (e) => {
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setEmail(value);
 
@@ -54,7 +55,7 @@ const Connexion = () => {
     let res;
     try {
       res = await loginUser(email);
-    } catch (err) {
+    } catch {
       setError("Erreur de connexion aux services.");
       return;
     }

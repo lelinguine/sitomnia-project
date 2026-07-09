@@ -2,10 +2,23 @@ import React from "react";
 
 import "./text.css";
 
-const TextField = ({ title, subtitle, value, placeholder, type, handleChange, inputRef, onKeyDown, isDisable, onFocus }) => {
+type TextFieldProps = {
+  title: string;
+  subtitle: string;
+  value: string;
+  placeholder: string;
+  type?: string;
+  handleChange: React.ChangeEventHandler<HTMLInputElement>;
+  inputRef?: React.Ref<HTMLInputElement>;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  isDisable?: boolean;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+};
+
+const TextField = ({ title, subtitle, value, placeholder, type, handleChange, inputRef, onKeyDown, isDisable, onFocus }: TextFieldProps) => {
   
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && onKeyDown) {
       onKeyDown(e);
     }
   };

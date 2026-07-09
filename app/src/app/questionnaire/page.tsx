@@ -14,8 +14,6 @@ import ActionModal from '@/components/modal/ActionModal';
 import { useUser } from '@/context/UserContext';
 import { useRisk } from '@/context/RiskContext';
 
-import { adaptPrevention } from '@/utils/adapt';
-
 const optionToQuestionMap = [
   { option: "Entrée", index: 1 },
   { option: "Salon", index: 2 },
@@ -33,7 +31,7 @@ const optionToQuestionMap = [
 
 const Questionnaire = () => {
     const router = useRouter();
-    const { addQuestionnaireAnswer, questionnaire } = useUser();
+    const { addQuestionnaireAnswer } = useUser();
     const { addRisks } = useRisk();
 
     const allQuestions = getAllQuestions();
@@ -41,14 +39,14 @@ const Questionnaire = () => {
     // L'index des questions, les réponses donnée par l'utilisateur, les checkbox selectionnées, les résultats
     // Et l'ordre des question
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [userAnswers, setUserAnswers] = useState([]);
-    const [selectedOptions, setSelectedOptions] = useState([]);
+    const [userAnswers, setUserAnswers] = useState<Array<{ question: string; reponses: string[] }>>([]);
+    const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
     const [showResults, setShowResults] = useState(false);
-    const [questionOrder, setQuestionOrder] = useState([0]);
+    const [questionOrder, setQuestionOrder] = useState<number[]>([0]);
     const currentQuestion = allQuestions[questionOrder[currentIndex]];
 
     // Modifie la sélection des options, lorsque un élément est décocher celui-ci est enlever
-    const handleCheckboxChange = (event) => {
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { id, checked } = event.target;
         if (checked) {
             setSelectedOptions((prev) => [...prev, id]);
@@ -158,7 +156,7 @@ const Questionnaire = () => {
             router.push('/questionnaire/resultats');
         }
         setShowResults(false);
-    }, [showResults]);
+    }, [showResults, addQuestionnaireAnswer, addRisks, questionOrder, router, userAnswers]);
 
     return (
         <>

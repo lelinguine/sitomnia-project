@@ -10,15 +10,5 @@ import { Risk } from '@/assets/datas/risks';
  */
 export const adaptPrevention = (answers: string[], defaultRisks: Risk[]): Risk[] => {
   if (!answers || answers.length === 0) return defaultRisks;
-
-
-
-
-
-
-
-
-
-
-  return "NOT YET IMPLEMENTED";
+  return defaultRisks;
 };

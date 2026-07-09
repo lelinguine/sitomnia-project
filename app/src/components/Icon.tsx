@@ -92,8 +92,8 @@ const icons = {
     ChevronRight
 };
 
-const Icon = ({ icon, size }) => {
-  const IconComponent = icons[icon];
+const Icon = ({ icon, size }: { icon: string; size: number }) => {
+  const IconComponent = icons[icon as keyof typeof icons];
 
   return (
     <>

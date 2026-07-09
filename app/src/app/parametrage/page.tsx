@@ -18,7 +18,7 @@ const Parametrage = () => {
   const [error, setError] = useState('');
   const [isNameValid, setIsNameValid] = useState(false);
 
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -47,7 +47,7 @@ const Parametrage = () => {
     return true;
   };
 
-  const handleNameChange = (e) => {
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setName(value);
 
@@ -74,7 +74,7 @@ const Parametrage = () => {
     let res;
     try {
       res = await createUserData(data);
-    } catch (error) {
+    } catch {
       setError("Erreur de connexion aux services.");
       return;
     }

@@ -1,9 +1,20 @@
 "use client";
 
+import React from "react";
 import Icon from "../Icon";
 import "./button.css";
 
-const ActionButton = ({ isExample, isSecondary, isDelete, isDisable, icon, text, onClick }) => {
+type ActionButtonProps = {
+  isExample?: boolean;
+  isSecondary?: boolean;
+  isDelete?: boolean;
+  isDisable?: boolean;
+  icon?: string;
+  text: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+};
+
+const ActionButton = ({ isExample, isSecondary, isDelete, isDisable, icon, text, onClick }: ActionButtonProps) => {
   const classNameIsSecondary = isSecondary ? "secondary-button" : "";
   const classNameIsDisable = isDisable ? "disable-button" : "";
   const classNameIsDelete = isDelete ? "delete-button" : "";
@@ -11,7 +22,7 @@ const ActionButton = ({ isExample, isSecondary, isDelete, isDisable, icon, text,
 
   return (
     <button className={`button default-button ${classNameIsSecondary} ${classNameIsDisable} ${classNameIsDelete} ${classNameIsExample}`} onClick={isDisable ? undefined : onClick}>
-      <Icon icon={icon} size={20} />
+      {icon && <Icon icon={icon} size={20} />}
       <span className="sm-text">{text}</span>
     </button>
   );

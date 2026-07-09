@@ -152,7 +152,7 @@ const DiscussionContent = () => {
     currentController.current = controller;
 
     try {
-      let res = await fetch('https://sitomnia.valentinluginbuhl.fr/service/ask', {
+      const res = await fetch('https://sitomnia.valentinluginbuhl.fr/service/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: fullMessages }),
@@ -193,7 +193,7 @@ const DiscussionContent = () => {
         speak(responseSoFar);
       }
 
-    } catch (error) {
+    } catch {
       setError("Erreur lors de la récupération de la réponse.");
     } finally {
       setIsLoading(false);

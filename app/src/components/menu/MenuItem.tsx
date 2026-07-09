@@ -1,6 +1,14 @@
 import Icon from "../Icon";
 
-const MenuItem = ({ isOnTop, icon, title, link, color }) => {
+type MenuItemProps = {
+  isOnTop?: boolean;
+  icon: string;
+  title: string;
+  link: string;
+  color: string;
+};
+
+const MenuItem = ({ isOnTop, icon, title, link, color }: MenuItemProps) => {
   const className = isOnTop ? "ontop-menu-item" : "";
 
   return (

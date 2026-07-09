@@ -19,16 +19,6 @@ const Agenda = () => {
   const now = new Date();
   const todayStr = now.toISOString().split('T')[0];
 
-  const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('fr-FR', {
-      weekday: 'long',
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    });
-  };
-
   const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
   const isTomorrow = (dateStr: string) => {
