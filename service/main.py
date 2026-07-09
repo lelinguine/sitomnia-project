@@ -8,7 +8,7 @@ load_dotenv()
 
 MODEL_NAME = os.getenv("OLLAMA_MODEL", "llama3.2:1b")
 
-app = FastAPI()
+app = FastAPI(root_path="/service")
 
 app.add_middleware(
     CORSMiddleware,
