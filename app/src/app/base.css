@@ -3,7 +3,7 @@
 /* font */
 @font-face {
   font-family: 'Sofia Sans';
-  src: url('/fonts/SofiaSans[wght].ttf') format('truetype');
+  src: url('/app/fonts/SofiaSans.ttf') format('truetype');
   font-weight: 100 900;
   font-display: swap;
 }

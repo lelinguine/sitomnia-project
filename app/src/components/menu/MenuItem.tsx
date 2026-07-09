@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Icon from "../Icon";
 
 type MenuItemProps = {
@@ -12,12 +13,14 @@ const MenuItem = ({ isOnTop, icon, title, link, color }: MenuItemProps) => {
   const className = isOnTop ? "ontop-menu-item" : "";
 
   return (
-    <>
-      <a href={link} className={`button menu-item ${className}`} style={{ backgroundColor: color }}>
-         <Icon icon={icon} size={24}/>
-        <span className='md-text'>{ title }</span>
-      </a>
-    </>
+    <Link
+      href={link}
+      className={`button menu-item ${className}`}
+      style={{ backgroundColor: color }}
+    >
+      <Icon icon={icon} size={24} />
+      <span className="md-text">{title}</span>
+    </Link>
   );
 };
 
