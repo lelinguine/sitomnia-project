@@ -1,4 +1,4 @@
-# Utilise une image officielle Python comme image de base
+# Utilise une image Python
 FROM python:3.11-slim
 
 # Définit le répertoire de travail dans le conteneur
