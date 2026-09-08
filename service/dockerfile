@@ -1,20 +1,32 @@
-# Utilise une image Python
-FROM python:3.12-slim
+FROM php:8.4.3-apache
 
-# Définit le répertoire de travail dans le conteneur
-WORKDIR /app
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    zip \
+    sqlite3 \
+    libsqlite3-dev \
+    && docker-php-ext-install pdo pdo_sqlite \
+    && a2enmod rewrite \
+    && sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf \
+    && sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/apache2.conf \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copie les fichiers de dépendances
-COPY requirements.txt .
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Installe les dépendances
-RUN pip install --no-cache-dir -r requirements.txt
+WORKDIR /var/www/html
 
-# Copie le reste du code de l'application
-COPY . .
+COPY . /var/www/html
 
-# Expose le port utilisé par uvicorn
-EXPOSE 8000
+COPY .env /var/www/html/.env
 
-# Commande pour lancer l'API FastAPI avec uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+RUN composer install --no-dev --optimize-autoloader
+
+RUN php storage/scripts/Seeder.php
+
+RUN chown -R www-data:www-data /var/www/html && \
+    chmod -R 755 /var/www/html
+
+EXPOSE 80
+
+CMD ["apache2-foreground"]
